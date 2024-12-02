@@ -9,7 +9,8 @@ public interface GardenDao {
 
     List<Plant> getGarden(int userId);
 
-    Plant updateGarden(Plant updatePlant);
+    int addPlantToGarden(Plant updatePlant, int userId);
 
     void deletePlant(int plantId, int userId);
+
 }
