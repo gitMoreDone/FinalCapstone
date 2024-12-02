@@ -13,9 +13,9 @@ INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image) VALUES
 INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image) VALUES ('Cilantro', 'Coriandrum sativum', 'Herb', 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733157485/Cilantro_c2mzkj.jpg');
 INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image) VALUES ('Dill', 'Anethum graveolens', 'Herb', 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733157590/Dill_biszrw.jpg');
 
-INSERT INTO garden (plant_id, user_id, plant_qty) VALUES (1, 1, 1);
-INSERT INTO garden (plant_id, user_id, plant_qty) VALUES (2, 1, 2);
-INSERT INTO garden (plant_id, user_id, plant_qty) VALUES (3, 1, 1);
-INSERT INTO garden (plant_id, user_id, plant_qty) VALUES (4, 1, 4);
+INSERT INTO garden (plant_id, user_id) VALUES (1, 1);
+INSERT INTO garden (plant_id, user_id) VALUES (2, 1);
+INSERT INTO garden (plant_id, user_id) VALUES (3, 1);
+INSERT INTO garden (plant_id, user_id) VALUES (4, 1);
 
 COMMIT TRANSACTION;
