@@ -76,7 +76,7 @@ export default {
 .plantCard {
     display: flex;
     flex-direction: column;
-    width: 18vw;
+    width: 300px;
     height: 50vh;
     border: 2px solid green;
     background-color: rgb(201, 201, 201);

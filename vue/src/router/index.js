@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import PlantSearch from '../components/PlantSearch.vue';
+import PlantDetails from '../components/PlantDetails.vue';
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -29,6 +30,14 @@ const routes = [
     path: '/',
     name: 'plantSearch',
     component: PlantSearch,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: '/plants/:id',
+    name: 'plantDetails',
+    component: PlantDetails,
     meta: {
       requiresAuth: false
     }

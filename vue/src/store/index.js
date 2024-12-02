@@ -5,7 +5,35 @@ export function createStore(currentToken, currentUser) {
   let store = _createStore({
     state: {
       token: currentToken || '',
-      user: currentUser || {}
+      user: currentUser || {},
+
+      plants: [
+        {
+            "id": 1,
+            "name": "Rose",
+            "type": "Flowering Plant"
+        },
+        {
+            "id": 2,
+            "name": "Lavender",
+            "type": "Herb"
+        },
+        {
+            "id": 3,
+            "name": "Tomato",
+            "type": "Vegetable"
+        },
+        {
+            "id": 4,
+            "name": "Tulip",
+            "type": "Flowering Plant"
+        },
+        {
+            "id": 5,
+            "name": "Basil",
+            "type": "Herb"
+        }
+    ]
     },
     mutations: {
       SET_AUTH_TOKEN(state, token) {
