@@ -24,14 +24,13 @@ public class JdbcPlantDao implements PlantDao {
     public List<Plant> getPlants() {
         List<Plant> plantList = new ArrayList<>();
         String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_image FROM plants";
-        try{
+        try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
-            while(results.next()){
+            while (results.next()) {
                 Plant plant = mapRowToPlant(results);
                 plantList.add(plant);
             }
-
-        } catch(CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DataAccessResourceFailureException("Unable to connect to server or database", e);
         }
         return plantList;
@@ -41,19 +40,18 @@ public class JdbcPlantDao implements PlantDao {
     public Plant getPlantDetails(int plantId) {
         Plant plant = null;
         String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_image FROM plants WHERE plant_id = ?";
-        try{
+        try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plantId);
-            if(results.next()){
+            if (results.next()) {
                 plant = mapRowToPlant(results);
             }
-
-        } catch(CannotGetJdbcConnectionException e){
+        } catch (CannotGetJdbcConnectionException e) {
             throw new DataAccessResourceFailureException("Unable to connect to server or database", e);
         }
         return plant;
     }
 
-    Plant mapRowToPlant(SqlRowSet results){
+    Plant mapRowToPlant(SqlRowSet results) {
         Plant plant = new Plant();
         plant.setPlantId(results.getInt("plant_id"));
         plant.setPlantName(results.getString("plant_name"));
