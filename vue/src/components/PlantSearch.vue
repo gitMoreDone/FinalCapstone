@@ -18,36 +18,18 @@
 
 
 export default {
+    props: {
+        plants: {
+            type: Array,
+            required: true
+        }
+    },
+
     data() {
         return {
             searchFilter: '',
-            plants: [
-            {
-            "id": 1,
-            "name": "Rose",
-            "type": "Flowering Plant"
-        },
-        {
-            "id": 2,
-            "name": "Lavender",
-            "type": "Herb"
-        },
-        {
-            "id": 3,
-            "name": "Tomato",
-            "type": "Vegetable"
-        },
-        {
-            "id": 4,
-            "name": "Tulip",
-            "type": "Flowering Plant"
-        },
-        {
-            "id": 5,
-            "name": "Basil",
-            "type": "Herb"
-        }
-            ]
+            
+            
         }
     },
     computed: {
