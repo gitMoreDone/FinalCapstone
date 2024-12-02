@@ -6,14 +6,13 @@
                 <img v-bind:src=plant.image v-bind:alt=plant.name>
             </div>
             <div>
-                <h3>{{ plant.name }}</h3>
+                <router-link class="plant-name" v-bind:to="{name: 'plantDetails', params: {id:plant.id}}">{{plant.name}}</router-link>
                 <h4>{{ plant.type }}</h4>
             </div>
 
         </div>
     </div>
 </template>
-
 
 <script>
 
@@ -23,26 +22,31 @@ export default {
         return {
             searchFilter: '',
             plants: [
-                {
-                    "name": "Rose",
-                    "type": "Flowering Plant"
-                },
-                {
-                    "name": "Lavender",
-                    "type": "Herb"
-                },
-                {
-                    "name": "Tomato",
-                    "type": "Vegetable"
-                },
-                {
-                    "name": "Tulip",
-                    "type": "Flowering Plant"
-                },
-                {
-                    "name": "Basil",
-                    "type": "Herb"
-                }
+            {
+            "id": 1,
+            "name": "Rose",
+            "type": "Flowering Plant"
+        },
+        {
+            "id": 2,
+            "name": "Lavender",
+            "type": "Herb"
+        },
+        {
+            "id": 3,
+            "name": "Tomato",
+            "type": "Vegetable"
+        },
+        {
+            "id": 4,
+            "name": "Tulip",
+            "type": "Flowering Plant"
+        },
+        {
+            "id": 5,
+            "name": "Basil",
+            "type": "Herb"
+        }
             ]
         }
     },

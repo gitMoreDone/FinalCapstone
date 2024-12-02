@@ -21,7 +21,9 @@ export function createStore(currentToken, currentUser) {
         {
             "id": 3,
             "name": "Tomato",
-            "type": "Vegetable"
+            "scientific": "tomatotomato",
+            "type": "Vegetable",
+            "image": ""
         },
         {
             "id": 4,

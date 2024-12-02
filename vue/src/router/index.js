@@ -2,12 +2,13 @@ import { createRouter as createRouter, createWebHistory } from 'vue-router'
 import { useStore } from 'vuex'
 
 // Import components
-import HomeView from '../views/HomeView.vue';
+
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import PlantSearch from '../components/PlantSearch.vue';
-import PlantDetails from '../components/PlantDetails.vue';
+import PlantDetailsView from '../views/PlantDetailsView.vue';
+import PlantSearchView from '../views/PlantSearchView.vue';
+
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -29,7 +30,7 @@ const routes = [
   {
     path: '/',
     name: 'plantSearch',
-    component: PlantSearch,
+    component: PlantSearchView,
     meta: {
       requiresAuth: false
     }
@@ -37,7 +38,7 @@ const routes = [
   {
     path: '/plants/:id',
     name: 'plantDetails',
-    component: PlantDetails,
+    component: PlantDetailsView,
     meta: {
       requiresAuth: false
     }
