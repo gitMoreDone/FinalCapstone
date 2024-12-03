@@ -23,7 +23,7 @@ public class JdbcPlantDao implements PlantDao {
     @Override
     public List<Plant> getPlants() {
         List<Plant> plantList = new ArrayList<>();
-        String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_image FROM plants";
+        String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_image_1 FROM plants";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -39,7 +39,7 @@ public class JdbcPlantDao implements PlantDao {
     @Override
     public Plant getPlantDetails(int plantId) {
         Plant plant = null;
-        String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_image FROM plants WHERE plant_id = ?";
+        String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_image_1 FROM plants WHERE plant_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plantId);
             if (results.next()) {
@@ -57,7 +57,7 @@ public class JdbcPlantDao implements PlantDao {
         plant.setPlantName(results.getString("plant_name"));
         plant.setScientificName(results.getString("scientific_name"));
         plant.setPlantType(results.getString("plant_type"));
-        plant.setPlantImage(results.getString("plant_image"));
+        plant.setPlantImage(results.getString("plant_image_1"));
         return plant;
     }
 }
