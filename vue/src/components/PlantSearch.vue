@@ -1,14 +1,17 @@
 <template>
     <div class="container">
+        <div class="searchBar-container">
+            <input name="search-filter" class="searchBar" type="text" v-model="searchFilter" placeholder="Search Plants" /> 
+        </div>
         <div class="row">
 
             <!-- for each plant, v-for for a card -->
-            <div class="col-12 col-md-2" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-                <div class="card">
-                    <div id="plant-image-container">
-                        <img class="plant-image" v-bind:src=plant.plantImage v-bind:alt=plant.plantName>
-                    </div>
+            <div class="col-12 col-md-2 card" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
+
+                <div id="plant-image-container">
+                    <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
+
                 <div>
                     <router-link class="plant-name"
                         v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
@@ -70,9 +73,17 @@ export default {
 .container {
     width: 100vw;
 }
+.searchBar-container{
+    display: flex;
+    justify-content: center;
+}
+.searchBar {
+    
+}
+
 
 .card {
-    width: 100%;
+    margin:15px;
 }
 
 .plantCard {
