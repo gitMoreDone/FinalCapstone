@@ -8,6 +8,7 @@ import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import PlantDetailsView from '../views/PlantDetailsView.vue';
 import PlantSearchView from '../views/PlantSearchView.vue';
+import MyGardenView from '../views/MyGardenView.vue';
 
 
 /**
@@ -33,6 +34,14 @@ const routes = [
     component: PlantSearchView,
     meta: {
       requiresAuth: false
+    }
+  },
+  {
+    path: '/garden/:userId',
+    name: 'garden',
+    component: MyGardenView,
+    meta: {
+      requiresAuth: true
     }
   },
   {

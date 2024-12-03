@@ -11,12 +11,16 @@
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
-
                 <div>
+                    <button v-on:click="savePlant(plant.plantId)">
+                        <i class="bi bi-plus-square"></i>
+                    </button>
+                </div>
+                <div class="card-text">
                     <router-link class="plant-name"
                         v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
                         }}</router-link>
-                    <h4>{{ plant.plantType }}</h4>
+                    <h4 class="plant-type">{{ plant.plantType }}</h4>
                 </div>
 
             </div>
@@ -41,6 +45,11 @@ export default {
             searchFilter: '',
 
 
+        }
+    },
+    methods: {
+        savePlant(plantId){
+            
         }
     },
     computed: {
@@ -81,6 +90,10 @@ export default {
 
 .card {
     margin:15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
 }
 
 .plantCard {
@@ -97,7 +110,30 @@ export default {
 
 #plant-image-container {
     display: flex;
+    flex-direction: column;
     justify-content: center;
+}
+.card-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.bi-plus-square {
+    color:green;
+}
+.bi {
+    color:green;
+}
+
+.plant-name {
+    font-size: large;
+    text-decoration: none;
+    color:black;
+    font-weight:bold;
+}
+.plant-type {
+    font-size: small;
 }
 
 .plant-image {
