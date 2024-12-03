@@ -21,7 +21,7 @@ export default {
         return plants;
     },
     addPlant(plant, token){
-        return service.post('/garden', plant, {headers: {Authorization: `Bearer ${token}`}});
+        return service.post('/garden', plant);
     }
 
 }

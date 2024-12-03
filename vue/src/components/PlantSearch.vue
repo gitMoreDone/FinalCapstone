@@ -44,12 +44,14 @@ export default {
 
         }
     },
+    
     methods: {
         savePlant(plant){
-            PlantService.addPlant(plant);
-            console.log('hi');
+            PlantService.addPlant(plant, this.$store.state.token);
+    
         }
     },
+
     computed: {
         filteredPlants() {
             const selectPlants = this.plants;
