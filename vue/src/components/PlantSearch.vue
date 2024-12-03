@@ -11,21 +11,18 @@
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
-                <div>
-                    <button class="button_plus" v-on:click="savePlant(plant)">
-                        <i class="bi bi-plus-square"></i>
-                    </button>
-                </div>
                 <div class="card-text">
                     <router-link class="plant-name"
                         v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
                         }}</router-link>
                     <h4 class="plant-type">{{ plant.plantType }}</h4>
                 </div>
+                    <div class="add_button">
+                        <button class="button_plus" v-on:click="savePlant(plant)"></button>
+                    </div>
+                </div>
 
             </div>
-
-        </div>
     </div>
 </template>
 
@@ -94,7 +91,6 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
-
 }
 
 .plantCard {
@@ -120,12 +116,7 @@ export default {
     justify-content: center;
     align-items: center;
 }
-.bi-plus-square {
-    color:green;
-}
-.bi {
-    color:green;
-}
+
 
 .plant-name {
     font-size: large;
@@ -144,6 +135,56 @@ export default {
     padding-top: 5px;
     width: 60%;
 
+}
+
+.add_button {
+    display: flex;
+}
+
+.button_plus {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background: #fff;
+  cursor: pointer;
+  border: 2px solid #095776;
+
+  /* Mittig */
+  top: 50%;
+  left: 50%;
+}
+
+.button_plus:after {
+  content: '';
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 4px;
+  width: 50%;
+  background: #095776;
+  top: 50%;
+  left: 50%;
+}
+
+.button_plus:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #095776;
+  height: 50%;
+  width: 4px;
+}
+
+.button_plus:hover:before,
+.button_plus:hover:after {
+  background: #fff;
+  transition: 0.2s;
+}
+
+.button_plus:hover {
+  background-color: #095776;
+  transition: 0.2s;
 }
 
 .custom-divs>.p-2 {
