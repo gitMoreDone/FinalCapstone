@@ -13,6 +13,9 @@ export default {
     getPlants(){
         const plants = service.get('/plants');
         return plants
+    },
+    getSavedPlants(userId){
+        return service.get(`/garden/${userId}`)
     }
 
 
