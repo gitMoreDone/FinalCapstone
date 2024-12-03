@@ -36,7 +36,7 @@ public class GardenController {
         return plantList;
     }
     @ResponseStatus(HttpStatus.CREATED)
-    @RequestMapping(path = "/garden", method = RequestMethod.PUT)
+    @RequestMapping(path = "/garden", method = RequestMethod.POST)
     public int addPlantToGarden(@Valid @RequestBody Plant plant, Principal principal) {
         String userName= principal.getName();
         User accountUser=userDao.getUserByUsername(userName);
