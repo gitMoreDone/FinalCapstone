@@ -1,7 +1,7 @@
 <template>
   <div id="capstone-app">
-    <site-header />
-    <router-view />
+    <site-header class="header"/>
+    <router-view class="body"/>
     <site-footer />
   </div>
 </template>
@@ -20,3 +20,14 @@ export default {
 
 </script>
 
+<style scoped>
+.header{
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.body{
+  padding-top: 30px;
+}
+</style>

@@ -29,7 +29,6 @@
     color: white;
     text-decoration: none;
     margin: 5px;
-    border-radius: 4px;
 }
 
 #brand{

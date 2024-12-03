@@ -12,7 +12,7 @@
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
                 <div>
-                    <button v-on:click="savePlant(plant)">
+                    <button class="button_plus" v-on:click="savePlant(plant)">
                         <i class="bi bi-plus-square"></i>
                     </button>
                 </div>
@@ -139,7 +139,10 @@ export default {
 
 .plant-image {
     display: flex;
-    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+    width: 60%;
 
 }
 
@@ -161,4 +164,5 @@ export default {
         /* One per row on very small screens */
     }
 }
+
 </style>
