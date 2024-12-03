@@ -2,7 +2,7 @@
     <div class="container">
         <div class="plant-gallery">
             <div class="main-image-container">
-                <img class="main-image" v-bind:src="currentPlant.plantImage" /> 
+                <img class="main-image" v-bind:src="currentPlant.plantImage1" /> 
             </div>
             <div class="thumbnail-images">
                 <div>PlaceHolder  </div>
