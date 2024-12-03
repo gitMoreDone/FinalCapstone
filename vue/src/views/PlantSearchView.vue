@@ -14,15 +14,17 @@ export default {
         PlantSearch
     },
     data(){
-        return {plants: []
+        return {
+            plants: []
         }
     },
     methods: {
         getPlants(){
             PlantService.getPlants().then( response => {
-                this.plants=response.data;
-            
+                const plantArray=response.data;
+                this.plants=plantArray;
             })
+            
         }
     },
 

@@ -7,10 +7,12 @@ const service = axios.create({
 
 export default {
     getPlantById(id){
+        console.log(id)
         return service.get(`/plants/${id}`)
     },
     getPlants(){
-        return service.get('/plants');
+        const plants = service.get('/plants');
+        return plants
     }
 
 

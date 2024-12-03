@@ -1,13 +1,13 @@
 <template>
     <div id="cardContainer">
         <!-- for each plant, v-for for a card -->
-        <div class="plantCard" v-for="plant in filteredPlants" v-bind:key="plant.id">
-            <div>
-                <img v-bind:src=plant.image v-bind:alt=plant.name>
+        <div class="plantCard" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
+            <div id="plant-image-container">
+                <img class ="plant-image" v-bind:src=plant.plantImage v-bind:alt=plant.plantName>
             </div>
             <div>
-                <router-link class="plant-name" v-bind:to="{name: 'plantDetails', params: {id:plant.id}}">{{plant.name}}</router-link>
-                <h4>{{ plant.type }}</h4>
+                <router-link class="plant-name" v-bind:to="{name: 'plantDetails', params: {id:plant.plantId}}">{{plant.plantName}}</router-link>
+                <h4>{{ plant.plantType }}</h4>
             </div>
 
         </div>
@@ -69,5 +69,16 @@ export default {
     margin: 5px;
     align-items: center;
     justify-content: center;
+}
+
+#plant-image-container {
+    display: flex;
+    justify-content: center;
+}
+
+.plant-image {
+    display: flex;
+    width: 80%;
+    
 }
 </style>

@@ -1,6 +1,6 @@
 <template>  
 
-    <plant-details v-bind:currentPlant="getPlant" />
+    <plant-details v-bind:currentPlant="currentPlant" />
 </template>
 
 <script>
@@ -15,10 +15,12 @@ export default {
         }
     },
 
-    method: {
+    methods: {
         getPlant(id){
+            // console.log(id + "here")
             PlantService.getPlantById(id).then( response => {
-                this.plant=response.data
+                this.currentPlant=response.data;
+
             })
         }
     },
@@ -26,7 +28,7 @@ export default {
         PlantDetails
     },
     created(){
-        this.getPlant(this.$route.params.id)
+        this.getPlant(this.$route.params.id);
     }
     // computed: {
     //     getPlant(){

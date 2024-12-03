@@ -1,8 +1,8 @@
 <template>
     <div class="container">
         <div class="plant-gallery">
-            <div class="main-image">
-                <img v-bind:src="currentPlant.image" /> 
+            <div class="main-image-container">
+                <img class="main-image" v-bind:src="currentPlant.plantImage" /> 
             </div>
             <div class="thumbnail-images">
                 <div>PlaceHolder  </div>
@@ -13,9 +13,9 @@
         </div>
         <div class="plant-info">
             <div class="plant-details">
-                <h3>{{ currentPlant.name }}</h3>
-                <h4>{{ currentPlant.scientific }}</h4>
-                <h4>{{ currentPlant.type }}</h4>
+                <h3>{{ currentPlant.plantName }}</h3>
+                <h4>{{ currentPlant.scientificName }}</h4>
+                <h4>{{ currentPlant.plantType }}</h4>
                 add any additional details here
             </div>
             <div class="plant-care">  
@@ -58,13 +58,27 @@ export default {
     width: 100vw;
     background-color: aqua;
 }
+.main-image-container {
+    display:flex;
+    justify-content: center;
+}
+.main-image {
+    width: 80%;
+}
 
 .plant-gallery {
     display: flex;
+    flex-direction: column;
+    justify-content: center;
     border: solid rgb(151, 103, 15) 5px;
     padding: 10px;
     margin-right: 50px;
     background-color: blue;
+}
+.thumbnail-images {
+    display:flex;
+    justify-content: space-evenly;
+    padding: 3px;
 }
 
 .plant-info {
