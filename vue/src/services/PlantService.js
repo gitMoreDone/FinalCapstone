@@ -20,7 +20,8 @@ export default {
         const plants = service.get(`/garden/${userId}`, {headers: {Authorization: `Bearer ${token}`}});
         return plants;
     },
-    addPlant(plant, token){
+    addPlant(plant){
+        
         return service.post('/garden', plant);
     }
 

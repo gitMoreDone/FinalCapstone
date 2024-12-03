@@ -47,7 +47,8 @@ export default {
     
     methods: {
         savePlant(plant){
-            PlantService.addPlant(plant, this.$store.state.token);
+            PlantService.addPlant(plant);
+            
     
         }
     },
