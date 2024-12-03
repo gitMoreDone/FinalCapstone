@@ -23,10 +23,10 @@ export default {
             
                 PlantService.getSavedPlants(this.$store.state.user.id, this.$store.state.token).then(response => {
                     const plantArray = response.data;
-                    console.log(plantArray);
                     this.savedPlants = plantArray;
-                    console.log('howdy');
+                    console.log(this.savedPlants)
                 });
+                
             
         }
     },

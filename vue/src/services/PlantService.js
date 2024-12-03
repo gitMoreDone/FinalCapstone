@@ -7,7 +7,7 @@ const service = axios.create({
 
 export default {
     getPlantById(id){
-        console.log(id);
+        
         return service.get(`/plants/${id}`);
     },
     getPlants(){
@@ -20,8 +20,8 @@ export default {
         const plants = service.get(`/garden/${userId}`, {headers: {Authorization: `Bearer ${token}`}});
         return plants;
     },
-    addPlant(plant){
-        return service.post('/garden/', plant);
+    addPlant(plant, token){
+        return service.post('/garden', plant, {headers: {Authorization: `Bearer ${token}`}});
     }
 
 }
