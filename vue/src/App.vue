@@ -2,7 +2,8 @@
   <div id="capstone-app">
     <div id="nav">
       <router-link v-bind:to="{ name: 'plantSearch' }">Search</router-link>&nbsp;|&nbsp;
-      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+      <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>&nbsp;|&nbsp;
+      <router-link v-bind:to="{ name: 'garden', params: { userId: this.$store.state.user.id} }" v-if="$store.state.token != ''">My Garden</router-link>
     </div>
     <site-header />
     <router-view />
