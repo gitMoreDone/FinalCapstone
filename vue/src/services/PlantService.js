@@ -18,7 +18,7 @@ export default {
         return service.get(`/garden/${userId}`)
     },
     addPlant(plant){
-        return service.post('/garden', plant)
+        return service.post('/garden/', plant)
     }
 
 }

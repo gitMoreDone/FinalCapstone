@@ -1,8 +1,11 @@
 <template>
     <div>
         <div class="card" v-for="plant in savedPlants" v-bind:key="plant.id">
-            
+            <div>
+                <p>{{ plant.name }}</p>
+            </div>    
         </div>
+
     </div>
 </template>
 
