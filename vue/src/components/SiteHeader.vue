@@ -10,7 +10,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <router-link v-bind:to="{ name: 'garden'}">MyGarden</router-link>
+                   
                     <a class="nav-link active" aria-current="page" href="#">MyGarden</a>
                 </div>
             </div>
