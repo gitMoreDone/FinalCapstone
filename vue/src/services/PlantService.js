@@ -16,6 +16,9 @@ export default {
     },
     getSavedPlants(userId){
         return service.get(`/garden/${userId}`)
+    },
+    addPlant(userId, plant){
+        return service.post('/garden', plant)
     }
 
 

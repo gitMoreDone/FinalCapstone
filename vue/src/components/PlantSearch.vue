@@ -12,7 +12,7 @@
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
                 <div>
-                    <button v-on:click="savePlant(plant.plantId)">
+                    <button v-on:click="savePlant(plant)">
                         <i class="bi bi-plus-square"></i>
                     </button>
                 </div>
@@ -30,7 +30,7 @@
 </template>
 
 <script>
-
+import PlantService from '../services/PlantService';
 
 export default {
     props: {
@@ -48,8 +48,9 @@ export default {
         }
     },
     methods: {
-        savePlant(plantId){
-            
+        savePlant(plant){
+            PlantService.addPlant(plant);
+            console.log('hi');
         }
     },
     computed: {
