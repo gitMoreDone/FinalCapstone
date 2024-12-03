@@ -42,7 +42,7 @@ public class JdbcGardenDao implements GardenDao {
                 "inner join users u on g.user_id = u.user_id " +
                 "where u.user_id = ?";
         try{
-            SqlRowSet results=jdbcTemplate.queryForRowSet(sql, userId);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             while (results.next()){
                 Plant plant = plantDao.mapRowToPlant(results);
                 plantList.add(plant);
