@@ -1,6 +1,6 @@
 <template>
     <div>
-        <my-garden v-bind:savedPlants="savedPlants"/>
+        <my-garden v-bind:savedPlants="savedPlants" />
     </div>
 </template>
 
@@ -13,31 +13,32 @@ export default {
     components: {
         MyGarden
     },
-    data(){
+    data() {
         return {
             savedPlants: []
         }
     },
     methods: {
-        getSavedPlants(){
-            PlantService.getSavedPlants(this.$store.state.user.id).then( response => {
-                const plantArray=response.data;
-                this.savedPlants=plantArray;
-                console.log('howdy')
-            })
+        getSavedPlants() {
+            
+                PlantService.getSavedPlants(this.$store.state.user.id, this.$store.state.token).then(response => {
+                    const plantArray = response.data;
+                    console.log(plantArray);
+                    this.savedPlants = plantArray;
+                    console.log('howdy');
+                });
             
         }
     },
 
-    created(){
+
+    mounted() {
         this.getSavedPlants();
     }
-    
-    
+
+
 }
 </script>
 
 
-<style scoped>
-
-</style>
+<style scoped></style>

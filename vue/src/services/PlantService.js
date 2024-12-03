@@ -1,24 +1,27 @@
 import axios from 'axios';
 
 const service = axios.create({
-  baseURL: import.meta.env.VITE_REMOTE_API
-});
+  baseURL: import.meta.env.VITE_REMOTE_API}
+);
 
 
 export default {
     getPlantById(id){
-        console.log(id)
-        return service.get(`/plants/${id}`)
+        console.log(id);
+        return service.get(`/plants/${id}`);
     },
     getPlants(){
         const plants = service.get('/plants');
-        return plants
+        return plants;
     },
-    getSavedPlants(userId){
-        return service.get(`/garden/${userId}`)
+    getSavedPlants(userId, token){
+
+    
+        const plants = service.get(`/garden/${userId}`, {headers: {Authorization: `Bearer ${token}`}});
+        return plants;
     },
     addPlant(plant){
-        return service.post('/garden/', plant)
+        return service.post('/garden/', plant);
     }
 
 }
