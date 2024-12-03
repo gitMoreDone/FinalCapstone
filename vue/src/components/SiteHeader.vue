@@ -9,9 +9,10 @@
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                   
-                    <a class="nav-link active" aria-current="page" href="#">MyGarden</a>
+                <div id="navbar-nav">
+                <router-link class="nav-link" aria-current="page" href="#" v-bind:to="{ name: 'plantSearch' }">Search</router-link>
+                <router-link class="nav-link" aria-current="page" href="#" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+                <router-link class="nav-link" aria-current="page" href="#" v-bind:to="{ name: 'garden', params: { userId: this.$store.state.user.id} }" v-if="$store.state.token != ''">MyGarden</router-link>
                 </div>
             </div>
         </div>
@@ -26,9 +27,10 @@
 
 
 <style scoped>
-.navbuttons{
-    display: flex;
-    align-content: center;
+
+.nav-link{
+    display: inline-flex;
+    justify-content: space-between;
 }
 
 </style>
