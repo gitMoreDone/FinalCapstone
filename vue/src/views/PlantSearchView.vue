@@ -1,7 +1,5 @@
 <template>
-    <div>
         <plant-search v-bind:plants="plants"/>
-    </div>
 </template>
 
 

@@ -1,13 +1,21 @@
 <template>
-    <div id="cardContainer">
-        <!-- for each plant, v-for for a card -->
-        <div class="plantCard" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-            <div id="plant-image-container">
-                <img class ="plant-image" v-bind:src=plant.plantImage v-bind:alt=plant.plantName>
-            </div>
-            <div>
-                <router-link class="plant-name" v-bind:to="{name: 'plantDetails', params: {id:plant.plantId}}">{{plant.plantName}}</router-link>
-                <h4>{{ plant.plantType }}</h4>
+    <div class="container">
+        <div class="row">
+
+            <!-- for each plant, v-for for a card -->
+            <div class="col-12 col-md-2" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
+                <div class="card">
+                    <div id="plant-image-container">
+                        <img class="plant-image" v-bind:src=plant.plantImage v-bind:alt=plant.plantName>
+                    </div>
+                </div>
+                <div>
+                    <router-link class="plant-name"
+                        v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
+                        }}</router-link>
+                    <h4>{{ plant.plantType }}</h4>
+                </div>
+
             </div>
 
         </div>
@@ -28,8 +36,8 @@ export default {
     data() {
         return {
             searchFilter: '',
-            
-            
+
+
         }
     },
     computed: {
@@ -52,16 +60,24 @@ export default {
 
 <style scoped>
 #cardContainer {
-    display:flex;
+    display: flex;
     flex-direction: row;
     width: 100vw;
     justify-content: space-evenly;
 
 }
 
+.container {
+    width: 100vw;
+}
+
+.card {
+    width: 100%;
+}
+
 .plantCard {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     width: 300px;
     height: 50vh;
     border: 2px solid green;
@@ -79,6 +95,25 @@ export default {
 .plant-image {
     display: flex;
     width: 80%;
-    
+
+}
+
+.custom-divs>.p-2 {
+    width: 30%;
+    /* Adjust to set the number of divs per row */
+}
+
+@media (max-width: 768px) {
+    .custom-divs>.p-2 {
+        width: 48%;
+        /* Two per row on smaller screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .custom-divs>.p-2 {
+        width: 100%;
+        /* One per row on very small screens */
+    }
 }
 </style>
