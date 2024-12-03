@@ -48,12 +48,9 @@ export default {
             const selectPlants = this.plants;
 
             return selectPlants.filter((plant) => {
-                return this.searchFilter == '' ? true : plant.name.toLowerCase().includes(this.searchFilter.toLowerCase());
+                return this.searchFilter == '' ? true : plant.plantName.toLowerCase().includes(this.searchFilter.toLowerCase());
             });
         }
-    },
-    created() {
-        //Call service to get plants
     }
 }
 
@@ -77,9 +74,9 @@ export default {
     display: flex;
     justify-content: center;
 }
-.searchBar {
-    
-}
+/* .searchBar {
+
+} */
 
 
 .card {
