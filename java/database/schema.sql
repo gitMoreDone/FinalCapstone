@@ -15,7 +15,14 @@ CREATE TABLE plants (
     plant_name varchar(50) NOT NULL,
     scientific_name varchar NOT NULL,
     plant_type varChar(10) NOT NULL,
-    plant_image text NOT NULL,
+    plant_zone varchar(8) NULL,
+    plant_description text NULL,
+    water_level int NULL,
+    light_level int NULL,
+    plant_care text NULL,
+    plant_image_1 text NOT NULL,
+    plant_image_2 text NULL,
+    plant_image_3 text NULL,
     CONSTRAINT PK_plants PRIMARY KEY (plant_id)
 );
 
