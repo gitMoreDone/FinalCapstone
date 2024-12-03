@@ -4,7 +4,7 @@ INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULi
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
 
 
-INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image_1) VALUES ('Cherry Tomato', 'Solanum lycopersicum var. cerasiforme', 'Vegetable', 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733240001/CherryTomatoes_h4vrat_utuehj.jpg');
+INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image_1, plant_image_2) VALUES ('Cherry Tomato', 'Solanum lycopersicum var. cerasiforme', 'Vegetable', 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733240001/CherryTomatoes_h4vrat_utuehj.jpg', 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733240002/cherrytomatoes2_kkepr9_rozerf.jpg');
 INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image_1) VALUES ('Cucumber', 'Cucumis sativus', 'Vegetable', 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733239994/ARS_cucumber_fbic0b_vcwe6s.jpg');
 INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image_1) VALUES ('Butternut Squash', 'Cucurbita moschata','Vegetable','https://res.cloudinary.com/dwdijh29x/image/upload/v1733239999/butternut-squash_rsmgjq_ebt2y1.webp');
 INSERT INTO plants (plant_name, scientific_name, plant_type, plant_image_1) VALUES ('Broccoli', 'Brassica oleracea var. italica', 'Vegetable', 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733239998/broc_ayv6re_bnj45n.jpg');
