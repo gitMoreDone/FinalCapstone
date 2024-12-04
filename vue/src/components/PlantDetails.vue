@@ -1,143 +1,22 @@
-<!-- <template>
-    <div class="container">
-        <div class="plant-gallery">
-            <div class="main-image-container">
-                <img class="main-image" v-bind:src="currentPlant.plantImage1" /> 
-            </div>
-            <div class="thumbnail-images">
-                <div>
-                    <img class="sub-image" v-bind:src="currentPlant.plantImage2"/>
-                </div>
-                <div>
-                    <img class="sub-image" v-bind:src="currentPlant.plantImage3"/>
-                </div>
-                <div>
-                    <img class="sub-image" src="https://res.cloudinary.com/dwdijh29x/image/upload/v1733324616/2023_vv17fy.webp"/>
-                </div>
-            </div>
-        </div>
-        <div class="plant-info">
-            <div class="plant-details">
-                <h3>{{ currentPlant.plantName }}</h3>
-                <p> {{ currentPlant.plantDescription }}</p>
-            </div>
-            <div class="plant-care">  
-                <div>Details About {{ currentPlant.plantName }}'s</div>
-                <ul>
-                    <li>Scientific Name: {{ currentPlant.scientificName }}</li>
-                    <li>Plant Type: {{ currentPlant.plantType }}</li>
-                    <li>Weekly Water intake: {{ currentPlant.waterLevel }}</li>
-                    <li>Daily Sunglight Needs: {{ currentPlant.lightLevel }}</li>
-                    <li>Plant Care: {{ currentPlant.plantCareSteps }}</li>
-                </ul>
-            </div>
-        </div>
-            
-    </div>
-</template>
-
-
-<script>   
-export default {
-    props: {
-        currentPlant: {type: Object, required: true }
-        // enableAdd: {
-        //     type: Boolean,
-        //     default: false
-        // }
-        // ['currentPlant']
-}
-}
-
-</script>
-
-
-<style scoped>
-
-.container {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100vw;
-    background-color: aqua;
-}
-.main-image-container {
-    display:flex;
-    justify-content: center;
-}
-.main-image {
-    width: 80%;
-}
-
-.plant-gallery {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: solid rgb(151, 103, 15) 5px;
-    padding: 10px;
-    margin-right: 50px;
-    background-color: blue;
-}
-.thumbnail-images {
-    display:flex;
-    justify-content: space-evenly;
-    padding: 3px;
-}
-
-.plant-info {
-    display: flex;
-    align-items: center;
-    background-color: blueviolet;
-    justify-content: space-evenly;
-
-}
-
-.plant-details {
-    display: flex;
-    flex-direction: column;
-    background-color: bisque;
-    text-align: center;
-    align-items: center;
-    margin-right:auto;
-    margin-bottom: auto;
-}
-
-.plant-care {
-    font-size: larger;
-    display: flex;
-    flex-direction: column;    
-    align-items: center;
-    margin-left: 20px;
-    width: 50%;
-    background-color: brown;
-}
-
-.sub-image{
-    margin-top: 15px;
-    width: 30px;
-    height: 30px;
-}
-</style> -->
 <template>
     <div class="container">
         <div class="left-container">
             <div class="main-image">
-                <img id="mainImage" v-bind:src="currentPlant.plantImage1" alt="Main Image">
+                <img id="mainImage" v-bind:src="mainImage" alt="Main Image">
             </div>
             <div class="thumbnails">
-                <img v-bind:src="currentPlant.plantImage2" alt="Thumbnail 1" class="thumbnail">
-                <img v-bind:src="currentPlant.plantImage3" alt="Thumbnail 2" class="thumbnail">
-                <img v-bind:src="zoneMap" alt="Thumnail 3" class="thumbnail">
+                <img v-bind:src="thumbnails[0]" v-on:click="changeImage(thumbnails[0], 0)" alt="Thumbnail 1" class="thumbnail">
+                <img v-bind:src="thumbnails[1]" v-on:click="changeImage(thumbnails[1], 1)" alt="Thumbnail 2" class="thumbnail">
             </div>
         </div>
         <div class="right-container">
             <div class="tabs">
-                <button class="tab-button">Details</button>
-                <button class="tab-button">Care</button>
+                <button class="tab-button" :class="{active: activeTab === 'details'}" v-on:click="changeTab('details')">Details</button>
+                <button class="tab-button" :class="{active: activeTab === 'care'}" v-on:click="changeTab('care')">Care</button>
+                <button class="tab-button" :class="{active: activeTab === 'zone'}" v-on:click="changeTab('zone')">Zone Map</button>
             </div>
 
-            <div class="tab-content details-content" id="details">
+            <div v-show="activeTab === 'details'" class="tab-content details-content active" id="details">
                 <div class="plant-details">
                     <h3>{{ currentPlant.plantName }}</h3>
                     <p>{{ currentPlant.plantDescription }}</p>
@@ -154,12 +33,18 @@ export default {
                 </div>
             </div>
 
-            <div class="tab-content care-content active" id="care">
+            <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
                 <div class="plant-details">
                     <h3>Care Details</h3>
                     <div class="plant-care">
                         <p>{{ currentPlant.plantCareSteps }}</p>
                     </div>
+                </div>
+            </div>
+
+            <div v-show="activeTab === 'zone'" class="tab-content zone-map active" id="zone">
+                <div class="zone-map-container">
+                    <img class="map-image" v-bind:src="zoneMap">
                 </div>
             </div>
         </div>
@@ -170,29 +55,28 @@ export default {
 export default {
   data() {
     return {
-      mainImage: '', 
+      mainImage: this.currentPlant.plantImage1, 
       zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733324616/2023_vv17fy.webp',
       thumbnails: [
-        this.currentPlant.plantImage1,
         this.currentPlant.plantImage2,
         this.currentPlant.plantImage3,
       ],
-      activeTab: 'care'  
+      activeTab: 'details'  
     };
   },
   props: {
     currentPlant: {type: Object, required: true }
   },
   methods: {
-    changeImage(image) {
+    changeImage(image, index) {
+      this.thumbnails[index] = this.mainImage;
       this.mainImage = image;
     },
     changeTab(tabName) {
       this.activeTab = tabName;
-    }
-  }
+    },
+  },
 };
-
 </script>
 
 <style scoped>
@@ -200,6 +84,16 @@ export default {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+.zone-map-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 80px;
+}
+
+.map-image{
+    width: 75%;
 }
 
 .plant-care{
@@ -271,6 +165,7 @@ body {
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
+    background-color: white;
 }
 
 .tabs {
@@ -297,7 +192,7 @@ body {
 .tab-button.active {
     background-color: #fff;
     font-weight: bold;
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid rgb(27, 109, 27);
 }
 
 .tab-content {
