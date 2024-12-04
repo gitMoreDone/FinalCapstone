@@ -17,6 +17,7 @@ export default {
     getSavedPlants(userId, token){
 
     
+        
         const plants = service.get(`/garden/${userId}`, {headers: {Authorization: `Bearer ${token}`}});
         return plants;
     },
