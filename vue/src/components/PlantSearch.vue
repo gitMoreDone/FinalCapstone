@@ -9,8 +9,8 @@
             <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded"
             v-on:mouseover="hover=true" v-on:mouseleave="hover=false" 
             v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-                <button class="icon"  v-if="$store.state.token != ''" v-on:click.prevent="savePlant(plant)">+</button>
->>>>>>> 276d6d5dc74a7653d69c71466cbf8efb5da56cea
+                <button class="icon"  v-if="hover" v-show="$store.state.token != ''" v-on:click.prevent="savePlant(plant)">+</button>
+
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
