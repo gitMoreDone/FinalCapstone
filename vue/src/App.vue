@@ -16,8 +16,6 @@ export default {
     SiteFooter
   }
 }
-
-
 </script>
 
 <style scoped>

@@ -89,11 +89,17 @@ export default {
 .zone-map-container{
     display: flex;
     justify-content: center;
-    size: fit-content;
+    align-items: center;
+    width: auto;
+    height: 60vh;
+    overflow: hidden;
 }
 
 .map-image{
-    width: 70%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+
 }
 
 .plant-care{
@@ -124,31 +130,37 @@ export default {
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    align-items: stretch;
+    height: 82vh;
 }
 
 .left-container {
-    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
     margin-bottom: auto;
     width: 33%;
+    min-height: 65vh;
 }
 
 .main-image img {
     width: 100%;
-    max-height: 400px;
+    max-height: 300px;
     object-fit: cover;
+    flex-shrink: 0;
 }
 
 .thumbnails {
     display: flex;
     justify-content: center;
-    padding: 10px;
-    margin-top: 10px;
-    gap: 10px;
+    padding: 20px;
+    gap: 25px;
+    margin-bottom: auto;
 }
 
 .thumbnail {
-    width: 70px;
-    height: 70px;
+    width: 50%;
+    height: 50%;
     object-fit: cover;
     cursor: pointer;
     transition: opacity 0.3s;
@@ -159,15 +171,17 @@ export default {
 }
 
 .right-container {
+    flex-direction: column;
     width: 66%;
-    height:60vh;
+    height:auto;
+    min-height: 65vh;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: white;
-    margin-top: auto;
     margin-bottom: auto;
     margin-left: 25px;
+    overflow: hidden;
 }
 
 .tabs {
@@ -198,7 +212,10 @@ export default {
 }
 
 .tab-content {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 10px;
 }
 
 .tab-content.active {
@@ -207,7 +224,9 @@ export default {
 
 .details-content,
 .care-content {
-    padding: 10px;
+    flex-direction: column;
+    display: flex;
+    flex-grow: 1;
 }
 
 .details-content h2,
