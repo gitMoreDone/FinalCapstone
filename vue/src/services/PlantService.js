@@ -17,13 +17,8 @@ export default {
     },
     getSavedPlants(userId, token) {
 
-<<<<<<< HEAD
 
         const plants = service.get(`/garden/${userId}`, { headers: { Authorization: `Bearer ${token}` } });
-=======
-
-        const plants = service.get(`/garden/${userId}`, { headers: { Authorization: `Bearer ${token}` } });
->>>>>>> fc131c8713c2bba89b5825f3861d0cb8fdef43a8
         return plants;
     },
     addPlant(plant) {
