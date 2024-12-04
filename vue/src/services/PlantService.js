@@ -1,36 +1,24 @@
 import axios from 'axios';
 
-const service = axios.create({
-    baseURL: import.meta.env.VITE_REMOTE_API
-}
-);
-
 
 export default {
     getPlantById(id) {
 
-        return service.get(`/plants/${id}`);
+        return axios.get(`/plants/${id}`);
     },
     getPlants() {
-        const plants = service.get('/plants');
+        const plants = axios.get('/plants');
         return plants;
     },
-    getSavedPlants(userId, token) {
+    getSavedPlants(userId) {
 
 
-        const plants = service.get(`/garden/${userId}`, { headers: { Authorization: `Bearer ${token}` } });
+        const plants = axios.get(`/garden/${userId}`);
         return plants;
     },
     addPlant(plant) {
-        let currentToken = localStorage.getItem('token');
-        let currentUser = JSON.parse(localStorage.getItem('user'));
-
-        if (currentToken) {
-            // Set token axios requests
-            axios.defaults.headers.common['Authorization'] = `Bearer ${currentToken}`;
-        }
-
-        return service.post('/garden', plant);
+        
+        return axios.post('/garden', plant);
     }
 
 }
