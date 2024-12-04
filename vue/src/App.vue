@@ -31,15 +31,17 @@ export default {
   top: 0;
   z-index: 1000;
 }
-.footer{
-    bottom: 0;
-    width: 100%;
-    position: relative;
-    margin-top: 50px;
-}
+
+/* .footer{
+  bottom: 0;
+  width: 100vw;
+} */
+
 
 .body{
   padding-top: 30px;
-  min-height: 100%;
+  width:100%;
+  /* height: 100vh; */
+
 }
 </style>
