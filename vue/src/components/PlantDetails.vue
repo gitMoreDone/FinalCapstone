@@ -11,12 +11,12 @@
         </div>
         <div class="right-container">
             <div class="tabs">
-                <button class="tab-button">Details</button>
-                <button class="tab-button">Care</button>
-                <button class="tab-button">Zone Map</button>
+                <button class="tab-button" :class="{active: activeTab === 'details'}" v-on:click="changeTab('details')">Details</button>
+                <button class="tab-button" :class="{active: activeTab === 'care'}" v-on:click="changeTab('care')">Care</button>
+                <button class="tab-button" :class="{active: activeTab === 'zone'}" v-on:click="changeTab('zone')">Zone Map</button>
             </div>
 
-            <div class="tab-content details-content active" id="details">
+            <div v-show="activeTab === 'details'" class="tab-content details-content active" id="details">
                 <div class="plant-details">
                     <h3>{{ currentPlant.plantName }}</h3>
                     <p>{{ currentPlant.plantDescription }}</p>
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            <div class="tab-content care-content" id="care">
+            <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
                 <div class="plant-details">
                     <h3>Care Details</h3>
                     <div class="plant-care">
@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="tab-content zone-map" id="zone">
+            <div v-show="activeTab === 'zone'" class="tab-content zone-map active" id="zone">
                 <div class="zone-map-container">
                     <img class="map-image" v-bind:src="zoneMap">
                 </div>
@@ -61,7 +61,7 @@ export default {
         this.currentPlant.plantImage2,
         this.currentPlant.plantImage3
       ],
-      activeTab: ''  
+      activeTab: 'details'  
     };
   },
   props: {
@@ -191,7 +191,7 @@ body {
 .tab-button.active {
     background-color: #fff;
     font-weight: bold;
-    border-bottom: 2px solid #007bff;
+    border-bottom: 2px solid rgb(27, 109, 27);
 }
 
 .tab-content {
