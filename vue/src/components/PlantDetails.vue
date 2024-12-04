@@ -1,4 +1,5 @@
 <template>
+    
     <div class="container">
         <div class="left-container">
             <div class="main-image">
@@ -32,7 +33,6 @@
                     </div>
                 </div>
             </div>
-
             <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
                 <div class="plant-details">
                     <h3>Care Details</h3>
@@ -41,7 +41,6 @@
                     </div>
                 </div>
             </div>
-
             <div v-show="activeTab === 'zone'" class="tab-content zone-map active" id="zone">
                 <div class="zone-map-container">
                     <img class="map-image" v-bind:src="zoneMap">
@@ -90,11 +89,11 @@ export default {
 .zone-map-container{
     display: flex;
     justify-content: center;
-    margin-top: 80px;
+    size: fit-content;
 }
 
 .map-image{
-    width: 75%;
+    width: 70%;
 }
 
 .plant-care{
@@ -120,20 +119,17 @@ export default {
     align-items: center;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-}
 
 .container {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    
 }
 
 .left-container {
-    width: 60%;
+    
+    margin-bottom: auto;
+    width: 33%;
 }
 
 .main-image img {
@@ -163,12 +159,15 @@ body {
 }
 
 .right-container {
-    width: 35%;
+    width: 66%;
     height:60vh;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 25px;
 }
 
 .tabs {
