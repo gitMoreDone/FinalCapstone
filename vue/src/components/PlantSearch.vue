@@ -6,12 +6,10 @@
         </div>
         <div class="row" id="search-row">
             <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
-                v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
-                v-for="(plant,index) in filteredPlants" v-bind:key="index"
+                
             >
                 <div class="button-container">
                     <button class="add-plant-button" 
-                            v-if="hoveredCard === index" 
                             v-show="$store.state.token != ''"
                             v-on:click.prevent="savePlant(plant)">Add to Garden
                     </button>
@@ -123,6 +121,7 @@ export default {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    overflow: hidden;
 }
 .card-text {
     display: flex;
@@ -149,17 +148,16 @@ export default {
     padding-top: 0px;
     width: 100%;
     height:auto;
+    object-fit: cover;
 }
 .button-container {
     display:flex;
     justify-content: center;
     
 }
-
 .add-plant-button {
     position: absolute;
     top: 35%;
-    
     background-color: green;
     color: white;
     border-radius: 5px 5px 5px 5px;
@@ -170,19 +168,16 @@ export default {
     align-items: center;
     cursor: pointer;
     font-size: 1rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s ease;
     
 }
-.card:hover .hover-button {
-  bottom: 16px; /* Slides up to a visible position */
+.card:hover .add-plant-button {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
 }
-
-.add-plant-button:hover {
-    /* background-color: #155f15; */
-    transform: translateY(-3px);
-    transition: bottom 0.3s ease;
-}
-
 
 .custom-divs>.p-2 {
     width: 30%;

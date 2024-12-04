@@ -37,8 +37,6 @@ export default {
                 const plantArray = response.data;
                 this.savedPlants = plantArray;
             });
-
-
         },
         removePlant(id) {
             PlantService.removePlant(id);
