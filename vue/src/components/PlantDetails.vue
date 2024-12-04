@@ -67,7 +67,6 @@ export default {
     currentPlant: {type: Object, required: true }
   },
   methods: {
-
     changeImage(image, index) {
       this.thumbnails[index] = this.mainImage;
       this.mainImage = image;
