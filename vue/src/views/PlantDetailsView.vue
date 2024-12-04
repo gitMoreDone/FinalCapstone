@@ -30,17 +30,6 @@ export default {
     created(){
         this.getPlant(this.$route.params.id);
     }
-    // computed: {
-    //     getPlant(){
-    //         const plantId = this.$route.params.id;
-    //         console.log(plantId);
-            
-    //         let plant = this.$store.state.plants.find((plant) => plant.id=plantId);
-            
-            
-    //         return plant;
-    //     }
-    // }
 
 }
 </script>
