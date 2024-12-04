@@ -35,7 +35,5 @@ export default {
 .body{
   padding-top: 30px;
   width:100%;
-  
-
 }
 </style>
