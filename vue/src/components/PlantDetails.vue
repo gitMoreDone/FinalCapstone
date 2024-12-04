@@ -59,7 +59,7 @@ export default {
       zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733324616/2023_vv17fy.webp',
       thumbnails: [
         this.currentPlant.plantImage2,
-        this.currentPlant.plantImage3
+        this.currentPlant.plantImage3,
       ],
       activeTab: 'details'  
     };
