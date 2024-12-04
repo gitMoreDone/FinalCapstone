@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div id="navbar-nav">
                 <router-link class="routelink" v-bind:to="{ name: 'plantSearch' }">Search</router-link>
-                <router-link class="routelink" v-bind:to="{ name: 'garden', params: { userId: this.$store.state.user.id} }" v-if="$store.state.token != ''">MyGarden</router-link>
+                <router-link class="routelink" v-bind:to="{ name: 'garden'}" v-if="$store.state.token != ''">MyGarden</router-link>
                 <router-link class="routelink" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
                 <router-link class="routelink" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
                 </div>
