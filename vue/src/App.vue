@@ -2,7 +2,7 @@
   <div id="capstone-app">
     <site-header class="header"/>
     <router-view class="body"/>
-    <site-footer />
+    <site-footer class="footer"/>
   </div>
 </template>
 
@@ -31,9 +31,17 @@ export default {
   top: 0;
   z-index: 1000;
 }
+.footer{
+  bottom: 0;
+  width: 100vw;
+}
+
 
 .body{
   padding-top: 30px;
   width:100%;
+  height: 100vh;
+
+
 }
 </style>

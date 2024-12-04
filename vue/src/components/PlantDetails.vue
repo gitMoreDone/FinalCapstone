@@ -68,6 +68,7 @@ export default {
     currentPlant: {type: Object, required: true }
   },
   methods: {
+
     changeImage(image, index) {
       this.thumbnails[index] = this.mainImage;
       this.mainImage = image;
@@ -128,6 +129,7 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 20px;
+    
 }
 
 .left-container {
@@ -162,6 +164,7 @@ body {
 
 .right-container {
     width: 35%;
+    height:60vh;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
