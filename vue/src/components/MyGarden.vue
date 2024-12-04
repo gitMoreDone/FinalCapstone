@@ -19,7 +19,6 @@
     </div>
 </template>
 
-
 <script>
 import PlantService from '../services/PlantService';
 import PlantSearch from './PlantSearch.vue';
