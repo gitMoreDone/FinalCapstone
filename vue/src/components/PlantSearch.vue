@@ -4,11 +4,19 @@
             <input name="search-filter" class="searchBar" type="text" v-model="searchFilter"
                 placeholder="Search Plants" />
         </div>
-        <div class="row">
+        <div class="row" id="search-row">
+            <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
+                v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
+                v-for="(plant,index) in filteredPlants" v-bind:key="index"
+            >
+                <div class="button-container">
+                    <button class="add-plant-button" 
+                            v-if="hoveredCard === index" 
+                            v-show="$store.state.token != ''"
+                            v-on:click.prevent="savePlant(plant)">Add to Garden
+                    </button>
+                </div>
 
-            <!-- for each plant, v-for for a card -->
-            <div class="col-12 col-md-2 card" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-                <button class="icon" v-if="$store.state.token != ''" v-on:click.prevent="savePlant(plant)">+</button>
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
@@ -37,7 +45,7 @@ export default {
     data() {
         return {
             searchFilter: '',
-
+            hoveredCard: null
 
         }
     },
@@ -45,9 +53,13 @@ export default {
     methods: {
         savePlant(plant) {
             PlantService.addPlant(plant);
-
-
-        }
+        },
+        showButton(index) {
+            this.hoveredCard = index;
+        },
+        hideButton() {
+            this.hoveredCard = null;
+        },
     },
 
     computed: {
@@ -102,6 +114,9 @@ export default {
     /* Optional: Adds focus effect */
     outline: none;
 }
+.p-3 {
+    padding:0 !important;
+}
 
 .card {
     margin: 15px;
@@ -109,32 +124,12 @@ export default {
     flex-direction: column;
     justify-content: center;
 }
-
-.plantCard {
-    display: flex;
-    /* flex-direction: column; */
-    width: 300px;
-    height: 50vh;
-    border: 2px solid green;
-    background-color: rgb(201, 201, 201);
-    margin: 5px;
-    align-items: center;
-    justify-content: center;
-}
-
-#plant-image-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
 .card-text {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content:center;
     align-items: center;
 }
-
 
 .plant-name {
     font-size: large;
@@ -148,31 +143,44 @@ export default {
 }
 
 .plant-image {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 5px;
-    width: 60%;
+    display:block;
+    /* margin-left: auto;
+    margin-right: auto; */
+    padding-top: 0px;
+    width: 100%;
+    height:auto;
+}
+.button-container {
+    display:flex;
+    justify-content: center;
+    
 }
 
-.icon {
-    position: relative;
-    top: 5px;
-    left: 85%;
+.add-plant-button {
+    position: absolute;
+    top: 35%;
+    
     background-color: green;
     color: white;
-    border-radius: 20%;
-    width: 30px;
+    border-radius: 5px 5px 5px 5px;
+    width: 150px;
     height: 30px;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    font-size: 1.5rem;
+    font-size: 1rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+}
+.card:hover .hover-button {
+  bottom: 16px; /* Slides up to a visible position */
 }
 
-.icon:hover {
-    background-color: #155f15;
+.add-plant-button:hover {
+    /* background-color: #155f15; */
+    transform: translateY(-3px);
+    transition: bottom 0.3s ease;
 }
 
 
