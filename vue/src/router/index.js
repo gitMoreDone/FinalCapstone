@@ -37,7 +37,7 @@ const routes = [
     }
   },
   {
-    path: '/garden/:userId',
+    path: '/garden',
     name: 'garden',
     component: MyGardenView,
     meta: {

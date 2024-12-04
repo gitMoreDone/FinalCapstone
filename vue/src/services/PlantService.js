@@ -19,6 +19,9 @@ export default {
     addPlant(plant) {
         
         return axios.post('/garden', plant);
+    },
+    removePlant(plantId){
+        return axios.delete(`/garden/${plantId}`)
     }
 
 }
