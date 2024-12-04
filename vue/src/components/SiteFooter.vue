@@ -2,7 +2,7 @@
     <footer class="footer bg-success bg-gradient">
       <div class="container">
         <p class="copyright">Copyright &copy; {{ new Date().getFullYear() }} Sprout</p>
-        <img class="logo" src="https://res.cloudinary.com/dwdijh29x/image/upload/v1733322350/spout_icon_gxhbtd.png" />
+        <img class="logo" src="https://res.cloudinary.com/dwdijh29x/image/upload/v1733323940/sprout-icon-light_wvq61u.png" />
         <a class="aboutlink">About us</a>
       </div>
     </footer>
