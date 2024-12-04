@@ -7,7 +7,7 @@
 
             <!-- for each plant, v-for for a card -->
             <div class="col-12 col-md-2 card" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-                <button class="icon" v-on:click="savePlant(plant)">+</button>
+                <button class="icon" v-on:click.prevent="savePlant(plant)">+</button>
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
@@ -77,14 +77,30 @@ export default {
 .container {
     width: 100vw;
 }
+
 .searchBar-container{
     display: flex;
     justify-content: center;
+    width: 100%;
+    padding: 0 20px;
+    box-sizing: border-box;
+
 }
-/* .searchBar {
 
-} */
+.searchBar {
+    width: 50%;
+    padding: 10px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
 
+.searchBar:focus {
+    border-color: #007BFF; /* Optional: Adds focus effect */
+    outline: none;
+}
 
 .card {
     margin:15px;
