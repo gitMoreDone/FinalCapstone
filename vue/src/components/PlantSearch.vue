@@ -1,7 +1,8 @@
 <template>
     <div class="container">
         <div class="searchBar-container">
-            <input name="search-filter" class="searchBar" type="text" v-model="searchFilter" placeholder="Search Plants" /> 
+            <input name="search-filter" class="searchBar" type="text" v-model="searchFilter"
+                placeholder="Search Plants" />
         </div>
         <div class="row">
 
@@ -17,9 +18,9 @@
                         }}</router-link>
                     <h4 class="plant-type">{{ plant.plantType }}</h4>
                 </div>
-                </div>
-
             </div>
+
+        </div>
     </div>
 </template>
 
@@ -41,12 +42,12 @@ export default {
 
         }
     },
-    
+
     methods: {
-        savePlant(plant){
+        savePlant(plant) {
             PlantService.addPlant(plant);
-            
-    
+
+
         }
     },
 
@@ -78,7 +79,7 @@ export default {
     width: 100vw;
 }
 
-.searchBar-container{
+.searchBar-container {
     display: flex;
     justify-content: center;
     width: 100%;
@@ -98,12 +99,13 @@ export default {
 }
 
 .searchBar:focus {
-    border-color: #007BFF; /* Optional: Adds focus effect */
+    border-color: #33752a;
+    /* Optional: Adds focus effect */
     outline: none;
 }
 
 .card {
-    margin:15px;
+    margin: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -126,6 +128,7 @@ export default {
     flex-direction: column;
     justify-content: center;
 }
+
 .card-text {
     display: flex;
     flex-direction: column;
@@ -137,9 +140,10 @@ export default {
 .plant-name {
     font-size: large;
     text-decoration: none;
-    color:black;
-    font-weight:bold;
+    color: black;
+    font-weight: bold;
 }
+
 .plant-type {
     font-size: small;
 }
@@ -191,5 +195,4 @@ export default {
         /* One per row on very small screens */
     }
 }
-
 </style>
