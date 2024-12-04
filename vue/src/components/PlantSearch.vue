@@ -7,7 +7,7 @@
 
             <!-- for each plant, v-for for a card -->
             <div class="col-12 col-md-2 card" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-
+                <button class="icon" v-on:click="savePlant(plant)">+</button>
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
@@ -17,9 +17,6 @@
                         }}</router-link>
                     <h4 class="plant-type">{{ plant.plantType }}</h4>
                 </div>
-                    <div class="add_button">
-                        <button class="button_plus" v-on:click="savePlant(plant)"></button>
-                    </div>
                 </div>
 
             </div>
@@ -137,58 +134,28 @@ export default {
     margin-right: auto;
     padding-top: 5px;
     width: 60%;
-
 }
 
-.add_button {
+.icon {
+    position: relative;
+    top: 5px;
+    left: 85%;
+    background-color: green;
+    color: white;
+    border-radius: 20%;
+    width: 30px;
+    height: 30px;
     display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1.5rem;
 }
 
-.button_plus {
-  position: absolute;
-  width: 35px;
-  height: 35px;
-  background: #fff;
-  cursor: pointer;
-  border: 2px solid #095776;
-
-  /* Mittig */
-  top: 50%;
-  left: 50%;
+.icon:hover {
+    background-color: #155f15;
 }
 
-.button_plus:after {
-  content: '';
-  position: absolute;
-  transform: translate(-50%, -50%);
-  height: 4px;
-  width: 50%;
-  background: #095776;
-  top: 50%;
-  left: 50%;
-}
-
-.button_plus:before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #095776;
-  height: 50%;
-  width: 4px;
-}
-
-.button_plus:hover:before,
-.button_plus:hover:after {
-  background: #fff;
-  transition: 0.2s;
-}
-
-.button_plus:hover {
-  background-color: #095776;
-  transition: 0.2s;
-}
 
 .custom-divs>.p-2 {
     width: 30%;
