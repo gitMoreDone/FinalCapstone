@@ -21,12 +21,10 @@ export default {
     methods: {
         getSavedPlants() {
             
-                PlantService.getSavedPlants(this.$store.state.user.id, this.$store.state.token).then(response => {
+                PlantService.getSavedPlants(this.$store.state.user.id).then(response => {
                     const plantArray = response.data;
                     this.savedPlants = plantArray;
-                });
-                
-            
+                }); 
         }
     },
 
