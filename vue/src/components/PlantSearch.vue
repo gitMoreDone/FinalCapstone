@@ -8,7 +8,7 @@
 
             <!-- for each plant, v-for for a card -->
             <div class="col-12 col-md-2 card" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-                <button class="icon" v-on:click.prevent="savePlant(plant)">+</button>
+                <button class="icon" v-if="$store.state.token != ''" v-on:click.prevent="savePlant(plant)">+</button>
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
@@ -19,7 +19,6 @@
                     <h4 class="plant-type">{{ plant.plantType }}</h4>
                 </div>
             </div>
-
         </div>
     </div>
 </template>

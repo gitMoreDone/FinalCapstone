@@ -32,16 +32,14 @@ export default {
   z-index: 1000;
 }
 .footer{
-  bottom: 0;
-  width: 100vw;
+    bottom: 0;
+    width: 100%;
+    position: relative;
+    margin-top: 50px;
 }
-
 
 .body{
   padding-top: 30px;
-  width:100%;
-  height: 100vh;
-
-
+  min-height: 100%;
 }
 </style>
