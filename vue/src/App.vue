@@ -22,9 +22,9 @@ export default {
 
 <style scoped>
 #capstone-app {
-  background-image: url('../public/sprout_bg_tile.png');
+  /* background-image: url('../public/sprout_bg_tile.png');
   background-repeat: repeat;
-  background-size: auto;
+  background-size: auto; */
 }
 .header{
   position: sticky;

@@ -6,9 +6,10 @@
         </div>
         <div class="row">
 
-            <!-- for each plant, v-for for a card -->
-            <div class="col-12 col-md-2 card" v-for="plant in filteredPlants" v-bind:key="plant.plantId">
-                <button class="icon" v-on:click.prevent="savePlant(plant)">+</button>
+            <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
+                        v-on:mouseover="hover=true" v-on:mouseleave="hover=false"
+                        v-for="plant in filteredPlants" v-bind:key="plant.plantId">
+                <button class="icon" v-if="hover" v-on:click="savePlant(plant)">+</button>
                 <div id="plant-image-container">
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
@@ -38,7 +39,7 @@ export default {
     data() {
         return {
             searchFilter: '',
-
+            hover: false
 
         }
     },
@@ -124,9 +125,9 @@ export default {
 }
 
 #plant-image-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    /* display: flex;
+    flex-direction: column; */
+    /* justify-content:stretch; */
 }
 
 .card-text {
@@ -149,11 +150,11 @@ export default {
 }
 
 .plant-image {
-    display: flex;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 5px;
-    width: 60%;
+    margin:0;
+    /* margin-left: auto;
+    margin-right: auto; */
+    padding-top: 0px;
+    width: 100%;
 }
 
 .icon {
