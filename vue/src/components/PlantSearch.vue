@@ -16,6 +16,7 @@
                             v-show="$store.state.token != ''"
                             v-on:click.prevent="savePlant(plant)">Add to Garden
                         </button>
+                    </transition>
                 </div>
 
                 <div id="plant-image-container">
