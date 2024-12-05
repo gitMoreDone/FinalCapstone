@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="left-container">
+        <div v-if="savedPlants != 0" class="left-container">
             <div 
                 class="plant" 
                 v-for="plant in savedPlants" 
@@ -15,11 +15,30 @@
         </div>
 
         <div v-if="selectedPlant" class="middle-container">
-                <h3>{{ selectedPlant.plantName }} Details</h3>
-                <p><strong>Scientific Name:</strong> {{ selectedPlant.scientificName }}</p>
-                <p><strong>Plant Type:</strong> {{ selectedPlant.plantType }}</p>
+            <div class="detail-image">
                 <img :src="selectedPlant.plantImage1" :alt="selectedPlant.plantName" class="plant-detail-image" />
-                <button @click="removePlant(selectedPlant.plantId)" class="remove-button">Remove</button>
+            </div>
+            <div class="detail-container">
+                <div class="detail-name">
+                    <p><strong>{{ selectedPlant.plantName }} Details</strong></p>
+                </div>
+                <div class="science-name">
+                    <p><strong>Scientific Name:</strong> {{ selectedPlant.scientificName }}</p>
+                </div>
+                <div class="detail-type">
+                    <p><strong>Plant Type:</strong> {{ selectedPlant.plantType }}</p>
+                </div>
+                <div class="detail-description">
+                    <p>{{ selectedPlant.plantDescription }}</p>
+                </div>
+            </div>  
+            <div class="empty-box empty-box-left">
+                <button v-on:click="removePlant(selectedPlant.plantId)" class="remove-button">Remove</button>
+            </div>
+            <div class="empty-box empty-box-right">
+
+            </div>
+                
         </div>
 
         <div v-if="savedPlants.length === 0" class="empty-garden">
@@ -30,8 +49,9 @@
             <GeminiAI class="chat-bot"/>
         </div>
     </div>
-
 </template>
+
+
 <script>
 import PlantService from '../services/PlantService';
 import GeminiAI from '../components/GeminiAI.vue';
@@ -76,8 +96,8 @@ export default {
 .container {
     display: flex;
     justify-content: center;
-    align-items: center;
-    width: 100vw;
+    align-items: flex-start;
+    width: auto;
     min-height: 84.8vh;
     gap: 40px;
     padding-top: 10px;
@@ -89,9 +109,9 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f0f0f0;  /* Change background color for visibility */
-    width: 100%; /* Make it take the full width */
-    height: 100%; /* Ensure it occupies the full height of its container */
+    background-color: #f0f0f0;  
+    width: 100%; 
+    height: 100%; 
     flex: 1;
 }
 
@@ -135,6 +155,9 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: antiquewhite;
+    padding: 20px;
+    border-radius: 15px;
 }
 
 .right-container {
@@ -153,24 +176,72 @@ export default {
 }
 
 .middle-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 600px;
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    grid-template-rows: 1fr 1fr;   
+    gap: 10px;
+    width: 60%; 
+    max-width: 1000px; 
     background-color: #f9f9f9;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    text-align: center;
+}
+
+.detail-container {
+    grid-column: 2 / 3; 
+    grid-row: 1 / 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: flex-start;
+    padding: 10px;
+
+}
+
+.empty-box {
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.empty-box-left {
+    grid-column: 1 / 2; 
+    grid-row: 2 / 3;
+}
+
+.empty-box-right {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.detail-image {
+    grid-column: 1 / 2; 
+    grid-row: 1 / 2;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+}
+
+.detail-name{
+    display: flex;
+
+}
+
+.science-name{
+    display: flex;
+
+}
+
+.detail-type{
+    display: flex;
+
 }
 
 .plant-detail-image {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    margin-bottom: 20px;
+    max-width: 100%;
+    max-height: 75%;
+    margin: auto;
 }
 
 .remove-button {
