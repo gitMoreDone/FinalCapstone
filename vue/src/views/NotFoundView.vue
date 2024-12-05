@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>PAGE NOT FOUND</h1>
+        <h1>CONTENT NOT FOUND</h1>
     </div>
     <router-view></router-view>
 </template>
