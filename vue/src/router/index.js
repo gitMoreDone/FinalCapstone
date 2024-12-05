@@ -10,6 +10,7 @@ import PlantDetailsView from '../views/PlantDetailsView.vue';
 import PlantSearchView from '../views/PlantSearchView.vue';
 import MyGardenView from '../views/MyGardenView.vue';
 import HomePageView from '../views/HomePageView.vue';
+import NotFoundView from '../views/NotFoundView.vue';
 
 
 /**
@@ -74,6 +75,14 @@ const routes = [
     path: "/register",
     name: "register",
     component: RegisterView,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/notfound",
+    name: "notFound",
+    component: NotFoundView,
     meta: {
       requiresAuth: false
     }
