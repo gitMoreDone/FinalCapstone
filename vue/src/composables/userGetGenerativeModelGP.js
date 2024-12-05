@@ -6,8 +6,6 @@ export const useGetGenerativeModelGP = async (prompt) => {
     const result = await model.generateContent(prompt);
     const response = await result.response;
     const text = response.text();
-    const formatText = text.replace(/\*\*(.*?)\*\*/g, '$1').replace(/(?<!\*)\*(?!\*)/g, '\n');
-    console.log(formatText)
-
-    return formatText;
+    
+    return text;
 }
