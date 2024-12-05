@@ -1,4 +1,5 @@
 <template>
+    
     <div class="container">
         <div class="left-container">
             <div class="main-image">
@@ -32,7 +33,6 @@
                     </div>
                 </div>
             </div>
-
             <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
                 <div class="plant-details">
                     <h3>Care Details</h3>
@@ -41,7 +41,6 @@
                     </div>
                 </div>
             </div>
-
             <div v-show="activeTab === 'zone'" class="tab-content zone-map active" id="zone">
                 <div class="zone-map-container">
                     <img class="map-image" v-bind:src="zoneMap">
@@ -68,7 +67,6 @@ export default {
     currentPlant: {type: Object, required: true }
   },
   methods: {
-
     changeImage(image, index) {
       this.thumbnails[index] = this.mainImage;
       this.mainImage = image;
@@ -90,11 +88,17 @@ export default {
 .zone-map-container{
     display: flex;
     justify-content: center;
-    margin-top: 80px;
+    align-items: center;
+    width: auto;
+    height: 60vh;
+    overflow: hidden;
 }
 
 .map-image{
-    width: 75%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+
 }
 
 .plant-care{
@@ -120,39 +124,42 @@ export default {
     align-items: center;
 }
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f7f7f7;
-}
 
 .container {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    
+    align-items: stretch;
+    height: 82vh;
 }
 
 .left-container {
-    width: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: auto;
+    width: 33%;
+    min-height: 65vh;
 }
 
 .main-image img {
     width: 100%;
-    max-height: 400px;
+    max-height: 300px;
     object-fit: cover;
+    flex-shrink: 0;
 }
 
 .thumbnails {
     display: flex;
     justify-content: center;
-    padding: 10px;
-    margin-top: 10px;
-    gap: 10px;
+    padding: 20px;
+    gap: 25px;
+    margin-bottom: auto;
 }
 
 .thumbnail {
-    width: 70px;
-    height: 70px;
+    width: 50%;
+    height: 50%;
     object-fit: cover;
     cursor: pointer;
     transition: opacity 0.3s;
@@ -163,12 +170,17 @@ body {
 }
 
 .right-container {
-    width: 35%;
-    height:60vh;
+    flex-direction: column;
+    width: 66%;
+    height:auto;
+    min-height: 65vh;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     background-color: white;
+    margin-bottom: auto;
+    margin-left: 25px;
+    overflow: hidden;
 }
 
 .tabs {
@@ -199,7 +211,10 @@ body {
 }
 
 .tab-content {
-    display: none;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    padding: 10px;
 }
 
 .tab-content.active {
@@ -208,7 +223,9 @@ body {
 
 .details-content,
 .care-content {
-    padding: 10px;
+    flex-direction: column;
+    display: flex;
+    flex-grow: 1;
 }
 
 .details-content h2,
