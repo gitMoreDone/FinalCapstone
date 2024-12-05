@@ -17,7 +17,8 @@ export default {
         return plants;
     },
     addPlant(plant) {
-        
+
+
         return axios.post('/garden', plant);
     },
     removePlant(plantId){

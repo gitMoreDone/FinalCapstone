@@ -13,16 +13,22 @@ export default {
     },
     data(){
         return {
-            plants: []
+            plants: [],
+            notifications: ''
         }
     },
     methods: {
         getPlants(){
+            
             PlantService.getPlants().then( response => {
                 const plantArray=response.data;
                 this.plants=plantArray;
+                
             })
-            
+            .catch (() => {
+                this.notifications = "Unable to retrieve content";
+            } )
+
         }
     },
 

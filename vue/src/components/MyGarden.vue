@@ -23,7 +23,6 @@
     </div>
 </template>
 
-
 <script>
 import PlantService from '../services/PlantService';
 import GeminiAI from '../components/GeminiAI.vue';
