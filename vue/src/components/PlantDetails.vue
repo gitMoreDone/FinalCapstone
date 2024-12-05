@@ -1,20 +1,25 @@
 <template>
-    
+
     <div class="container">
         <div class="left-container">
             <div class="main-image">
                 <img id="mainImage" v-bind:src="mainImage" alt="Main Image">
             </div>
             <div class="thumbnails">
-                <img v-bind:src="thumbnails[0]" v-on:click="changeImage(thumbnails[0], 0)" alt="Thumbnail 1" class="thumbnail">
-                <img v-bind:src="thumbnails[1]" v-on:click="changeImage(thumbnails[1], 1)" alt="Thumbnail 2" class="thumbnail">
+                <img v-bind:src="thumbnails[0]" v-on:click="changeImage(thumbnails[0], 0)" alt="Thumbnail 1"
+                    class="thumbnail">
+                <img v-bind:src="thumbnails[1]" v-on:click="changeImage(thumbnails[1], 1)" alt="Thumbnail 2"
+                    class="thumbnail">
             </div>
         </div>
         <div class="right-container">
             <div class="tabs">
-                <button class="tab-button" :class="{active: activeTab === 'details'}" v-on:click="changeTab('details')">Details</button>
-                <button class="tab-button" :class="{active: activeTab === 'care'}" v-on:click="changeTab('care')">Care</button>
-                <button class="tab-button" :class="{active: activeTab === 'zone'}" v-on:click="changeTab('zone')">Zone Map</button>
+                <button class="tab-button" :class="{ active: activeTab === 'details' }"
+                    v-on:click="changeTab('details')">Details</button>
+                <button class="tab-button" :class="{ active: activeTab === 'care' }"
+                    v-on:click="changeTab('care')">Care</button>
+                <button class="tab-button" :class="{ active: activeTab === 'zone' }" v-on:click="changeTab('zone')">Zone
+                    Map</button>
             </div>
 
             <div v-show="activeTab === 'details'" class="tab-content details-content active" id="details">
@@ -51,30 +56,42 @@
 </template>
 
 <script>
+import PlantService from '../services/PlantService';
+
+
 export default {
-  data() {
-    return {
-      mainImage: this.currentPlant.plantImage1, 
-      zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733324616/2023_vv17fy.webp',
-      thumbnails: [
-        this.currentPlant.plantImage2,
-        this.currentPlant.plantImage3
-      ],
-      activeTab: 'details'  
-    };
-  },
-  props: {
-    currentPlant: {type: Object, required: true }
-  },
-  methods: {
-    changeImage(image, index) {
-      this.thumbnails[index] = this.mainImage;
-      this.mainImage = image;
+    data() {
+        return {
+            currentPlant: {},
+            mainImage: '',
+            zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733324616/2023_vv17fy.webp',
+            thumbnails: [],
+            activeTab: 'details'
+        };
     },
-    changeTab(tabName) {
-      this.activeTab = tabName;
+    methods: {
+        changeImage(image, index) {
+            this.thumbnails[index] = this.mainImage;
+            this.mainImage = image;
+        },
+        changeTab(tabName) {
+            this.activeTab = tabName;
+        },
+        getPlant(id) {
+            // console.log(id + "here")
+            PlantService.getPlantById(id).then(response => {
+                this.currentPlant = response.data;
+                this.mainImage=this.currentPlant.plantImage1;
+                this.thumbnails[0]=this.currentPlant.plantImage2;
+                this.thumbnails[1]=this.currentPlant.plantImage3;
+            })
+        },
+        
     },
-  },
+    created(){
+        this.getPlant(this.$route.params.id);  
+    },
+    
 };
 </script>
 
@@ -85,7 +102,7 @@ export default {
     box-sizing: border-box;
 }
 
-.zone-map-container{
+.zone-map-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -94,28 +111,28 @@ export default {
     overflow: hidden;
 }
 
-.map-image{
+.map-image {
     max-width: 100%;
     height: auto;
     object-fit: contain;
 
 }
 
-.plant-care{
+.plant-care {
     display: flex;
     justify-content: center;
     text-align: center;
     margin-top: 20px;
 }
 
-.plant-details{
+.plant-details {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-.fact-container{
+.fact-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -172,7 +189,7 @@ export default {
 .right-container {
     flex-direction: column;
     width: 66%;
-    height:auto;
+    height: auto;
     min-height: 65vh;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

@@ -5,7 +5,6 @@
 
 <script>
 import PlantDetails from '../components/PlantDetails.vue';
-import PlantService from '../services/PlantService';
 
 export default {
 
@@ -16,19 +15,10 @@ export default {
     },
 
     methods: {
-        getPlant(id){
-            // console.log(id + "here")
-            PlantService.getPlantById(id).then( response => {
-                this.currentPlant=response.data;
-
-            })
-        }
+        
     },
     components: {
         PlantDetails
-    },
-    created(){
-        this.getPlant(this.$route.params.id);
     }
 
 }
