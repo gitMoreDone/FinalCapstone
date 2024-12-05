@@ -75,7 +75,13 @@ const routes = [
     meta: {
       requiresAuth: false
     }
-  }
+  },
+    path: "/notfound",
+    name: "notfound",
+    component: NotFoundView
+    meta: {
+      requiresAuth: false
+    }
 ];
 
 // Create the router
