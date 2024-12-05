@@ -17,7 +17,6 @@
 <style scoped>
 .container {
   display: flex;
-  padding: 20px;
   color: aliceblue;
 }
 

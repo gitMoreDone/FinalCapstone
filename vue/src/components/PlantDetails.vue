@@ -150,7 +150,7 @@ export default {
     justify-content: space-between;
     padding: 20px;
     align-items: stretch;
-    height: 82vh;
+    min-height: 84.8vh;
 
 }
 
