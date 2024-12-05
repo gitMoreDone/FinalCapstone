@@ -19,26 +19,15 @@ export default {
 </script>
 
 <style scoped>
-#capstone-app {
-  /* background-image: url('../public/sprout_bg_tile.png');
-  background-repeat: repeat;
-  background-size: auto; */
-}
 .header{
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-/* .footer{
-  bottom: 0;
-  width: 100vw;
-} */
-
-
 .body{
   padding-top: 30px;
-  width:100%;
+  width:100vw;
   /* height: 100vh; */
 
 }
