@@ -4,14 +4,20 @@
             <input name="search-filter" class="searchBar" type="text" v-model="searchFilter"
                 placeholder="Search Plants" 
             />
-            <div class="filter-icon"><img src="/public/vegetable_icon.png"/></div>
-            <div class="filter-icon"><img src="/public/fruit_icon.png"/></div>
-            <div class="filter-icon"><img src="/public/herb_icon.png"/></div>  
+            <div 
+                v-for="(icon, index) in icons" 
+                v-bind:key="index" 
+                class="filter-icon"
+                v-bind:class="{ active: selectedIcon === icon.type }"
+                v-on:click="filterIcon(icon.type)"
+            >
+            <img :src="icon.src" :alt="icon.type" />
+  </div>
         </div>
         <div class="row" id="search-row">
             <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
                 v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
-                v-for="(plant,index) in filteredPlants" v-bind:key="index"
+                v-for="(plant,index) in filteredTypes" v-bind:key="index"
             >
                 <div class="button-container">
                     <transition name="fade">
@@ -50,9 +56,15 @@ export default {
     data() {
         return {
             searchFilter: '',
-
             hoveredCard: null,
-            currentPlantType: ''
+            // currentPlantType: '',
+
+            selectedIcon: null,
+            icons: [
+                { type: "Vegetable", src: "/public/vegetable_icon.png" },
+                { type: "Fruit", src: "/public/fruit_icon.png" },
+                { type: "Herb", src: "/public/herb_icon.png" },
+                ],
         }
     },
     methods: {
@@ -75,7 +87,11 @@ export default {
                 icon="/herb_icon.png"
             }
             return icon;
-        }
+        },
+        filterIcon(type) {
+            this.selectedIcon = this.selectedIcon === type ? null : type;
+            
+    },
     },
     computed: {
         filteredPlants() {
@@ -83,7 +99,14 @@ export default {
             return selectPlants.filter((plant) => {
                 return this.searchFilter == '' ? true : plant.plantName.toLowerCase().includes(this.searchFilter.toLowerCase());
             });
+            
         },
+        filteredTypes(){
+            const selectPlants=this.filteredPlants;
+            return selectPlants.filter((plant) => {
+                return this.selectedIcon === null ? true : this.selectedIcon === plant.plantType;
+            });
+        }
         
 
     }
@@ -102,10 +125,10 @@ export default {
     width: 100vw;
 }
 .searchBar-container {
-    background-color: #679436;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: center;
     width: 100%;
     height: 6vh;
     padding: 0 20px;
@@ -127,10 +150,22 @@ export default {
     outline: none;
 }
 .filter-icon {
-    width: 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width:50px;
+    height:50px;
+    border-radius: 50%;
+    margin-left:1vw;
+    background-color: transparent;
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+.filter-icon.active {
+    background-color: #553E4E;
 }
 .searchBar-container img {
-    
+    width: 35px;
 }
 .p-3 {
     padding:0 !important;
