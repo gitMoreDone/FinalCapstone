@@ -9,6 +9,7 @@ import RegisterView from '../views/RegisterView.vue';
 import PlantDetailsView from '../views/PlantDetailsView.vue';
 import PlantSearchView from '../views/PlantSearchView.vue';
 import MyGardenView from '../views/MyGardenView.vue';
+import HomePageView from '../views/HomePageView.vue';
 
 
 /**
@@ -20,14 +21,14 @@ import MyGardenView from '../views/MyGardenView.vue';
  * If they have (or don't need to) they're allowed to go about their way.
  */
 const routes = [
-  // {
-  //   path: '/',
-  //   name: 'home',
-  //   component: HomeView,
-  //   meta: {
-  //     requiresAuth: true
-  //   }
-  // },
+  {
+    path: '/home',
+    name: 'home',
+    component: HomePageView,
+    meta: {
+      requiresAuth: false
+    }
+  },
   {
     path: '/',
     name: 'plantSearch',
@@ -36,6 +37,7 @@ const routes = [
       requiresAuth: false
     }
   },
+
   {
     path: '/garden',
     name: 'garden',

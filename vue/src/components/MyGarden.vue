@@ -1,27 +1,31 @@
 <template>
     <div class="container">
-        <div class="card plant" v-for="plant in savedPlants" v-bind:key="plant.id">
-            <div>
-                <div>{{ plant.plantName }}</div>
-                <div>{{ plant.scientificName }}</div>
-                <div>{{ plant.plantType }}</div>
-            </div>
-            <div>
-                <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName />
-            </div>
-            <div>
-                <button v-on:click="removePlant(plant.plantId)">
+        <div class="left-container">
+                <div class="card plant" v-for="plant in savedPlants" v-bind:key="plant.id">
+                <div>
+                    <div>{{ plant.plantName }}</div>
+                    <div>{{ plant.scientificName }}</div>
+                    <div>{{ plant.plantType }}</div>
+                </div>
+                <div>
+                    <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName />
+                </div>
+                <div>
+                    <button v-on:click="removePlant(plant.plantId)">
 
-                </button>
+                    </button>
+                </div>
             </div>
         </div>
-
+        <div class="right-container">
+            <GeminiAI/>
+        </div>
     </div>
 </template>
 
 <script>
 import PlantService from '../services/PlantService';
-import PlantSearch from './PlantSearch.vue';
+import GeminiAI from '../components/GeminiAI.vue';
 
 export default {
     data() {
@@ -45,6 +49,9 @@ export default {
     },
     mounted() {
         this.getSavedPlants();
+    },
+    components: {
+        GeminiAI
     }
 }
 </script>
@@ -53,9 +60,11 @@ export default {
 <style scoped>
 .container {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
-
+    width: 100vw;
+    gap: 50px;
+    background-color: green;
 }
 
 .plant {
@@ -70,5 +79,17 @@ export default {
 .plant-image {
     width: 20%;
 
+}
+
+.left-container{
+    justify-content: start;
+    width: auto;
+    background-color: blue;
+}
+
+.right-container{
+    justify-content: end;
+    width: auto;
+    background-color: red;
 }
 </style>
