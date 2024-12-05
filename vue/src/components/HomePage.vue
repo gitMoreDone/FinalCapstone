@@ -1,33 +1,47 @@
 <template>
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Bungee&family=Knewave&family=Slackey&display=swap" rel="stylesheet">
+
+</head>
+
     <div class="home">
       <div class="headings">
-                
-                <router-link class="button button1" v-bind:to="{ name: 'plantSearch' }">Grow Your Favorite Produce</router-link>
-                    <div class="fake-link"> <a href="">Register to create your own virtual garden</a></div>
-               
+                <div class="box-container">
+                  <h3 id="welcome">Welcome To Your Own Virtual Garden </h3>
+                <!-- <router-link class="button button1" v-bind:to="{ name: 'plantSearch' }">Grow Your Favorite Produce</router-link> -->
+                    <div class="fake-link"> <a href="">Register to create your garden</a></div>
+                </div>
 
         </div>
     
-    
+    <div class="under-heading">
         <div class="top-description">
         
         <img class="top-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733431907/mustache-guy-holding-basket_1_vc7mno.jpg" />
-        <h2 class="part1">Find your favorite garden plant to grow on our search page.</h2>
-        <p>Explore our vast selection of delicious veggies, fruits, and hardy herbs - find the perfect addition to your green space, tailored to your local climate and gardening style</p>
+        <div class="description1">
+          <h2 class="part1">Find your favorite garden plant to grow on our search page.</h2>
+          <p>Explore our vast selection of delicious veggies, fruits, and hardy herbs - find the perfect addition to your green space, tailored to your local climate and gardening style</p>
+        </div>
     </div>
     <div class="middle-description">
-        
-        <h3 class="part2">set reminders for plant watering</h3>
+        <div class="description2">
+          <h2 class="part2">set reminders for plant watering</h2>
+          <p>PLACEHOLDER TEXT</p>
+        </div>
         <img class="middle-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/v1733422625/wateringcare_tbaz04.jpg" />
     </div>
     <div class="bottom-description">
         
         <img class="bottom-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
-        <h4 class="part3">ask ai anything about plant care</h4>
-        <p>Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds.</p>
+        <div class="description3">
+          <h2 class="part3">ask ai anything about plant care</h2>
+          <p>Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds.</p>
+        </div>
     </div>
 
-    
+  </div>
     </div>
   </template>
   
@@ -48,11 +62,31 @@
       align-items: center;
       justify-content: center;
     }
-    .button {
+
+    .box-container {
+
+      display: inline-flex;
+      flex-direction: column;
+      padding: 40px 60px;
+      border: 2px solid #333;  
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(244, 244, 244, 0.5); 
+    }
+
+    #welcome {
+      font-family: "Bungee", sans-serif;
+      font-weight: 400;
+      font-style: normal;
+      font-size: 40px;
+      color: rgb(133, 97, 0);
+    }
+    /* .button {
       background-color: aliceblue;
-        /* background-color: #04AA6D; */
+        
         border: none;
-        /* color:wheat; */
+        
         color: green;
         padding: 20px;
         text-align: center;
@@ -61,15 +95,21 @@
         border-radius: 12px;
         margin: 10px;
 
-        opacity: 80%
+        opacity: 70%
 
-    }
+    } */
 
 
     .button1 {
         font-size: 35px;
         margin: 10px;
     }
+
+    .under-heading {
+      background-image: url(https://res.cloudinary.com/dbryvvjtl/image/upload/v1733437241/pexels-pixabay-235985_ftotys.jpg);
+
+    }
+
 
     .top-image {
         border-radius: 30px;
@@ -91,7 +131,7 @@
     }
     a {
         font-weight: bold;
-        color: antiquewhite;
+        color: rgb(0, 83, 0);
     }
 
     a:hover {
@@ -115,11 +155,34 @@
         flex-direction: row;
         align-items: center;
     }
+
+    .description1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 60px;
+      /* border: 2px solid #333;   */
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(244, 244, 244, 0.5);
+    }
     .middle-description {
         display: flex;
         justify-content: right;
         flex-direction: row;
         align-items: center;
+    }
+    .description2 {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 60px;
+      /* border: 2px solid #333;   */
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(244, 244, 244, 0.5);
+      margin-right: 7%;
     }
 
     .bottom-description {
@@ -127,6 +190,11 @@
         flex-direction: row;
         align-items: center;
     
+    }
+    .description3 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
     
   </style>
