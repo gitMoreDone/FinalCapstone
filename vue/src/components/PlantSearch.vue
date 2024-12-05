@@ -2,7 +2,11 @@
     <div class="container">
         <div class="searchBar-container">
             <input name="search-filter" class="searchBar" type="text" v-model="searchFilter"
-                placeholder="Search Plants" />
+                placeholder="Search Plants" 
+            />
+            <div class="filter-icon"><img src="/public/vegetable_icon.png"/></div>
+            <div class="filter-icon"><img src="/public/fruit_icon.png"/></div>
+            <div class="filter-icon"><img src="/public/herb_icon.png"/></div>  
         </div>
         <div class="row" id="search-row">
             <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
@@ -26,7 +30,7 @@
                     <router-link class="plant-name"
                         v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
                         }}</router-link>
-                    <h4 class="plant-type">{{ plant.plantType }}</h4>
+                    <img class="plant-type-icon" v-bind:src="getPlantTypeIcon(plant.plantType)" />                
                 </div>
             </div>
         </div>
@@ -43,15 +47,14 @@ export default {
             required: true
         }
     },
-
     data() {
         return {
             searchFilter: '',
-            hoveredCard: null
 
+            hoveredCard: null,
+            currentPlantType: ''
         }
     },
-
     methods: {
         savePlant(plant) {
             PlantService.addPlant(plant);
@@ -62,22 +65,30 @@ export default {
         hideButton() {
             this.hoveredCard = null;
         },
+        getPlantTypeIcon(plantType){
+            let icon='';
+            if(plantType==='Vegetable'){
+                icon="/vegetable_icon.png"
+            }else if(plantType==='Fruit'){
+                icon="/fruit_icon.png"
+            }else if(plantType==='Herb'){
+                icon="/herb_icon.png"
+            }
+            return icon;
+        }
     },
-
     computed: {
         filteredPlants() {
             const selectPlants = this.plants;
-
             return selectPlants.filter((plant) => {
                 return this.searchFilter == '' ? true : plant.plantName.toLowerCase().includes(this.searchFilter.toLowerCase());
             });
-        }
+        },
+        
+
     }
 }
-
 </script>
-
-
 
 <style scoped>
 #cardContainer {
@@ -87,20 +98,20 @@ export default {
     justify-content: space-evenly;
 
 }
-
 .container {
     width: 100vw;
 }
-
 .searchBar-container {
+    background-color: #679436;
     display: flex;
+    flex-direction: row;
     justify-content: center;
     width: 100%;
+    height: 6vh;
     padding: 0 20px;
     box-sizing: border-box;
 
 }
-
 .searchBar {
     width: 50%;
     padding: 10px;
@@ -110,16 +121,20 @@ export default {
     box-sizing: border-box;
     transition: border-color 0.3s ease;
 }
-
 .searchBar:focus {
-    border-color: #33752a;
+    border-color: #679436;
     /* Optional: Adds focus effect */
     outline: none;
+}
+.filter-icon {
+    width: 
+}
+.searchBar-container img {
+    
 }
 .p-3 {
     padding:0 !important;
 }
-
 .card {
     margin: 15px;
     display: flex;
@@ -129,22 +144,21 @@ export default {
 }
 .card-text {
     display: flex;
-    flex-direction: column;
-    justify-content:center;
+    flex-direction: row;
+    justify-content:space-between;
     align-items: center;
 }
-
 .plant-name {
+    padding: 5px;
     font-size: large;
     text-decoration: none;
     color: black;
     font-weight: bold;
 }
-
-.plant-type {
-    font-size: small;
+.plant-type-icon {
+    padding-right: 6px;
+    width:30px;
 }
-
 .plant-image {
     position: relative;
     display:block;
@@ -167,7 +181,7 @@ export default {
 .add-plant-button {
     position: absolute;
     top: 35%;
-    background-color: green;
+    background-color: #679436;
     color: white;
     border-radius: 5px 5px 5px 5px;
     width: 150px;
@@ -182,19 +196,16 @@ export default {
     transition: opacity 0.3s ease, transform 0.3s ease;
     
 }
-
 .custom-divs>.p-2 {
     width: 30%;
     /* Adjust to set the number of divs per row */
 }
-
 @media (max-width: 768px) {
     .custom-divs>.p-2 {
         width: 48%;
         /* Two per row on smaller screens */
     }
 }
-
 @media (max-width: 480px) {
     .custom-divs>.p-2 {
         width: 100%;
