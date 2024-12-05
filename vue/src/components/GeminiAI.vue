@@ -1,7 +1,6 @@
 <template>
   <h1 class="mb-5">Sprout AI</h1>
 
-  <!-- Question Form -->
   <form class="mb-5 question-form" @submit.prevent="fetchAnswer">
     <div class="question-box">
       <textarea 
@@ -18,37 +17,55 @@
     </button>
   </form>
 
-  <!-- Answer Box -->
-  <div class="answer-box" v-show="isLoading || answer != ''">
-    <p v-html="answer"></p>
+  <div class="answer-box" v-show="isLoading || displayAnswer != ''">
+    <p v-html="displayAnswer"></p> 
   </div>
 </template>
+
 
 <script setup>
 import { ref } from 'vue'
 import { useGetGenerativeModelGP } from '../composables/userGetGenerativeModelGP'
 
 const question = ref('How do I care for my broccoli?')
-const answer = ref('')
+const fullAnswer = ref('') 
+const displayAnswer = ref('') 
 const isLoading = ref(false)
-const questionPreface="You will be asked a question. Return the response to the question in HTML format using the following template, using none or any amount of list items: "+
-                      "\n<h4>Example Title</h4>"+ 
-                      "\n<span>Example Introduction</span>"+ 
-                      "\n<span>Example Explanation</span>"+ 
-                      "\n<ul>"+ 
-                      "\n <li>Example 1</li>"+ 
-                      "\n <li>Example 2</li>"+ 
-                      "\n <li>Example 3</li>"+ 
-                      "\n</ul>" + 
-                      "\n<span>Conclusion</span>" +
-                      "\nQuestion: "
+const questionPreface = `
+  You will be asked a question. Return the response to the question in HTML format using the following template, using none or any amount of list items:
+  <h4>Example Title</h4>
+  <span>Example Introduction</span>
+  <span>Example Explanation</span>
+  <ul>
+    <li>Example 1</li>
+    <li>Example 2</li>
+    <li>Example 3</li>
+  </ul>
+  <span>Conclusion</span>
+  Question: 
+`
+
+const typeAnswer = (text) => {
+  displayAnswer.value = '' 
+  let index = 0
+
+  const interval = setInterval(() => {
+    if (index < text.length) {
+      displayAnswer.value += text[index] 
+      index++
+    } else {
+      clearInterval(interval) 
+    }
+  }, 50) 
+}
 
 const fetchAnswer = async () => {
-  answer.value = ''
+  displayAnswer.value = ''
   isLoading.value = true
 
   try {
-    answer.value = await useGetGenerativeModelGP(questionPreface+question.value)
+    fullAnswer.value = await useGetGenerativeModelGP(questionPreface + question.value)
+    typeAnswer(fullAnswer.value)
   } catch (error) {
     console.log({ error })
   } finally {
@@ -58,6 +75,7 @@ const fetchAnswer = async () => {
 }
 </script>
 
+
 <style lang="scss" scoped>
 
 .question-form {
@@ -65,7 +83,7 @@ const fetchAnswer = async () => {
   flex-direction: column;
   align-items: center;
   margin-bottom: 20px;
-  width: 100%; /* Ensure the form takes up full width */
+  width: 100%; 
 }
 
 .question-box {

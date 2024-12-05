@@ -123,6 +123,7 @@ export default {
 }
 .container {
     width: 100vw;
+    min-height: 84.9vh;
 }
 .searchBar-container {
     display: flex;
