@@ -1,121 +1,61 @@
 <template>
-    <div class="container">
-      <h1 class="header">Ask me how to care for your garden!</h1>
-      <form class="form" @submit.prevent="fetchAnswer">
-        <textarea
-          class="textarea"
-          name="question"
-          id="question"
-          v-model="question"
-          placeholder="Type your gardening question here..."
-        ></textarea>
-        <button class="button" type="submit" :disabled="!question">
-          {{ `${isLoading ? 'Asking gemini...' : 'Ask'}` }}
-        </button>
-      </form>
-  
-      <div class="answer-box">
-        <AIAnswer :answer="answer" />
-      </div>
+  <h1 class="mb-5">Ask me how to care for your garden!</h1>
+
+  <form class="mb-5" @submit.prevent="fetchAnswer">
+    <div>
+      <textarea placeholder="How do I harvest my broccoli?" name="question" id="question" cols="30" rows="10" v-model="question"></textarea>
     </div>
-  </template>
+    <button type="submit" :disabled="!question">
+      {{ `${isLoading ? 'thinking...' : 'Ask'}` }}
+    </button>
+  </form>
 
-  <script setup>
-  import { ref } from 'vue';
-  import { useGetGenerativeModelGP } from '../composables/userGetGenerativeModelGP';
-  import AIAnswer from '../components/AIAnswer.vue';
-  
-  const question = ref('');
-  const answer = ref('');
-  const isLoading = ref(false);
-  
-  const fetchAnswer = async () => {
-    if (!question.value) return; 
-    answer.value = '';
-    isLoading.value = true;
-  
-    try {
-      answer.value = await useGetGenerativeModelGP(question.value);
-    } catch (error) {
-      console.error('Error fetching answer:', error);
-      answer.value = 'Something went wrong. Please try again.';
-    } finally {
-      isLoading.value = false;
-    }
-  };
-  </script>
+  <div class="mb-10">
+    <p v-html="answer"></p>
+    <!-- <AIAnswer :answer="answer" /> -->
+  </div>
+</template>
 
-  <style lang="scss" scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 20px;
+<script setup>
+import { ref } from 'vue'
+import { useGetGenerativeModelGP } from '../composables/userGetGenerativeModelGP'
+import AIAnswer from '../components/AIAnswer.vue'
+
+const question = ref('How do I care for my broccoli?')
+const answer = ref('')
+const isLoading = ref(false)
+const questionPreface="You will be asked a question. Return the response to the question in HTML format using the following template, using none or any amount of list items: "+
+                      "\n<h4>Example Title</h4>"+
+                      "\n<span>Example Introduction</span>"+
+                      "\n<span>Example Explanation</span>"+
+                      "\n<ul>"+
+                      "\n <li>Example 1</li>"+
+                      "\n <li>Example 2</li>"+
+                      "\n <li>Example 3</li>"+
+                      "\n</ul>"
+                      "\n<span>Conclusion</span>"
+                      "\nQuestion: "
+
+const fetchAnswer = async () => {
+  answer.value = ''
+  isLoading.value = true
+
+  try {
+    answer.value = await useGetGenerativeModelGP(questionPreface+question.value)
+  } catch (error) {
+    console.log({ error })
+  } finally {
+    isLoading.value = false
+    question.value = ''
+  }
 }
+</script>
 
-.header {
-  text-align: center;
-  margin-bottom: 20px;
+<style lang="scss" scoped>
+.mb-5 {
+  margin-bottom: auto;
 }
-
-.form {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.textarea {
-  flex: 1;
-  width: 100%;
-  resize: none;
-  padding: 10px;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
-}
-
-.button {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.button:disabled {
-  background-color: #cccccc;
-  cursor: not-allowed;
-}
-
-.answer-box {
-  flex: 1;
-  margin-top: 20px;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f9f9f9;
-  overflow-y: auto;
-}
-
-.answer-box::-webkit-scrollbar {
-  width: 8px;
-}
-
-.answer-box::-webkit-scrollbar-thumb {
-  background-color: #cccccc;
-  border-radius: 4px;
-}
-
-.answer-box::-webkit-scrollbar-thumb:hover {
-  background-color: #999999;
+.mb-10 {
+  margin-bottom: auto;
 }
 </style>
-
-  
-
-  

@@ -85,6 +85,9 @@ export default {
                 this.thumbnails[0]=this.currentPlant.plantImage2;
                 this.thumbnails[1]=this.currentPlant.plantImage3;
             })
+            .catch (() => {
+                this.$router.push({ name: 'notFound' });
+            } )
         },
         
     },

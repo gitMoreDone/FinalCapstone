@@ -14,7 +14,6 @@ export default {
     data(){
         return {
             plants: [],
-            notifications: ''
         }
     },
     methods: {
@@ -26,7 +25,7 @@ export default {
                 
             })
             .catch (() => {
-                this.notifications = "Unable to retrieve content";
+                this.$router.push({ name: 'notFound' });
             } )
 
         }
