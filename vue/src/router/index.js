@@ -10,6 +10,7 @@ import PlantDetailsView from '../views/PlantDetailsView.vue';
 import PlantSearchView from '../views/PlantSearchView.vue';
 import MyGardenView from '../views/MyGardenView.vue';
 import HomePageView from '../views/HomePageView.vue';
+import NotFoundView from '../views/NotFoundView.vue';
 
 
 /**
@@ -78,12 +79,14 @@ const routes = [
       requiresAuth: false
     }
   },
+  {
     path: "/notfound",
-    name: "notfound",
-    component: NotFoundView
+    name: "notFound",
+    component: NotFoundView,
     meta: {
       requiresAuth: false
     }
+  }
 ];
 
 // Create the router
