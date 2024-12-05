@@ -90,6 +90,7 @@ export default {
 
 .container {
     width: 100vw;
+    
 }
 
 .searchBar-container {
@@ -113,7 +114,6 @@ export default {
 
 .searchBar:focus {
     border-color: #33752a;
-    /* Optional: Adds focus effect */
     outline: none;
 }
 .p-3 {
@@ -154,8 +154,8 @@ export default {
     
 }
 .card:hover {
-    transform: scale(1.05); /* Slightly grows the card */
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
+    transform: scale(1.05); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
 }
 .card:hover .add-plant-button {
     opacity: 1;
@@ -185,20 +185,18 @@ export default {
 
 .custom-divs>.p-2 {
     width: 30%;
-    /* Adjust to set the number of divs per row */
 }
 
 @media (max-width: 768px) {
     .custom-divs>.p-2 {
         width: 48%;
-        /* Two per row on smaller screens */
     }
 }
 
 @media (max-width: 480px) {
     .custom-divs>.p-2 {
         width: 100%;
-        /* One per row on very small screens */
+
     }
 }
 </style>

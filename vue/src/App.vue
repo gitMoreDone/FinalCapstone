@@ -18,17 +18,3 @@ export default {
 }
 </script>
 
-<style scoped>
-.header{
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.body{
-  padding-top: 30px;
-  width:100vw;
-  /* height: 100vh; */
-
-}
-</style>

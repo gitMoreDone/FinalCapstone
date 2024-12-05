@@ -148,6 +148,7 @@ export default {
     padding: 20px;
     align-items: stretch;
     height: 82vh;
+
 }
 
 .left-container {
