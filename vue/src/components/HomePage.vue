@@ -15,13 +15,13 @@
     </div>
     <div class="middle-description">
         
-        <div class="part2">set reminders for plant watering</div>
+        <h3 class="part2">set reminders for plant watering</h3>
         <img class="middle-image" src="https://res-console.cloudinary.com/dpm5evsuo/thumbnails/v1/image/upload/v1733422625/d2F0ZXJpbmdjYXJlX3RiYXowNA==/drilldown" />
     </div>
     <div class="bottom-description">
         
         <img class="bottom-image" src="https://res-console.cloudinary.com/dpm5evsuo/thumbnails/v1/image/upload/v1733422625/d2F0ZXJpbmdjYXJlX3RiYXowNA==/drilldown" />
-        <div class="part3">ask ai anything about plant care</div>
+        <h4 class="part3">ask ai anything about plant care</h4>
         <p>Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds.</p>
     </div>
 
@@ -103,6 +103,7 @@
         margin-right: 50px;
         width: 500px;
         height: 500px;
+        margin-bottom: 50px;
     
     }
     .top-description {
@@ -121,6 +122,7 @@
         display: flex;
         flex-direction: row;
         align-items: center;
+    
     }
     
   </style>
