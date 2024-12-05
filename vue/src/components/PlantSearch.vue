@@ -6,13 +6,16 @@
         </div>
         <div class="row" id="search-row">
             <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
-                
+                v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
+                v-for="(plant,index) in filteredPlants" v-bind:key="index"
             >
                 <div class="button-container">
-                    <button class="add-plant-button" 
+                    <transition name="fade">
+                        <button class="add-plant-button" 
+                            v-if="hoveredCard === index" 
                             v-show="$store.state.token != ''"
                             v-on:click.prevent="savePlant(plant)">Add to Garden
-                    </button>
+                        </button>
                 </div>
 
                 <div id="plant-image-container">
@@ -120,8 +123,8 @@ export default {
     margin: 15px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    overflow: hidden;
+    justify-content: center;  
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 .card-text {
     display: flex;
@@ -142,18 +145,23 @@ export default {
 }
 
 .plant-image {
+    position: relative;
     display:block;
-    /* margin-left: auto;
-    margin-right: auto; */
     padding-top: 0px;
     width: 100%;
     height:auto;
-    object-fit: cover;
+    
+}
+.card:hover {
+    transform: scale(1.05); /* Slightly grows the card */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Adds a shadow for depth */
+}
+.card:hover .add-plant-button {
+    opacity: 1;
 }
 .button-container {
     display:flex;
-    justify-content: center;
-    
+    justify-content: center;  
 }
 .add-plant-button {
     position: absolute;
@@ -168,15 +176,10 @@ export default {
     align-items: center;
     cursor: pointer;
     font-size: 1rem;
-
-    transform: translateX(-50%);
+    z-index: 10;
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
     
-}
-.card:hover .add-plant-button {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
 }
 
 .custom-divs>.p-2 {
