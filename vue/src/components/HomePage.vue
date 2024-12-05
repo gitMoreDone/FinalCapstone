@@ -21,7 +21,7 @@
         
         <img class="top-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733431907/mustache-guy-holding-basket_1_vc7mno.jpg" />
         <div class="description1">
-          <h2 class="part1">Find your favorite garden plant to grow on our search page.</h2>
+          <h2 class="part1">Find Your Favorite Garden Plant To Grow On Our Search Page</h2>
           <p>Explore our vast selection of delicious veggies, fruits, and hardy herbs - find the perfect addition to your green space, tailored to your local climate and gardening style</p>
         </div>
     </div>
@@ -36,7 +36,7 @@
         
         <img class="bottom-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
         <div class="description3">
-          <h2 class="part3">ask ai anything about plant care</h2>
+          <h2 class="part3">Our AI Assistant Will Help You Care For Your Plants</h2>
           <p>Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds.</p>
         </div>
     </div>
@@ -166,6 +166,7 @@
       align-items: center;     
       gap: 10px;               
       background-color: rgba(244, 244, 244, 0.5);
+      margin-right: 25px;
     }
     .middle-description {
         display: flex;
@@ -181,7 +182,7 @@
       border-radius: 15px;      
       align-items: center;     
       gap: 10px;               
-      background-color: rgba(244, 244, 244, 0.5);
+      background-color: rgba(244, 244, 244, 0.4);
       margin-right: 7%;
     }
 
@@ -194,7 +195,13 @@
     .description3 {
       display: flex;
       flex-direction: column;
-      align-items: center;
+      padding: 40px 60px;
+      /* border: 2px solid #333;   */
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(244, 244, 244, 0.4);
+      margin-right: 25px;
     }
     
   </style>
