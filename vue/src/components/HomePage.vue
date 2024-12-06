@@ -3,15 +3,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Bungee&family=Knewave&family=Slackey&display=swap" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Bungee&family=Fredericka+the+Great&family=Knewave&family=Slackey&display=swap" rel="stylesheet"> -->
 
 </head>
+
 
     <div class="home">
       <div class="headings">
                 <div class="box-container">
                   <h3 id="welcome">Welcome To Your Own Virtual Garden </h3>
-                <!-- <router-link class="button button1" v-bind:to="{ name: 'plantSearch' }">Grow Your Favorite Produce</router-link> -->
-                    <div class="fake-link"> <a href="">Register to create your garden</a></div>
+                <router-link class="button button1" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
+                <router-link class="button button1" v-bind:to="{ name: 'garden' }" v-if="$store.state.token != ''">Take Me To My Garden</router-link>
+                    <div class="fake-link"> <a href="" v-if="$store.state.token == ''">Register to create your garden </a></div>
                 </div>
 
         </div>
@@ -22,13 +25,13 @@
         <img class="top-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733431907/mustache-guy-holding-basket_1_vc7mno.jpg" />
         <div class="description1">
           <h2 class="part1">Find Your Favorite Garden Plant To Grow On Our Search Page</h2>
-          <p>Explore our vast selection of delicious veggies, fruits, and hardy herbs - find the perfect addition to your green space, tailored to your local climate and gardening style</p>
+          <p class="text-description">Explore our vast selection of veggies, fruits, and hardy herbs - find the perfect addition to your green space, tailored to your local climate and gardening style</p>
         </div>
     </div>
     <div class="middle-description">
         <div class="description2">
-          <h2 class="part2">set reminders for plant watering</h2>
-          <p>PLACEHOLDER TEXT</p>
+          <h2 class="part2">Designed for Every Screen, Big or Small</h2>
+          <p class="text-description">Our website adapts seamlessly to any device you use. Whether you're browsing on a phone, tablet, or desktop, you'll enjoy a sleek and intuitive experience tailored just for you. Stay connected wherever life takes you!</p>
         </div>
         <img class="middle-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/v1733422625/wateringcare_tbaz04.jpg" />
     </div>
@@ -37,7 +40,7 @@
         <img class="bottom-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
         <div class="description3">
           <h2 class="part3">Our AI Assistant Will Help You Care For Your Plants</h2>
-          <p>Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds.</p>
+          <p class="text-description">Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds</p>
         </div>
     </div>
 
@@ -77,10 +80,11 @@
 
     #welcome {
       font-family: "Bungee", sans-serif;
-      font-weight: 400;
+      /* font-family: "Fredericka the Great", serif; */
+      font-weight: 300;
       font-style: normal;
       font-size: 40px;
-      color: rgb(133, 97, 0);
+      color: rgb(102, 75, 1);
     }
     /* .button {
       background-color: aliceblue;
@@ -150,6 +154,11 @@
         margin-bottom: 50px;
     
     }
+
+    .text-description {
+      text-align: center;
+      font-size: 20px;
+    }
     .top-description {
         display: flex;
         flex-direction: row;
@@ -183,7 +192,7 @@
       align-items: center;     
       gap: 10px;               
       background-color: rgba(244, 244, 244, 0.4);
-      margin-right: 7%;
+      margin-left: 25px;
     }
 
     .bottom-description {
