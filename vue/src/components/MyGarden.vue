@@ -34,7 +34,7 @@
             <p><strong>Scientific Name:</strong> {{ selectedPlant.scientificName }}</p>
             <p><strong>Plant Type:</strong> {{ selectedPlant.plantType }}</p>
             <p>{{ selectedPlant.plantDescription }}</p>
-            <a v-on:click="pushToDetailPage">Plant Details</a>
+            <a href="#" v-on:click="pushToDetailPage">Plant Details</a>
           </div>
         </div>
       </div>
@@ -92,11 +92,6 @@ export default {
       this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plantId } })
     },
     toggleDropdown() {
-      const closeListerner = (e) => {
-      if ( this.catchOutsideClick(e, this.$refs.menu ) )
-        window.removeEventListener('click', closeListerner) , this.isOpen = false
-      }
-      window.addEventListener('click', closeListerner)
       this.dropdownVisible = !this.dropdownVisible;
     }
   },
@@ -110,6 +105,15 @@ export default {
 </script>
 
 <style scoped>
+
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+
+.shrikhand-regular {
+  font-family: "Shrikhand", serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -124,7 +128,7 @@ export default {
   display: flex;
   flex: 3;
   max-width: 70%;
-  background-color: #f9f9f9;
+  background-color: #CADABF;
   border: 1px solid #ccc;
   border-radius: 8px;
   overflow: hidden;
@@ -134,7 +138,7 @@ export default {
   display: flex;
   flex-direction: column;
   width: 25%;
-  background-color: #f0f0f0;
+  background-color: #bfd0b4;
   border-right: 1px solid #ccc;
   padding: 10px;
 }
@@ -167,6 +171,7 @@ export default {
 .plant-tab-name {
   font-size: 14px;
   font-weight: 500;
+
 }
 
 .details-container {
@@ -209,6 +214,7 @@ export default {
 .detail-info h3 {
   margin-bottom: 10px;
   font-size: 24px;
+  font-family: "Shrikhand", serif;
 }
 
 .detail-info p {
@@ -242,7 +248,7 @@ export default {
   color: #EDEEC9;
   background-color: #679436;
   width: 140px;
-  height: 80px;
+  height: 60px;
 }
 
 .search-plants:hover{
@@ -298,6 +304,4 @@ export default {
 .dropdown-option:hover {
   text-decoration: underline;
 }
-
-
 </style>

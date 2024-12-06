@@ -51,6 +51,9 @@
                 </div>
             </div>
             <div v-show="activeTab === 'zone'" class="tab-content zone-map active" id="zone">
+                <div class="hardiness-zone">
+                    <strong>{{ currentPlant.plantName }}: {{ currentPlant.plantZone }}</strong>
+                </div>
                 <div class="zone-map-container">
                     <img class="map-image" v-bind:src="zoneMap">
                 </div>
@@ -74,7 +77,7 @@ export default {
         return {
             currentPlant: {},
             mainImage: '',
-            zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733324616/2023_vv17fy.webp',
+            zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733505704/zone_map_lswoek_c_pad_ar_1_1_b7mu4a.webp',
             thumbnails: [],
             activeTab: 'details'
         };
@@ -114,12 +117,11 @@ export default {
 </script>
 
 <style scoped>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
+.hardiness-zone{
+    display: flex;
+    justify-content: center;
+}
 .zone-map-container {
     display: flex;
     justify-content: center;
@@ -127,13 +129,13 @@ export default {
     width: auto;
     height: 60vh;
     overflow: hidden;
+    padding-bottom: 30px;
 }
 
 .map-image {
     max-width: 100%;
     height: auto;
     object-fit: contain;
-
 }
 
 .plant-care {
