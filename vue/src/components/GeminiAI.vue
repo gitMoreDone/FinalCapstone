@@ -38,13 +38,11 @@ const fullAnswer = ref('')
 const displayAnswer = ref('') 
 const isLoading = ref(false)
 const questionPreface = `
-  You will be asked a question. Answer it only if it pertains to plants. If it doesn't please respond with 
-  "I'm Sorry, I can only give you information on plant details or care. Feel free to ask me about any plants."
+  You will be asked a question. Answer it only if it pertains to plants. If it doesn't please respond with in a way relevant to the question they asked.
    Return the response to the question in HTML format using the following template, using none or any amount of list items:
   <h4>Example Title</h4>
   <span>Example Introduction</span>
   <span>Example Explanation</span>
-  <strong>Topic Heading</strong>
   <ul>
     <li>Example 1</li>
     <li>Example 2</li>
