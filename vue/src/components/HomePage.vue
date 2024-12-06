@@ -33,7 +33,7 @@
           <h2 class="part2">Designed for Every Screen, Big or Small</h2>
           <p class="text-description">Our website adapts seamlessly to any device you use. Whether you're browsing on a phone, tablet, or desktop, you'll enjoy a sleek and intuitive experience tailored just for you. Stay connected wherever life takes you!</p>
         </div>
-        <img class="middle-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/v1733422625/wateringcare_tbaz04.jpg" />
+        <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733519031/c3b0bb74527e25a23d5007dd19e1b46de9ef22581c2a6d3a68a5666135ff7e4f_fjklln.png" />
     </div>
     <div class="bottom-description">
         
@@ -125,6 +125,7 @@
         margin-right: 50px;
         width: 500px;
         height: 500px;
+        
     }
     .middle-image {
         
@@ -162,11 +163,13 @@
     .text-description {
       text-align: center;
       font-size: 25px;
+      
     }
     .top-description {
         display: flex;
         flex-direction: row;
         align-items: center;
+        
     }
 
     .description1 {
@@ -180,6 +183,8 @@
       gap: 10px;               
       background-color: rgba(138, 138, 138, 0.26);
       margin-right: 25px;
+      backdrop-filter: blur(5px);
+        box-shadow: inset 0px 0px 10px #000;
     }
     .middle-description {
         display: flex;
@@ -197,6 +202,8 @@
       gap: 10px;               
       background-color: rgba(138, 138, 138, 0.26);
       margin-left: 25px;
+      backdrop-filter: blur(5px);
+        box-shadow: inset 0px 0px 10px #000;
     }
 
     .bottom-description {
@@ -215,6 +222,8 @@
       gap: 10px;               
       background-color: rgba(138, 138, 138, 0.26);
       margin-right: 25px;
+      backdrop-filter: blur(5px);
+        box-shadow: inset 0px 0px 10px #000;
     }
     
   </style>

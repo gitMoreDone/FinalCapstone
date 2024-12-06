@@ -24,8 +24,9 @@ export default {
                 this.plants=plantArray;
                 
             })
-            .catch (() => {
-                this.$router.push({ name: 'notFound' });
+            .catch ((error) => {
+                console.error("Error Fetching Plants", error);
+                // this.$router.push({ name: 'notFound' });
             } )
 
         }
