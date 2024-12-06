@@ -12,9 +12,9 @@
     </div>
     <div class="collapse navbar-collapse lexend-header-font" id="navbarNavAltMarkup">
                 <div id="navbar-nav">
-                <router-link class="routelink" v-bind:to="{ name: 'home' }">Home</router-link> |
-                <router-link class="routelink" v-bind:to="{ name: 'plantSearch' }">Search</router-link> |
-                <router-link class="routelink" v-bind:to="{ name: 'garden'}" v-if="$store.state.token != ''">Garden</router-link> <span v-if="$store.state.token != ''">| </span>
+                <router-link class="routelink" v-bind:to="{ name: 'home' }">Home</router-link> 
+                <router-link class="routelink" v-bind:to="{ name: 'plantSearch' }">Search</router-link> 
+                <router-link class="routelink" v-bind:to="{ name: 'garden'}" v-if="$store.state.token != ''">Garden</router-link><span v-if="$store.state.token != ''"></span>
                 <router-link class="routelink" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link> 
                 <router-link class="routelink" v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link>
                 </div>
@@ -32,7 +32,8 @@
 .routelink{
     color: white;
     text-decoration: none;
-    margin: 5px;;
+    margin-right: 30px
+
     
     
 }
@@ -52,7 +53,7 @@
 .lexend-header-font {
   font-family: "Lexend", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 300;
+  font-weight: 500;
   font-style: normal;
 }
 </style>
