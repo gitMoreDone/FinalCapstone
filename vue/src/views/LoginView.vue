@@ -1,4 +1,5 @@
 <template>
+  <div class="login-container">
   <div id="login">
     <form v-on:submit.prevent="login">
       <h1 >Please Sign In</h1>
@@ -16,10 +17,11 @@
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
-      <button type="submit">Sign in</button>
+      <button class="submit" type="submit">Sign in</button>
       <p>
-      <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
+      <router-link class="link" v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link></p>
     </form>
+  </div>
   </div>
 </template>
 
@@ -61,10 +63,65 @@ export default {
 </script>
 
 <style scoped>
+
+
 .form-input-group {
   margin-bottom: 1rem;
+  font-size: 50;
+    
 }
 label {
   margin-right: 0.5rem;
+}
+
+.login-container {
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 81vh;
+  opacity: 70%;
+  background-color:white;
+  background-position: center;
+  backdrop-filter: blur(5px);
+  box-shadow: inset 0px 0px 10px #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  
+}
+#login{
+  display: inline-flex;
+      flex-direction: column;
+      padding: 40px 60px;
+      border: 2px solid #333;  
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(244, 244, 244, 0.5); 
+}
+
+.submit{
+  margin-top: 50px;
+    width: 100%;
+    background-color: #ffffff;
+    color: #080710;
+    padding: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.link:hover{
+  color: green;
+  text-decoration: underline;
+}
+.link{
+  color: black;
+}
+#username.form-input-group{
+ 
+    margin-left: .5rem;
+    margin-top: 1rem;
 }
 </style>
