@@ -33,7 +33,7 @@ const props = defineProps({
     required: true,
   }
 });
-const question = computed(() => `How do I care for my ${props.plant?.plantName}?`)
+const question = computed(() => `How do I care for my ${props.plant.plantName}?`)
 const fullAnswer = ref('') 
 const displayAnswer = ref('') 
 const isLoading = ref(false)

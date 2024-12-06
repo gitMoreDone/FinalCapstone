@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="searchBar-container">
-            <input name="search-filter" class="searchBar" type="text" v-model="searchFilter"
+            <input name="search-filter" class="searchBar lexend-header-font" type="text" v-model="searchFilter"
                 placeholder="Search Plants" 
             />
             <div 
@@ -15,7 +15,7 @@
             </div>
         </div>
         <transition name="fade">
-                        <div v-if="showAddedPopup" class="popup-message">
+                        <div v-if="showAddedPopup" class="popup-message lexend-header-font">
                             Garden Updated
                         </div>
                     </transition>
@@ -26,7 +26,7 @@
             >
                 <div class="button-container">
                     <transition name="fade">
-                        <button class="add-plant-button" 
+                        <button class="add-plant-button lexend-header-font" 
                             v-if="hoveredCard === index" 
                             v-show="$store.state.token != ''"
                             v-on:click.prevent="savePlant(plant)">Add to Garden
@@ -38,7 +38,7 @@
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
                 <div class="card-text">
-                    <router-link class="plant-name"
+                    <router-link class="plant-name lexend-header-font"
                         v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
                         }}</router-link>
                     <img class="plant-type-icon" v-bind:src="getPlantTypeIcon(plant.plantType)" />                
@@ -280,5 +280,11 @@ fade-enter-active, .fade-leave-active {
         width: 100%;
         /* One per row on very small screens */
     }
+}
+.lexend-header-font {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 </style>

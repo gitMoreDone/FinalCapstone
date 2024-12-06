@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer ">
+    <footer class="footer lexend-header-font">
       <div class="container">
         <p class="copyright">Copyright &copy; {{ new Date().getFullYear() }} Sprout</p>
         <img class="logo" src="https://res.cloudinary.com/dwdijh29x/image/upload/v1733323940/sprout-icon-light_wvq61u.png" />
@@ -36,6 +36,12 @@
 .footer {
   padding: 10px;
   background-color: #679436;
+}
+.lexend-header-font {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 
 </style>

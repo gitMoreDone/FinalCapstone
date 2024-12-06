@@ -46,7 +46,7 @@
     </div>
  
     <div class="right-container">
-      <GeminiAI class="chat-bot" v-bind:plant="selectedPlant"/>
+      <GeminiAI class="chat-bot" v-bind:plant="propPlant"/>
     </div>
   </div>
 </template>
@@ -59,7 +59,8 @@ export default {
   data() {
     return {
       savedPlants: [],
-      selectedPlant: { "plantName": " plant"},
+      selectedPlant: null,
+      propPlant: {'plantName': 'plant'},
       dropdownVisible: false
     };
   },
@@ -72,6 +73,7 @@ export default {
           this.selectedPlant = this.savedPlants[0];
         }
       });
+      this.propPlant=this.selectedPlant;
     },
     selectPlant(plant) {
       this.selectedPlant = plant;
@@ -90,11 +92,6 @@ export default {
       this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plantId } })
     },
     toggleDropdown() {
-      const closeListerner = (e) => {
-      if ( this.catchOutsideClick(e, this.$refs.menu ) )
-        window.removeEventListener('click', closeListerner) , this.isOpen = false
-      }
-      window.addEventListener('click', closeListerner)
       this.dropdownVisible = !this.dropdownVisible;
     }
   },
