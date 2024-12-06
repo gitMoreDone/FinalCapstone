@@ -1,5 +1,5 @@
 <template>
-<nav class="navbar navbar-expand-lg navbar-dark bg-success bg-gradient">
+<nav class="navbar navbar-expand-lg navbar-dark">
   <div class="container-fluid">
 
     <a class="navbar-brand" id="brand">
@@ -40,6 +40,9 @@
 
 #navbar-nav{
     margin-right: 40px;
+}
+.header {
+  background-color: #679436;
 }
 
 </style>

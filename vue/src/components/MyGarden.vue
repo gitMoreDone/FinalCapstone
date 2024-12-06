@@ -42,7 +42,7 @@
   
       
       <div class="right-container">
-        <GeminiAI class="chat-bot" />
+        <GeminiAI class="chat-bot" plant="{{selectedPlant}}"/>
       </div>
     </div>
   </template>

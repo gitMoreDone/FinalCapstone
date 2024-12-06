@@ -1,5 +1,5 @@
 <template>
-    <footer class="footer bg-success bg-gradient">
+    <footer class="footer ">
       <div class="container">
         <p class="copyright">Copyright &copy; {{ new Date().getFullYear() }} Sprout</p>
         <img class="logo" src="https://res.cloudinary.com/dwdijh29x/image/upload/v1733323940/sprout-icon-light_wvq61u.png" />
@@ -32,6 +32,10 @@
   text-decoration: none;
   justify-content: end;
   font-size: large;
+}
+.footer {
+  padding: 10px;
+  background-color: #679436;
 }
 
 </style>

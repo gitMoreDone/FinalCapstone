@@ -14,6 +14,11 @@
             <img :src="icon.src" :alt="icon.type" />
             </div>
         </div>
+        <transition name="fade">
+                        <div v-if="showAddedPopup" class="popup-message">
+                            Garden Updated
+                        </div>
+                    </transition>
         <div class="row" id="search-row">
             <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
                 v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
@@ -57,8 +62,7 @@ export default {
         return {
             searchFilter: '',
             hoveredCard: null,
-            // currentPlantType: '',
-
+            showAddedPopup: false,
             selectedIcon: null,
             icons: [
                 { type: "Vegetable", src: "/public/vegetable_icon.png" },
@@ -70,6 +74,13 @@ export default {
     methods: {
         savePlant(plant) {
             PlantService.addPlant(plant);
+            this.showPopupMessage();
+        },
+        showPopupMessage() {
+            this.showAddedPopup = true;
+            setTimeout(() => {
+            this.showAddedPopup = false;
+            }, 1500);
         },
         showButton(index) {
             this.hoveredCard = index;
@@ -132,6 +143,7 @@ export default {
     align-items: center;
     width: 100%;
     height: 6vh;
+    margin-top: 10px;
     padding: 0 20px;
     box-sizing: border-box;
 
@@ -231,6 +243,27 @@ export default {
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
     
+}
+.popup-message {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f08A4B;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 300;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0.9;
+}
+fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
 }
 .custom-divs>.p-2 {
     width: 30%;

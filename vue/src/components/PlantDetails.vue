@@ -103,7 +103,7 @@ export default {
             PlantService.addPlant(this.currentPlant);
         },
         goBack(){
-        this.$router.push({name: "plantSearch"})
+        this.$router.go(-1);
         } 
     },
     created(){
@@ -158,8 +158,6 @@ export default {
     text-align: center;
     align-items: center;
 }
-
-
 .container {
     display: flex;
     justify-content: space-between;
@@ -278,7 +276,7 @@ export default {
     width: 10vw;
     justify-content:end;
     align-items: flex-start;
-    margin-right: 5px;
+    
     line-height: 0;
 }
 .add-button-container {
@@ -286,17 +284,19 @@ export default {
     width: 10vw;
     justify-content:left;
     align-items: flex-start;
-    margin-right: 5px;
+    
     line-height: 0;
 }
 .back-button {
     vertical-align: middle;
     display: inline-block;
     cursor:pointer;
+    margin-right: 5px;
 }
 .add-button {
     vertical-align: middle;
     display: inline-block;
+    margin-left: 5px;
     cursor:pointer;
 }
 </style>

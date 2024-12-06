@@ -1,5 +1,5 @@
 <template>
-  <div id="login">
+  <div id="login-container">
     <form v-on:submit.prevent="login">
       <h1 >Please Sign In</h1>
       <div role="alert" v-if="invalidCredentials">
@@ -66,5 +66,10 @@ export default {
 }
 label {
   margin-right: 0.5rem;
+}
+#login-container {
+  height:auto;
+  max-height: 84.5vh
+
 }
 </style>

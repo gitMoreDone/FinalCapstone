@@ -4,7 +4,7 @@
   <form class="mb-5 question-form" @submit.prevent="fetchAnswer">
     <div class="question-box">
       <textarea 
-        placeholder="How do I harvest my broccoli?" 
+        placeholder="How do I harvest my {{plant.plantName}}?" 
         name="question" 
         id="question" 
         cols="30" 
@@ -26,7 +26,14 @@
 <script setup>
 import { ref } from 'vue'
 import { useGetGenerativeModelGP } from '../composables/userGetGenerativeModelGP'
+import { defineProps } from 'vue';
 
+const props = defineProps({
+  plant: {
+    type: Object,
+    required: true,
+  }
+});
 const question = ref('How do I care for my broccoli?')
 const fullAnswer = ref('') 
 const displayAnswer = ref('') 
@@ -106,7 +113,7 @@ textarea {
 .submit-button {
   padding: 10px 20px;
   border: none;
-  background-color: #4CAF50;
+  background-color: #679436;
   color: white;
   font-size: 16px;
   border-radius: 5px;
