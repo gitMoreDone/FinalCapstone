@@ -5,22 +5,25 @@
                 placeholder="Search Plants" 
             />
             <div 
-                v-for="(icon, index) in icons" 
+                v-for="(icon,index) in icons" 
                 v-bind:key="index" 
                 class="filter-icon"
                 v-bind:class="{ active: selectedIcon === icon.type }"
                 v-on:click="filterIcon(icon.type)"
-                v-on:mouseover="showTooltip(index, icon.type)"
-                v-on:mouseleave="hideTooltip"
+                v-on:mouseover="showIconAlt(icon.type)"
+                v-on:mouseleave="hideIconAlt"
             >
-                <img :src="icon.src" :alt="icon.type" />
+                <img v-bind:src="icon.src" v-bind:alt="icon.type" />
+            
+                <div 
+                    v-if="iconAlt === index && showIconAlt" 
+                    class="iconAlt"
+                > 
+                    {{ getIconAlt(icon.type) }} 
+                </div>
+        
+        
             </div>
-            <div 
-                v-if="iconAlt === index && showIconAlt" 
-                class="iconAlt"
-            >
-        {{ getTooltipText(icon.type) }}
-    </div>
         </div>
         <transition name="fade">
                         <div v-if="showAddedPopup" class="popup-message lexend-header-font">
@@ -118,7 +121,8 @@ export default {
             if(type === "Fruit") return "Filter by Fruit";
             if(type === "Herbs") return "Filter by Herbs";
         },
-        showIconAlt(index, type){
+        // eslint-disable-next-line vue/no-dupe-keys
+        showIconAlt(index){
             this.iconAltTimer = setTimeout(() => {
                 this.iconAlt = index;
                 this.showIconAlt = true;
@@ -214,7 +218,7 @@ export default {
     border-radius: 5px;
     font-size: 14px;
     white-space: nowrap;
-    z-index: 100;
+    z-index: 200;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .searchBar-container img {
