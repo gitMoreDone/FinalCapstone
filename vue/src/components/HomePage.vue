@@ -147,7 +147,7 @@ export default {
         height: 500px;
         
     }
-    .middle-image {
+    .bottom-image {
         
         border-radius: 30px;
         margin-left: 50px;
@@ -155,6 +155,7 @@ export default {
         margin-right: 50px;
         width: 500px;
         height: 500px;
+        margin-bottom: 40px;
     
     }
     a {
