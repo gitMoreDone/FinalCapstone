@@ -39,16 +39,14 @@
         </div>
       </div>
 
-
       <div v-else class="details-container empty-garden">
         <p>Select a plant to view its details.</p>
         <button class="search-plants" v-if="savedPlants.length === 0" v-on:click="pushToSearch">Find a Plant</button>
       </div>
     </div>
-
-    
+ 
     <div class="right-container">
-      <GeminiAI class="chat-bot" />
+      <GeminiAI class="chat-bot" v-bind:plant="selectedPlant"/>
     </div>
   </div>
 </template>
@@ -61,7 +59,7 @@ export default {
   data() {
     return {
       savedPlants: [],
-      selectedPlant: null,
+      selectedPlant: { "plantName": " plant"},
       dropdownVisible: false
     };
   },
@@ -95,6 +93,7 @@ export default {
       this.dropdownVisible = !this.dropdownVisible;
     }
   },
+  
   mounted() {
     this.getSavedPlants();
   },
