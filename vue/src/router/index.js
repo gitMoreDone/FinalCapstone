@@ -23,7 +23,7 @@ import NotFoundView from '../views/NotFoundView.vue';
  */
 const routes = [
   {
-    path: '/home',
+    path: '/',
     name: 'home',
     component: HomePageView,
     meta: {
@@ -31,7 +31,7 @@ const routes = [
     }
   },
   {
-    path: '/',
+    path: '/search',
     name: 'plantSearch',
     component: PlantSearchView,
     meta: {

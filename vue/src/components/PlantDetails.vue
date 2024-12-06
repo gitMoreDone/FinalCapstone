@@ -1,6 +1,11 @@
 <template>
-
     <div class="container">
+        <div class="back-button-container">
+            <i class="back-button bi bi-arrow-left-square-fill" 
+                style="font-size: 3rem; color: #679436;" 
+                v-on:click="goBack()"
+                ></i>
+        </div>
         <div class="left-container">
             <div class="main-image">
                 <img id="mainImage" v-bind:src="mainImage" alt="Main Image">
@@ -21,7 +26,6 @@
                 <button class="tab-button" :class="{ active: activeTab === 'zone' }" v-on:click="changeTab('zone')">Zone
                     Map</button>
             </div>
-
             <div v-show="activeTab === 'details'" class="tab-content details-content active" id="details">
                 <div class="plant-details">
                     <h3>{{ currentPlant.plantName }}</h3>
@@ -51,6 +55,12 @@
                     <img class="map-image" v-bind:src="zoneMap">
                 </div>
             </div>
+        </div>
+        <div class="add-button-container">
+            <i class="add-button bi bi-plus-square-fill" 
+                style="font-size: 3rem; color: #679436;" 
+                v-on:click="savePlant()"
+                ></i>
         </div>
     </div>
 </template>
@@ -89,7 +99,12 @@ export default {
                 this.$router.push({ name: 'notFound' });
             } )
         },
-        
+        savePlant() {
+            PlantService.addPlant(this.currentPlant);
+        },
+        goBack(){
+        this.$router.push({name: "plantSearch"})
+        } 
     },
     created(){
         this.getPlant(this.$route.params.id);  
@@ -151,9 +166,9 @@ export default {
     padding: 20px;
     align-items: stretch;
     min-height: 84.8vh;
+    max-width: 100vw;
 
 }
-
 .left-container {
     display: flex;
     flex-direction: column;
@@ -162,14 +177,12 @@ export default {
     width: 33%;
     min-height: 65vh;
 }
-
 .main-image img {
     width: 100%;
     max-height: 300px;
     object-fit: cover;
     flex-shrink: 0;
 }
-
 .thumbnails {
     display: flex;
     justify-content: center;
@@ -259,5 +272,31 @@ export default {
 .care-content p {
     font-size: 16px;
     line-height: 1.5;
+}
+.back-button-container {
+    display: flex;
+    width: 10vw;
+    justify-content:end;
+    align-items: flex-start;
+    margin-right: 5px;
+    line-height: 0;
+}
+.add-button-container {
+    display: flex;
+    width: 10vw;
+    justify-content:left;
+    align-items: flex-start;
+    margin-right: 5px;
+    line-height: 0;
+}
+.back-button {
+    vertical-align: middle;
+    display: inline-block;
+    cursor:pointer;
+}
+.add-button {
+    vertical-align: middle;
+    display: inline-block;
+    cursor:pointer;
 }
 </style>
