@@ -36,13 +36,11 @@
             phone, tablet, or desktop, you'll enjoy a sleek and intuitive experience tailored just for you. Stay
             connected wherever life takes you!</p>
         </div>
-        <img class="middle-image"
-          src="https://res.cloudinary.com/dpm5evsuo/image/upload/v1733422625/wateringcare_tbaz04.jpg" />
-      </div>
-      <div class="bottom-description">
-
-        <img class="bottom-image"
-          src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
+        <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733519031/c3b0bb74527e25a23d5007dd19e1b46de9ef22581c2a6d3a68a5666135ff7e4f_fjklln.png" />
+    </div>
+    <div class="bottom-description">
+        
+        <img class="bottom-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
         <div class="description3">
           <h2 class="part3">Our AI Assistant Will Help You Care For Your Plants</h2>
           <p class="text-description">Gone are the days of sifting through pages of internet searches to find answers to
@@ -140,88 +138,100 @@ export default {
 
 }
 
-a {
-  font-weight: bold;
-  color: rgb(0, 83, 0);
-  /* color: #679436 */
-}
+    .top-image {
+        border-radius: 30px;
+        margin-left: 50px;
+        margin-top: 40px;
+        margin-right: 50px;
+        width: 500px;
+        height: 500px;
+        
+    }
+    .middle-image {
+        
+        border-radius: 30px;
+        margin-left: 50px;
+        margin-top: 40px;
+        margin-right: 50px;
+        width: 500px;
+        height: 500px;
+    
+    }
+    a {
+        font-weight: bold;
+        color: rgb(0, 83, 0);
+        /* color: #679436 */
+    }
 
 a:hover {
 
   color: green;
 }
 
-.bottom-image {
+    .text-description {
+      text-align: center;
+      font-size: 25px;
+      
+    }
+    .top-description {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        
+    }
 
-  border-radius: 30px;
-  margin-left: 50px;
-  margin-top: 40px;
-  margin-right: 50px;
-  width: 500px;
-  height: 500px;
-  margin-bottom: 50px;
+    .description1 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 60px;
+      /* border: 2px solid #333;   */
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(138, 138, 138, 0.26);
+      margin-right: 25px;
+      backdrop-filter: blur(5px);
+        box-shadow: inset 0px 0px 10px #000;
+    }
+    .middle-description {
+        display: flex;
+        justify-content: right;
+        flex-direction: row;
+        align-items: center;
+    }
+    .description2 {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 60px;
+      /* border: 2px solid #333;   */
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(138, 138, 138, 0.26);
+      margin-left: 25px;
+      backdrop-filter: blur(5px);
+        box-shadow: inset 0px 0px 10px #000;
+    }
 
-}
-
-.text-description {
-  text-align: center;
-  font-size: 25px;
-}
-
-.top-description {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-
-.description1 {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 40px 60px;
-  /* border: 2px solid #333;   */
-  border-radius: 15px;
-  align-items: center;
-  gap: 10px;
-  background-color: rgba(138, 138, 138, 0.26);
-  margin-right: 25px;
-}
-
-.middle-description {
-  display: flex;
-  justify-content: right;
-  flex-direction: row;
-  align-items: center;
-}
-
-.description2 {
-  display: flex;
-  flex-direction: column;
-  padding: 40px 60px;
-  /* border: 2px solid #333;   */
-  border-radius: 15px;
-  align-items: center;
-  gap: 10px;
-  background-color: rgba(138, 138, 138, 0.26);
-  margin-left: 25px;
-}
-
-.bottom-description {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-
-}
-
-.description3 {
-  display: flex;
-  flex-direction: column;
-  padding: 40px 60px;
-  /* border: 2px solid #333;   */
-  border-radius: 15px;
-  align-items: center;
-  gap: 10px;
-  background-color: rgba(138, 138, 138, 0.26);
-  margin-right: 25px;
-}
-</style>
+    .bottom-description {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    
+    }
+    .description3 {
+      display: flex;
+      flex-direction: column;
+      padding: 40px 60px;
+      /* border: 2px solid #333;   */
+      border-radius: 15px;      
+      align-items: center;     
+      gap: 10px;               
+      background-color: rgba(138, 138, 138, 0.26);
+      margin-right: 25px;
+      backdrop-filter: blur(5px);
+        box-shadow: inset 0px 0px 10px #000;
+    }
+    
+  </style>

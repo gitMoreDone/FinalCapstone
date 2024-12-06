@@ -39,7 +39,7 @@
             <p><strong>Scientific Name:</strong> {{ selectedPlant.scientificName }}</p>
             <p><strong>Plant Type:</strong> {{ selectedPlant.plantType }}</p>
             <p>{{ selectedPlant.plantDescription }}</p>
-            <a href="#" v-on:click="pushToDetailPage">Plant Details</a>
+            <a v-on:click="pushToDetailPage">Plant Details</a>
           </div>
         </div>
       </div>
@@ -51,7 +51,7 @@
     </div>
  
     <div class="right-container">
-      <GeminiAI class="chat-bot" v-bind:plant="propPlant"/>
+      <GeminiAI class="chat-bot" v-bind:plant="selectedPlant"/>
     </div>
   </div>
 </template>
@@ -78,7 +78,11 @@ export default {
           this.selectedPlant = this.savedPlants[0];
           this.propPlant=this.selectedPlant;
         }
-      });
+      })
+      .catch ((error) => {
+                console.error("Error Fetching Saved Plants", error);
+                this.$router.push({ name: 'notFound' });
+            } )
     },
     selectPlant(plant) {
       this.selectedPlant = plant;
@@ -98,6 +102,11 @@ export default {
       this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plantId } })
     },
     toggleDropdown() {
+      const closeListerner = (e) => {
+      if ( this.catchOutsideClick(e, this.$refs.menu ) )
+        window.removeEventListener('click', closeListerner) , this.isOpen = false
+      }
+      window.addEventListener('click', closeListerner)
       this.dropdownVisible = !this.dropdownVisible;
     },
     goBack(){
@@ -182,7 +191,6 @@ export default {
 .plant-tab-name {
   font-size: 14px;
   font-weight: 500;
-
 }
 
 .details-container {
@@ -224,7 +232,7 @@ export default {
 
 .detail-info h3 {
   margin-bottom: 10px;
-  font-size: 24px; 
+  font-size: 24px;
 }
 
 .detail-info p {
@@ -258,7 +266,7 @@ export default {
   color: #EDEEC9;
   background-color: #679436;
   width: 140px;
-  height: 60px;
+  height: 80px;
 }
 
 .search-plants:hover{
