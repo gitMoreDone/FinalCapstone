@@ -1,5 +1,5 @@
 <template>
-  <h1 class="mb-5">Sprout AI</h1>
+  <h1 class="mb-5">Garden Helper</h1>
 
   <form class="mb-5 question-form" @submit.prevent="fetchAnswer">
     <div class="question-box">
@@ -32,7 +32,7 @@ const fullAnswer = ref('')
 const displayAnswer = ref('') 
 const isLoading = ref(false)
 const questionPreface = `
-  You will be asked a question. Return the response to the question in HTML format using the following template, using none or any amount of list items:
+  You will be asked a question. If the following questions isn't about gardening plants, please respond with "Sorry, I can only tell you about caring for plants. Ask a different question please." Return the response to the question in HTML format using the following template, using none or any amount of list items:
   <h4>Example Title</h4>
   <span>Example Introduction</span>
   <span>Example Explanation</span>
@@ -56,7 +56,7 @@ const typeAnswer = (text) => {
     } else {
       clearInterval(interval) 
     }
-  }, 50) 
+  }, 10) 
 }
 
 const fetchAnswer = async () => {
@@ -82,8 +82,7 @@ const fetchAnswer = async () => {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 20px;
-  width: 100%; 
+  width: 100%;
 }
 
 .question-box {
@@ -91,6 +90,7 @@ const fetchAnswer = async () => {
   align-content: center;
   width: 100%;
   max-width: 600px;
+  max-height: 100px;
   margin-bottom: 10px;
 }
 
@@ -101,6 +101,8 @@ textarea {
   border-radius: 5px;
   font-size: 16px;
   line-height: 1.5;
+  min-height: 50px;
+  max-height: 100px;
 }
 
 .submit-button {
