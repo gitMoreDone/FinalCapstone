@@ -84,7 +84,8 @@
       font-weight: 300;
       font-style: normal;
       font-size: 40px;
-      color: rgb(102, 75, 1);
+      /* color: rgb(102, 75, 1); */
+      color: #0D1C0F
     }
     /* .button {
       background-color: aliceblue;
@@ -110,7 +111,9 @@
     }
 
     .under-heading {
-      background-image: url(https://res.cloudinary.com/dbryvvjtl/image/upload/v1733437241/pexels-pixabay-235985_ftotys.jpg);
+      /* background-image: url(https://res.cloudinary.com/dbryvvjtl/image/upload/v1733437241/pexels-pixabay-235985_ftotys.jpg); */
+      backdrop-filter: blur(5px);
+      box-shadow: inset 0px 0px 10px #000;
 
     }
 
@@ -136,6 +139,7 @@
     a {
         font-weight: bold;
         color: rgb(0, 83, 0);
+        /* color: #679436 */
     }
 
     a:hover {
@@ -157,7 +161,7 @@
 
     .text-description {
       text-align: center;
-      font-size: 20px;
+      font-size: 25px;
     }
     .top-description {
         display: flex;
@@ -174,7 +178,7 @@
       border-radius: 15px;      
       align-items: center;     
       gap: 10px;               
-      background-color: rgba(244, 244, 244, 0.5);
+      background-color: rgba(138, 138, 138, 0.26);
       margin-right: 25px;
     }
     .middle-description {
@@ -191,7 +195,7 @@
       border-radius: 15px;      
       align-items: center;     
       gap: 10px;               
-      background-color: rgba(244, 244, 244, 0.4);
+      background-color: rgba(138, 138, 138, 0.26);
       margin-left: 25px;
     }
 
@@ -209,7 +213,7 @@
       border-radius: 15px;      
       align-items: center;     
       gap: 10px;               
-      background-color: rgba(244, 244, 244, 0.4);
+      background-color: rgba(138, 138, 138, 0.26);
       margin-right: 25px;
     }
     
