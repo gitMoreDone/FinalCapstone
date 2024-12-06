@@ -17,7 +17,7 @@
         </div>
 
         <div v-if="selectedPlant" class="details-container">
-          <button class="close-button" v-on:click="removePlant(selectedPlant.plantId)">×</button>
+          <button class="close-button" v-on:click="removePlant(selectedPlant.plantId)">...</button>
 
           <div class="detail-content">
             <div class="detail-image">
