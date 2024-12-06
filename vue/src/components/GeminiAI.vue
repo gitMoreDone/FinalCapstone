@@ -32,10 +32,13 @@ const fullAnswer = ref('')
 const displayAnswer = ref('') 
 const isLoading = ref(false)
 const questionPreface = `
-  You will be asked a question. If the following questions isn't about gardening plants, please respond with "Sorry, I can only tell you about caring for plants. Ask a different question please." Return the response to the question in HTML format using the following template, using none or any amount of list items:
+  You will be asked a question. Answer it only if it pertains to plants. If it doesn't please respond with 
+  "I'm Sorry, I can only give you information on plant details or care. Feel free to ask me about any plants."
+   Return the response to the question in HTML format using the following template, using none or any amount of list items:
   <h4>Example Title</h4>
   <span>Example Introduction</span>
   <span>Example Explanation</span>
+  <strong>Topic Heading</strong>
   <ul>
     <li>Example 1</li>
     <li>Example 2</li>
@@ -131,7 +134,6 @@ textarea {
   border: 1px solid #ccc;
   border-radius: 5px;
   overflow-y: auto;
-  background-color: #f9f9f9;
   margin-bottom: 20px;
 }
 
