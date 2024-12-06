@@ -22,13 +22,13 @@
         <img class="top-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733431907/mustache-guy-holding-basket_1_vc7mno.jpg" />
         <div class="description1">
           <h2 class="part1">Find Your Favorite Garden Plant To Grow On Our Search Page</h2>
-          <p>Explore our vast selection of delicious veggies, fruits, and hardy herbs - find the perfect addition to your green space, tailored to your local climate and gardening style</p>
+          <p class="text-description">Explore our vast selection of delicious veggies, fruits, and hardy herbs - find the perfect addition to your green space, tailored to your local climate and gardening style</p>
         </div>
     </div>
     <div class="middle-description">
         <div class="description2">
           <h2 class="part2">set reminders for plant watering</h2>
-          <p>PLACEHOLDER TEXT</p>
+          <p class="text-description">PLACEHOLDER TEXT</p>
         </div>
         <img class="middle-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/v1733422625/wateringcare_tbaz04.jpg" />
     </div>
@@ -37,7 +37,7 @@
         <img class="bottom-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
         <div class="description3">
           <h2 class="part3">Our AI Assistant Will Help You Care For Your Plants</h2>
-          <p>Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds.</p>
+          <p class="text-description">Gone are the days of sifting through pages of internet searches to find answers to your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat your question, and it will provide you with an answer in a matter of seconds.</p>
         </div>
     </div>
 
@@ -149,6 +149,11 @@
         height: 500px;
         margin-bottom: 50px;
     
+    }
+
+    .text-description {
+
+      font-size: 20px;
     }
     .top-description {
         display: flex;
