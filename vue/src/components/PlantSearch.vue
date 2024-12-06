@@ -12,7 +12,7 @@
                 v-on:click="filterIcon(icon.type)"
             >
             <img :src="icon.src" :alt="icon.type" />
-  </div>
+            </div>
         </div>
         <div class="row" id="search-row">
             <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
@@ -103,7 +103,7 @@ export default {
         },
         filteredTypes(){
             const selectPlants=this.filteredPlants;
-            return selectPlants.filter((plant) => {
+            return selectPlants.sort((a,b) => a.plantName.localeCompare(b.plantName)).filter((plant) => {
                 return this.selectedIcon === null ? true : this.selectedIcon === plant.plantType;
             });
         }
