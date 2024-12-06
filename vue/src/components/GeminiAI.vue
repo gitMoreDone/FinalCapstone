@@ -4,7 +4,7 @@
   <form class="mb-5 question-form" @submit.prevent="fetchAnswer">
     <div class="question-box">
       <textarea 
-        placeholder="How do I harvest my {{plant.plantName}}?" 
+        placeholder="Ask a question about plants." 
         name="question" 
         id="question" 
         cols="30" 
@@ -24,9 +24,8 @@
 
 
 <script setup>
-import { ref } from 'vue'
+import { ref, defineProps, computed} from 'vue'
 import { useGetGenerativeModelGP } from '../composables/userGetGenerativeModelGP'
-import { defineProps } from 'vue';
 
 const props = defineProps({
   plant: {
@@ -34,7 +33,7 @@ const props = defineProps({
     required: true,
   }
 });
-const question = ref('How do I care for my broccoli?')
+const question = computed(() => `How do I care for my ${props.plant?.plantName}?`)
 const fullAnswer = ref('') 
 const displayAnswer = ref('') 
 const isLoading = ref(false)
