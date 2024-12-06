@@ -10,7 +10,7 @@
       <div class="headings">
                 <div class="box-container">
                   <h3 id="welcome">Welcome To Your Own Virtual Garden </h3>
-                <!-- <router-link class="button button1" v-bind:to="{ name: 'plantSearch' }">Grow Your Favorite Produce</router-link> -->
+                <router-link class="button button1" v-bind:to="{ name: 'login' }">Login</router-link>
                     <div class="fake-link"> <a href="">Register to create your garden</a></div>
                 </div>
 
@@ -152,7 +152,7 @@
     }
 
     .text-description {
-
+      text-align: center;
       font-size: 20px;
     }
     .top-description {
