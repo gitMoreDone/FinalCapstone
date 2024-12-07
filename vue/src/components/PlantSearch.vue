@@ -10,17 +10,20 @@
                 class="filter-icon"
                 v-bind:class="{ active: selectedIcon === icon.type }"
                 v-on:click="filterIcon(icon.type)"
-                v-on:mouseover="showTooltip(index, icon.type)"
-                v-on:mouseleave="hideTooltip"
+                v-on:mouseover="triggerIconAlt(index, icon.type)"
+                v-on:mouseleave="hideIconAlt"
             >
-                <img :src="icon.src" :alt="icon.type" />
+                <img v-bind:src="icon.src" v-bind:alt="icon.type" />
+            
+                <div 
+                    v-if="iconAlt === index && showIconAlt" 
+                    class="iconAlt"
+                > 
+                {{ getIconAlt(icon.type) }} 
+                </div>
+        
+        
             </div>
-            <div 
-                v-if="iconAlt === index && showIconAlt" 
-                class="iconAlt"
-            >
-        {{ getTooltipText(icon.type) }}
-    </div>
         </div>
         <transition name="fade">
                         <div v-if="showAddedPopup" class="popup-message lexend-header-font">
@@ -73,9 +76,9 @@ export default {
             showAddedPopup: false,
             selectedIcon: null,
             icons: [
-                { type: "Vegetable", src: "/public/vegetable_icon.png" },
-                { type: "Fruit", src: "/public/fruit_icon.png" },
-                { type: "Herb", src: "/public/herb_icon.png" },
+                { type: "Vegetable", src: "/vegetable_icon.png" },
+                { type: "Fruit", src: "/fruit_icon.png" },
+                { type: "Herb", src: "/herb_icon.png" },
                 ],
             iconAlt: null,
             showIconAlt: false,
@@ -116,9 +119,9 @@ export default {
         getIconAlt(type) {
             if(type === "Vegetable") return "Filter by Vegetables";
             if(type === "Fruit") return "Filter by Fruit";
-            if(type === "Herbs") return "Filter by Herbs";
+            if(type === "Herb") return "Filter by Herbs";
         },
-        showIconAlt(index, type){
+        triggerIconAlt(index){
             this.iconAltTimer = setTimeout(() => {
                 this.iconAlt = index;
                 this.showIconAlt = true;
@@ -203,10 +206,10 @@ export default {
 .filter-icon.active {
     background-color: #553E4E;
 }
-.tooltip {
+.iconAlt {
     position: absolute;
-    top: 100%; /* Adjust based on design */
-    left: 50%;
+    top: 10%; 
+    /* left: 50%; */
     transform: translateX(-50%);
     background-color: #333;
     color: #fff;
@@ -214,7 +217,7 @@ export default {
     border-radius: 5px;
     font-size: 14px;
     white-space: nowrap;
-    z-index: 100;
+    z-index: 200;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 .searchBar-container img {

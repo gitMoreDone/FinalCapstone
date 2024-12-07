@@ -37,7 +37,8 @@ public class JdbcGardenDao implements GardenDao {
     public List<Plant> getGarden(int userId) {
         List<Plant> plantList = new ArrayList<>();
         String sql="select p.plant_id, plant_name, scientific_name, plant_type, plant_zone, plant_description, " +
-                "water_level, light_level, plant_care, plant_image_1, plant_image_2, plant_image_3, g.plant_qty from plants p " +
+                "water_level, light_level, plant_care, plant_image_1, plant_image_2, plant_image_3, sow_type, " +
+                "difficulty_level, plant_maturity, g.plant_qty from plants p " +
                 "inner join garden g on p.plant_id = g.plant_id " +
                 "inner join users u on g.user_id = u.user_id " +
                 "where u.user_id = ?";

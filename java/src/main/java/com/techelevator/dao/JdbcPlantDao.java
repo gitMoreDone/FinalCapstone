@@ -24,7 +24,8 @@ public class JdbcPlantDao implements PlantDao {
     public List<Plant> getPlants() {
         List<Plant> plantList = new ArrayList<>();
         String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_zone, plant_description, " +
-                "water_level, light_level, plant_care, plant_image_1, plant_image_2, plant_image_3 FROM plants";
+                "water_level, light_level, plant_care, plant_image_1, plant_image_2, plant_image_3, sow_type, " +
+                "difficulty_level, plant_maturity FROM plants";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
             while (results.next()) {
@@ -41,7 +42,8 @@ public class JdbcPlantDao implements PlantDao {
     public Plant getPlantDetails(int plantId) {
         Plant plant = null;
         String sql = "SELECT plant_id, plant_name, scientific_name, plant_type, plant_zone, plant_description, " +
-                "water_level, light_level, plant_care, plant_image_1, plant_image_2, plant_image_3 FROM plants " +
+                "water_level, light_level, plant_care, plant_image_1, plant_image_2, plant_image_3, sow_type, " +
+                "difficulty_level, plant_maturity FROM plants " +
                 "WHERE plant_id = ?";
         try {
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, plantId);
@@ -65,6 +67,9 @@ public class JdbcPlantDao implements PlantDao {
         plant.setWaterLevel(results.getString("water_level"));
         plant.setLightLevel(results.getString("light_level"));
         plant.setPlantCareSteps(results.getString("plant_care"));
+        plant.setPantMaturity(results.getString("plant_maturity"));
+        plant.setSowType(results.getString("sow_type"));
+        plant.setDifficultyLevel(results.getInt("difficulty_level"));
         plant.setPlantImage1(results.getString("plant_image_1"));
         plant.setPlantImage2(results.getString("plant_image_2"));
         plant.setPlantImage3(results.getString("plant_image_3"));

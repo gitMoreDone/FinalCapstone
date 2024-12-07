@@ -283,4 +283,8 @@ export default {
     margin-left: 5px;
     cursor:pointer;
 }
+.detail-list{
+    display: flex;
+    text-align: start;
+}
 </style>
