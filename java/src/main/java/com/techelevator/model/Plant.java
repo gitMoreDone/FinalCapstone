@@ -10,53 +10,68 @@ public class Plant {
     private String waterLevel;
     private String lightLevel;
     private String plantCareSteps;
+    private int difficultyLevel;
+    private String sowType;
+    private String pantMaturity;
     private String plantImage1;
     private String plantImage2;
     private String plantImage3;
 
-    public Plant(int plantId, String plantName, String scientificName, String plantType, String plantImage1,
-                 String plantImage2, String plantImage3, String plantZone, String plantDescription, String waterLevel,
-                 String lightLevel, String plantCareSteps) {
+    public Plant(int plantId, String plantName, String scientificName, String plantType, String plantZone,
+                 String plantDescription, String waterLevel, String lightLevel, String plantCareSteps,
+                 int difficultyLevel, String sowType, String pantMaturity, String plantImage1,
+                 String plantImage2, String plantImage3) {
         this.plantId = plantId;
         this.plantName = plantName;
         this.scientificName = scientificName;
         this.plantType = plantType;
-        this.plantImage1 = plantImage1;
-        this.plantImage2 = plantImage2;
-        this.plantImage3 = plantImage3;
         this.plantZone = plantZone;
         this.plantDescription = plantDescription;
         this.waterLevel = waterLevel;
         this.lightLevel = lightLevel;
         this.plantCareSteps = plantCareSteps;
-    }
-
-    public Plant(){
-
-    }
-
-    public String getPlantImage1() {
-        return plantImage1;
-    }
-
-    public void setPlantImage1(String plantImage1) {
+        this.difficultyLevel = difficultyLevel;
+        this.sowType = sowType;
+        this.pantMaturity = pantMaturity;
         this.plantImage1 = plantImage1;
-    }
-
-    public String getPlantImage2() {
-        return plantImage2;
-    }
-
-    public void setPlantImage2(String plantImage2) {
         this.plantImage2 = plantImage2;
-    }
-
-    public String getPlantImage3() {
-        return plantImage3;
-    }
-
-    public void setPlantImage3(String plantImage3) {
         this.plantImage3 = plantImage3;
+    }
+
+    public Plant() {
+
+    }
+
+    public int getPlantId() {
+        return plantId;
+    }
+
+    public void setPlantId(int plantId) {
+        this.plantId = plantId;
+    }
+
+    public String getPlantName() {
+        return plantName;
+    }
+
+    public void setPlantName(String plantName) {
+        this.plantName = plantName;
+    }
+
+    public String getScientificName() {
+        return scientificName;
+    }
+
+    public void setScientificName(String scientificName) {
+        this.scientificName = scientificName;
+    }
+
+    public String getPlantType() {
+        return plantType;
+    }
+
+    public void setPlantType(String plantType) {
+        this.plantType = plantType;
     }
 
     public String getPlantZone() {
@@ -99,35 +114,51 @@ public class Plant {
         this.plantCareSteps = plantCareSteps;
     }
 
-    public int getPlantId() {
-        return plantId;
+    public int getDifficultyLevel() {
+        return difficultyLevel;
     }
 
-    public void setPlantId(int plantId) {
-        this.plantId = plantId;
+    public void setDifficultyLevel(int difficultyLevel) {
+        this.difficultyLevel = difficultyLevel;
     }
 
-    public String getScientificName() {
-        return scientificName;
+    public String getSowType() {
+        return sowType;
     }
 
-    public void setScientificName(String scientificName) {
-        this.scientificName = scientificName;
+    public void setSowType(String sowType) {
+        this.sowType = sowType;
     }
 
-    public String getPlantType() {
-        return plantType;
+    public String getPantMaturity() {
+        return pantMaturity;
     }
 
-    public void setPlantType(String plantType) {
-        this.plantType = plantType;
+    public void setPantMaturity(String pantMaturity) {
+        this.pantMaturity = pantMaturity;
     }
 
-    public String getPlantName() {
-        return plantName;
+    public String getPlantImage1() {
+        return plantImage1;
     }
 
-    public void setPlantName(String plantName) {
-        this.plantName = plantName;
+    public void setPlantImage1(String plantImage1) {
+        this.plantImage1 = plantImage1;
+    }
+
+    public String getPlantImage2() {
+        return plantImage2;
+    }
+
+    public void setPlantImage2(String plantImage2) {
+        this.plantImage2 = plantImage2;
+    }
+
+    public String getPlantImage3() {
+        return plantImage3;
+    }
+
+    public void setPlantImage3(String plantImage3) {
+        this.plantImage3 = plantImage3;
     }
 }
