@@ -1,10 +1,10 @@
 <template>
-  <h1 class="mb-5">Garden Helper</h1>
+  <h1 class="mb-4">Garden Helper</h1>
 
   <form class="mb-5 question-form" @submit.prevent="fetchAnswer">
     <div class="question-box">
       <textarea 
-        placeholder="Ask a question about plants." 
+         v-bind:placeholder="plantNamePlaceholder"
         name="question" 
         id="question" 
         cols="30" 
@@ -24,7 +24,7 @@
 
 
 <script setup>
-import { ref, defineProps, computed} from 'vue'
+import { ref, defineProps,computed} from 'vue'
 import { useGetGenerativeModelGP } from '../composables/userGetGenerativeModelGP'
 
 const props = defineProps({
@@ -33,16 +33,20 @@ const props = defineProps({
     required: true,
   }
 });
-const question = computed(() => `How do I care for my ${props.plant?.plantName}?`)
-const fullAnswer = ref('') 
-const displayAnswer = ref('') 
-const isLoading = ref(false)
-const questionPreface = `
-  You will be asked a question. Answer it only if it pertains to plants. If it doesn't please respond with in a way relevant to the question they asked.
+const plantName = computed(()=>props.plant.planName);
+const plantNamePlaceholder = "Ask me about your plant!" ;
+const question = ref("");
+const fullAnswer = ref(''); 
+const displayAnswer = ref(''); 
+const isLoading = ref(false);
+const questionPreface = 
+`You will be asked a question. Answer it only if it pertains to plants. If it doesn't please respond with 
+  "I'm Sorry, I can only give you information on plant details or care. Feel free to ask me about any plants."
    Return the response to the question in HTML format using the following template, using none or any amount of list items:
   <h4>Example Title</h4>
   <span>Example Introduction</span>
   <span>Example Explanation</span>
+  <strong>Topic Heading</strong>
   <ul>
     <li>Example 1</li>
     <li>Example 2</li>
@@ -84,6 +88,11 @@ const fetchAnswer = async () => {
 
 
 <style lang="scss" scoped>
+
+h1 {
+  font-size: xx-large;
+}
+
 
 .question-form {
   display: flex;

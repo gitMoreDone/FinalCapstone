@@ -1,6 +1,11 @@
 <template>
   <div class="container">
-
+    <div class="back-button-container">
+            <i class="back-button bi bi-arrow-left-square-fill" 
+                style="font-size: 3rem; color: #679436;" 
+                v-on:click="goBack()"
+                ></i>
+    </div>
     <div class="main-container">
 
       <div v-show="savedPlants != 0" class="plant-tabs">
@@ -30,11 +35,11 @@
             <img :src="selectedPlant.plantImage1" :alt="selectedPlant.plantName" class="plant-detail-image" />
           </div>
           <div class="detail-info">
-            <h3>{{ selectedPlant.plantName }}</h3>
+            <h3 class="lexend">{{ selectedPlant.plantName }}</h3>
             <p><strong>Scientific Name:</strong> {{ selectedPlant.scientificName }}</p>
             <p><strong>Plant Type:</strong> {{ selectedPlant.plantType }}</p>
             <p>{{ selectedPlant.plantDescription }}</p>
-            <a href="#" v-on:click="pushToDetailPage">Plant Details</a>
+            <a v-on:click="pushToDetailPage">Plant Details</a>
           </div>
         </div>
       </div>
@@ -59,7 +64,8 @@ export default {
   data() {
     return {
       savedPlants: [],
-      selectedPlant: { "plantName": " plant"},
+      selectedPlant: null,
+      propPlant: {'plantName': 'plants'},
       dropdownVisible: false
     };
   },
@@ -70,11 +76,17 @@ export default {
         this.savedPlants = plantArray;
         if (this.savedPlants.length > 0) {
           this.selectedPlant = this.savedPlants[0];
+          this.propPlant=this.selectedPlant;
         }
-      });
+      })
+      .catch ((error) => {
+                console.error("Error Fetching Saved Plants", error);
+                this.$router.push({ name: 'notFound' });
+            } )
     },
     selectPlant(plant) {
       this.selectedPlant = plant;
+      this.propPlant=this.selectedPlant;
     },
     removePlant(id) {
       PlantService.removePlant(id);
@@ -90,7 +102,15 @@ export default {
       this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plantId } })
     },
     toggleDropdown() {
+      const closeListerner = (e) => {
+      if ( this.catchOutsideClick(e, this.$refs.menu ) )
+        window.removeEventListener('click', closeListerner) , this.isOpen = false
+      }
+      window.addEventListener('click', closeListerner)
       this.dropdownVisible = !this.dropdownVisible;
+    },
+    goBack(){
+        this.$router.go(-1);
     }
   },
   
@@ -105,11 +125,10 @@ export default {
 
 <style scoped>
 
-@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
-
-.shrikhand-regular {
-  font-family: "Shrikhand", serif;
-  font-weight: 100;
+.lexend {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
   font-style: normal;
 }
 
@@ -117,16 +136,18 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100vw;
-  min-height: 84.8vh;
+  max-width: 90vw;
+  min-height: 82.4vh;
   padding: 10px;
   gap: 20px;
+  font-family: "Lexend", sans-serif;
 }
 
 .main-container {
   display: flex;
   flex: 3;
-  max-width: 70%;
+  max-width: 80%;
+  height:80vh;
   background-color: #CADABF;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -136,7 +157,7 @@ export default {
 .plant-tabs {
   display: flex;
   flex-direction: column;
-  width: 25%;
+  width: 30%;
   background-color: #bfd0b4;
   border-right: 1px solid #ccc;
   padding: 10px;
@@ -170,7 +191,6 @@ export default {
 .plant-tab-name {
   font-size: 14px;
   font-weight: 500;
-
 }
 
 .details-container {
@@ -213,7 +233,6 @@ export default {
 .detail-info h3 {
   margin-bottom: 10px;
   font-size: 24px;
-  font-family: "Shrikhand", serif;
 }
 
 .detail-info p {
@@ -247,7 +266,7 @@ export default {
   color: #EDEEC9;
   background-color: #679436;
   width: 140px;
-  height: 60px;
+  height: 80px;
 }
 
 .search-plants:hover{
@@ -299,8 +318,22 @@ export default {
   text-align: left;
   width: 100%;
 }
-
 .dropdown-option:hover {
   text-decoration: underline;
+}
+.back-button-container {
+    position:static;
+    display: flex;
+    
+    justify-content:end;
+    align-items: flex-start;
+    line-height: 0;
+}
+.back-button {
+    vertical-align: middle;
+    display: inline-block;
+    cursor:pointer;
+    margin-top: 3px;
+    margin-right: 3px;
 }
 </style>

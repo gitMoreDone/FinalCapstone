@@ -131,27 +131,23 @@ export default {
     overflow: hidden;
     padding-bottom: 30px;
 }
-
 .map-image {
     max-width: 100%;
     height: auto;
     object-fit: contain;
 }
-
 .plant-care {
     display: flex;
     justify-content: center;
     text-align: center;
     margin-top: 20px;
 }
-
 .plant-details {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-
 .fact-container {
     display: flex;
     flex-direction: column;
@@ -190,7 +186,6 @@ export default {
     gap: 25px;
     margin-bottom: auto;
 }
-
 .thumbnail {
     width: 50%;
     height: 50%;
@@ -198,11 +193,9 @@ export default {
     cursor: pointer;
     transition: opacity 0.3s;
 }
-
 .thumbnail:hover {
     opacity: 0.7;
 }
-
 .right-container {
     flex-direction: column;
     width: 66%;
@@ -216,13 +209,11 @@ export default {
     margin-left: 25px;
     overflow: hidden;
 }
-
 .tabs {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
-
 .tab-button {
     background-color: #f0f0f0;
     padding: 10px;
@@ -233,41 +224,34 @@ export default {
     cursor: pointer;
     transition: background-color 0.3s;
 }
-
 .tab-button:hover {
     background-color: #e2e2e2;
 }
-
 .tab-button.active {
     background-color: #fff;
     font-weight: bold;
     border-bottom: 2px solid rgb(27, 109, 27);
 }
-
 .tab-content {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
     padding: 10px;
 }
-
 .tab-content.active {
     display: block;
 }
-
 .details-content,
 .care-content {
     flex-direction: column;
     display: flex;
     flex-grow: 1;
 }
-
 .details-content h2,
 .care-content h2 {
     font-size: 20px;
     margin-bottom: 10px;
 }
-
 .details-content p,
 .care-content p {
     font-size: 16px;
@@ -278,7 +262,6 @@ export default {
     width: 10vw;
     justify-content:end;
     align-items: flex-start;
-    
     line-height: 0;
 }
 .add-button-container {
@@ -286,7 +269,6 @@ export default {
     width: 10vw;
     justify-content:left;
     align-items: flex-start;
-    
     line-height: 0;
 }
 .back-button {

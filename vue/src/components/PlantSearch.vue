@@ -1,21 +1,32 @@
 <template>
     <div class="container">
         <div class="searchBar-container">
-            <input name="search-filter" class="searchBar" type="text" v-model="searchFilter"
+            <input name="search-filter" class="searchBar lexend-header-font" type="text" v-model="searchFilter"
                 placeholder="Search Plants" 
             />
             <div 
-                v-for="(icon, index) in icons" 
+                v-for="(icon,index) in icons" 
                 v-bind:key="index" 
                 class="filter-icon"
                 v-bind:class="{ active: selectedIcon === icon.type }"
                 v-on:click="filterIcon(icon.type)"
+                v-on:mouseover="showIconAlt(icon.type)"
+                v-on:mouseleave="hideIconAlt"
             >
-            <img :src="icon.src" :alt="icon.type" />
+                <img v-bind:src="icon.src" v-bind:alt="icon.type" />
+            
+                <div 
+                    v-if="iconAlt === index && showIconAlt" 
+                    class="iconAlt"
+                > 
+                    {{ getIconAlt(icon.type) }} 
+                </div>
+        
+        
             </div>
         </div>
         <transition name="fade">
-                        <div v-if="showAddedPopup" class="popup-message">
+                        <div v-if="showAddedPopup" class="popup-message lexend-header-font">
                             Garden Updated
                         </div>
                     </transition>
@@ -26,7 +37,7 @@
             >
                 <div class="button-container">
                     <transition name="fade">
-                        <button class="add-plant-button" 
+                        <button class="add-plant-button lexend-header-font" 
                             v-if="hoveredCard === index" 
                             v-show="$store.state.token != ''"
                             v-on:click.prevent="savePlant(plant)">Add to Garden
@@ -38,7 +49,7 @@
                     <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
                 </div>
                 <div class="card-text">
-                    <router-link class="plant-name"
+                    <router-link class="plant-name lexend-header-font"
                         v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
                         }}</router-link>
                     <img class="plant-type-icon" v-bind:src="getPlantTypeIcon(plant.plantType)" />                
@@ -69,6 +80,9 @@ export default {
                 { type: "Fruit", src: "/public/fruit_icon.png" },
                 { type: "Herb", src: "/public/herb_icon.png" },
                 ],
+            iconAlt: null,
+            showIconAlt: false,
+            iconAltTimer:null
         }
     },
     methods: {
@@ -101,8 +115,24 @@ export default {
         },
         filterIcon(type) {
             this.selectedIcon = this.selectedIcon === type ? null : type;
-            
-    },
+        },
+        getIconAlt(type) {
+            if(type === "Vegetable") return "Filter by Vegetables";
+            if(type === "Fruit") return "Filter by Fruit";
+            if(type === "Herbs") return "Filter by Herbs";
+        },
+        // eslint-disable-next-line vue/no-dupe-keys
+        showIconAlt(index){
+            this.iconAltTimer = setTimeout(() => {
+                this.iconAlt = index;
+                this.showIconAlt = true;
+            },1000);
+        },
+        hideIconAlt(){
+            clearTimeout(this.iconAltTimer);
+            this.showIconAlt=false;
+            this.iconAlt = null;
+        }
     },
     computed: {
         filteredPlants() {
@@ -177,6 +207,20 @@ export default {
 .filter-icon.active {
     background-color: #553E4E;
 }
+.tooltip {
+    position: absolute;
+    top: 100%; /* Adjust based on design */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    white-space: nowrap;
+    z-index: 200;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
 .searchBar-container img {
     width: 35px;
 }
@@ -191,6 +235,7 @@ export default {
     transition: transform 0.3s ease, box-shadow 0.3s ease; 
 }
 .card-text {
+    color: #0D1C0F;
     display: flex;
     flex-direction: row;
     justify-content:space-between;
@@ -200,7 +245,7 @@ export default {
     padding: 5px;
     font-size: large;
     text-decoration: none;
-    color: black;
+    color: #0D1C0F;
     font-weight: bold;
 }
 .plant-type-icon {
@@ -229,9 +274,10 @@ export default {
 .add-plant-button {
     position: absolute;
     top: 35%;
-    background-color: #679436;
-    color: white;
+    background-color: white;
+    color: #0D1C0F;
     border-radius: 5px 5px 5px 5px;
+    border-width: 0 !important;
     width: 150px;
     height: 30px;
     display: flex;
@@ -268,6 +314,13 @@ fade-enter-active, .fade-leave-active {
 .custom-divs>.p-2 {
     width: 30%;
     /* Adjust to set the number of divs per row */
+}
+
+.lexend-header-font {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 @media (max-width: 768px) {
     .custom-divs>.p-2 {

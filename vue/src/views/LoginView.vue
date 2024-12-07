@@ -67,20 +67,22 @@ export default {
 
 .form-input-group {
   margin-bottom: 1rem;
-  font-size: 50;
+  font-size: 20px;
+  width: 50px;
+ 
     
 }
 label {
   margin-right: 0.5rem;
+ 
+
+  
 }
 
 .login-container {
-  background-position: center;
-  background-repeat: no-repeat;
-  height: 82.7vh;
+  height: 81vh;
   opacity: 70%;
   background-color:white;
-  background-position: center;
   backdrop-filter: blur(5px);
   box-shadow: inset 0px 0px 10px #000;
   display: flex;
@@ -88,6 +90,8 @@ label {
   align-items: center;
   justify-content: center;
   text-align: center;
+  
+  
   
 }
 #login{
@@ -102,12 +106,12 @@ label {
 }
 
 .submit{
-  margin-top: 50px;
-    width: 100%;
+  margin-top: 5px;
+    width: 50%;
     background-color: #ffffff;
     color: #080710;
-    padding: 15px 0;
-    font-size: 18px;
+    padding: 10px 0;
+    font-size: 15px;
     font-weight: 600;
     border-radius: 5px;
     cursor: pointer;
@@ -119,9 +123,11 @@ label {
 .link{
   color: black;
 }
-#username.form-input-group{
+#username{
+  font-size: large;
  
-    margin-left: .5rem;
-    margin-top: 1rem;
+
 }
+
+
 </style>
