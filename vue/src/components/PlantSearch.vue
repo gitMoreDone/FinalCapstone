@@ -5,12 +5,12 @@
                 placeholder="Search Plants" 
             />
             <div 
-                v-for="(icon,index) in icons" 
+                v-for="(icon, index) in icons" 
                 v-bind:key="index" 
                 class="filter-icon"
                 v-bind:class="{ active: selectedIcon === icon.type }"
                 v-on:click="filterIcon(icon.type)"
-                v-on:mouseover="showIconAlt(icon.type)"
+                v-on:mouseover="triggerIconAlt(index, icon.type)"
                 v-on:mouseleave="hideIconAlt"
             >
                 <img v-bind:src="icon.src" v-bind:alt="icon.type" />
@@ -19,7 +19,7 @@
                     v-if="iconAlt === index && showIconAlt" 
                     class="iconAlt"
                 > 
-                    {{ getIconAlt(icon.type) }} 
+                {{ getIconAlt(icon.type) }} 
                 </div>
         
         
@@ -76,9 +76,9 @@ export default {
             showAddedPopup: false,
             selectedIcon: null,
             icons: [
-                { type: "Vegetable", src: "/public/vegetable_icon.png" },
-                { type: "Fruit", src: "/public/fruit_icon.png" },
-                { type: "Herb", src: "/public/herb_icon.png" },
+                { type: "Vegetable", src: "/vegetable_icon.png" },
+                { type: "Fruit", src: "/fruit_icon.png" },
+                { type: "Herb", src: "/herb_icon.png" },
                 ],
             iconAlt: null,
             showIconAlt: false,
@@ -119,10 +119,9 @@ export default {
         getIconAlt(type) {
             if(type === "Vegetable") return "Filter by Vegetables";
             if(type === "Fruit") return "Filter by Fruit";
-            if(type === "Herbs") return "Filter by Herbs";
+            if(type === "Herb") return "Filter by Herbs";
         },
-        // eslint-disable-next-line vue/no-dupe-keys
-        showIconAlt(index){
+        triggerIconAlt(index){
             this.iconAltTimer = setTimeout(() => {
                 this.iconAlt = index;
                 this.showIconAlt = true;
@@ -207,10 +206,10 @@ export default {
 .filter-icon.active {
     background-color: #553E4E;
 }
-.tooltip {
+.iconAlt {
     position: absolute;
-    top: 100%; /* Adjust based on design */
-    left: 50%;
+    top: 10%; 
+    /* left: 50%; */
     transform: translateX(-50%);
     background-color: #333;
     color: #fff;
