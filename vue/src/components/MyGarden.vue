@@ -94,6 +94,7 @@ export default {
       if (this.selectedPlant && this.selectedPlant.plantId === id) {
         this.selectedPlant = null;
       }
+      this.dropdownVisible = false;
     },
     pushToSearch(){
       this.$router.push({name: 'plantSearch'})
