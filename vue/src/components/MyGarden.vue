@@ -39,7 +39,7 @@
             <p><strong>Scientific Name:</strong> {{ selectedPlant.scientificName }}</p>
             <p><strong>Plant Type:</strong> {{ selectedPlant.plantType }}</p>
             <p>{{ selectedPlant.plantDescription }}</p>
-            <a v-on:click="pushToDetailPage">Plant Details</a>
+            <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
           </div>
         </div>
       </div>
@@ -217,7 +217,7 @@ export default {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items:start;
 }
 
 .plant-detail-image {
@@ -238,6 +238,11 @@ export default {
 
 .detail-info p {
   margin: 5px 0;
+}
+.plant-details-link {
+  text-decoration:underline;
+  color:#679436;
+  cursor: pointer;
 }
 
 .right-container {
