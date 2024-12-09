@@ -1,57 +1,63 @@
 <template>
   <div class="container">
     <div class="back-button-container">
-            <i class="back-button bi bi-arrow-left-square-fill" 
-                style="font-size: 3rem; color: #679436;" 
-                v-on:click="goBack()"
-                ></i>
+      <i class="back-button bi bi-arrow-left-square-fill" style="font-size: 3rem; color: #679436;"
+        v-on:click="goBack()"></i>
     </div>
     <div class="main-container">
 
-      <div v-show="savedPlants != 0" class="plant-tabs">
-        <div
-          class="plant-tab"
-          v-for="plant in savedPlants"
-          :key="plant.id"
-          v-on:click="selectPlant(plant)"
-          :class="{ selected: selectedPlant && selectedPlant.plantId === plant.plantId }"
-        >
-          <img class="plant-tab-image" :src="plant.plantImage1" :alt="plant.plantName" />
-          <div class="plant-tab-name">{{ plant.plantName }}</div>
+      <div v-show="gardenPlants != 0" class="plant-tabs">
+        <div class="plant-tab" v-for="gardenPlant in gardenPlants" :key="gardenPlant.id"
+          v-on:click="selectPlant(gardenPlant)"
+          :class="{ selected: selectedPlant.plant && selectedPlant.plant.plantId === gardenPlant.plant.plantId }">
+          <img class="plant-tab-image" :src="gardenPlant.plant.plantImage1" :alt="gardenPlant.plant.plantName" />
+          <div class="plant-tab-name">{{ gardenPlant.plant.plantName }}</div>
         </div>
       </div>
 
       <div v-if="selectedPlant" class="details-container">
         <div class="dropdown-container">
           <button class="dropdown-button" v-on:click="toggleDropdown">...</button>
-            <div v-if="dropdownVisible" class="dropdown-menu" @mouseleave.prevent="toggleDropdown">
-          <button class="dropdown-option" v-on:click="removePlant(selectedPlant.plantId)">Delete</button>
-          <button class="dropdown-option" v-on:click="addNote">Add Note</button>
-        </div>
-      </div>
-
-        <div class="detail-content">
-          <div class="detail-image">
-            <img :src="selectedPlant.plantImage1" :alt="selectedPlant.plantName" class="plant-detail-image" />
+          <div v-if="dropdownVisible" class="dropdown-menu" @mouseleave.prevent="toggleDropdown">
+            <button class="dropdown-option" v-on:click="removePlant(selectedPlant.plant.plantId)">Delete</button>
+            <button class="dropdown-option" v-on:click="addNote">Add Note</button>
           </div>
-          <div class="detail-info">
-            <h3 class="lexend">{{ selectedPlant.plantName }}</h3>
-            <p><strong>Scientific Name:</strong> {{ selectedPlant.scientificName }}</p>
-            <p><strong>Plant Type:</strong> {{ selectedPlant.plantType }}</p>
-            <p>{{ selectedPlant.plantDescription }}</p>
-            <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
+        </div>
+        <div class="content-and-notes">
+          <div class="detail-content">
+            <div class="detail-image">
+              <img :src="selectedPlant.plant.plantImage1" :alt="selectedPlant.plant.plantName"
+                class="plant-detail-image" />
+            </div>
+            <div class="detail-info">
+              <h3 class="lexend">{{ selectedPlant.plant.plantName }}</h3>
+              <p><strong>Scientific Name:</strong> {{ selectedPlant.plant.scientificName }}</p>
+              <p><strong>Plant Type:</strong> {{ selectedPlant.plant.plantType }}</p>
+              <p>{{ selectedPlant.plant.plantDescription }}</p>
+              <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
+            </div>
+
+          </div>
+          <div class="notes-container">
+            
+              <button class="btn btn-light" v-if="isEditingNotes" v-on:click="saveNote">Save Notes</button>
+              <button class="btn btn-light" v-if="!isEditingNotes" v-on:click="openNotes">Edit Notes</button>
+              <textarea v-if="isEditingNotes" class= "notes" name="notes" id="notes"  cols="30" 
+              rows="10" v-model="selectedPlant.notes"></textarea>
+              <p v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
+            
           </div>
         </div>
       </div>
 
       <div v-else class="details-container empty-garden">
         <p>Select a plant to view its details.</p>
-        <button class="search-plants" v-if="savedPlants.length === 0" v-on:click="pushToSearch">Find a Plant</button>
+        <button class="search-plants" v-if="gardenPlants.length === 0" v-on:click="pushToSearch">Find a Plant</button>
       </div>
     </div>
- 
+
     <div class="right-container">
-      <GeminiAI class="chat-bot" v-bind:plant="selectedPlant"/>
+      <GeminiAI class="chat-bot" v-bind:plant="selectedPlant" />
     </div>
   </div>
 </template>
@@ -63,60 +69,62 @@ import GeminiAI from "../components/GeminiAI.vue";
 export default {
   data() {
     return {
-      savedPlants: [],
+      gardenPlants: [],
       selectedPlant: null,
-      propPlant: {'plantName': 'plants'},
-      dropdownVisible: false
+      propPlant: { 'plantName': 'plants' },
+      dropdownVisible: false,
+      isEditingNotes:false
     };
   },
   methods: {
-    getSavedPlants() {
-      PlantService.getSavedPlants(this.$store.state.user.id).then((response) => {
-        const plantArray = response.data;
-        this.savedPlants = plantArray;
-        if (this.savedPlants.length > 0) {
-          this.selectedPlant = this.savedPlants[0];
-          this.propPlant=this.selectedPlant;
+    getPlantsInGarden() {
+      PlantService.getGardenPlants().then((response) => {
+        const gardenPlantArray = response.data;
+        this.gardenPlants = gardenPlantArray;
+        if (this.gardenPlants.length > 0) {
+          this.selectedPlant = this.gardenPlants[0];
+          this.propPlant = this.selectedPlant.plant;
         }
+      }).catch((error) => {
+        console.error("Error Fetching Saved Plants", error);
+        this.$router.push({ name: 'notFound' });
       })
-      .catch ((error) => {
-                console.error("Error Fetching Saved Plants", error);
-                this.$router.push({ name: 'notFound' });
-            } )
     },
-    selectPlant(plant) {
-      this.selectedPlant = plant;
-      this.propPlant=this.selectedPlant;
+    selectPlant(gardenPlant) {
+      this.selectedPlant = gardenPlant;
+      this.propPlant = this.selectedPlant.plant;
     },
     removePlant(id) {
       PlantService.removePlant(id);
-      this.savedPlants = this.savedPlants.filter((plant) => plant.plantId !== id);
+      this.gardenPlants = this.gardenPlants.filter((gardenPlant) => gardenPlant.plant.plantId !== id);
       if (this.selectedPlant && this.selectedPlant.plantId === id) {
         this.selectedPlant = null;
       }
       this.dropdownVisible = false;
     },
-    pushToSearch(){
-      this.$router.push({name: 'plantSearch'})
+    pushToSearch() {
+      this.$router.push({ name: 'plantSearch' })
     },
-    pushToDetailPage(){
-      this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plantId } })
+    pushToDetailPage() {
+      this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plant.plantId } })
     },
     toggleDropdown() {
-      const closeListerner = (e) => {
-      if ( this.catchOutsideClick(e, this.$refs.menu ) )
-        window.removeEventListener('click', closeListerner) , this.isOpen = false
-      }
-      window.addEventListener('click', closeListerner)
       this.dropdownVisible = !this.dropdownVisible;
     },
-    goBack(){
-        this.$router.go(-1);
+    openNotes(){
+      this.isEditingNotes=true;
+    },
+    saveNote() {
+      PlantService.updatePlant(this.selectedPlant);
+      this.isEditingNotes=false;
+    },
+    goBack() {
+      this.$router.go(-1);
     }
   },
-  
+
   mounted() {
-    this.getSavedPlants();
+    this.getPlantsInGarden();
   },
   components: {
     GeminiAI,
@@ -125,7 +133,6 @@ export default {
 </script>
 
 <style scoped>
-
 .lexend {
   font-family: "Lexend", sans-serif;
   font-optical-sizing: auto;
@@ -148,7 +155,7 @@ export default {
   display: flex;
   flex: 3;
   max-width: 80%;
-  height:80vh;
+  height: 80vh;
   background-color: #CADABF;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -207,6 +214,11 @@ export default {
   align-items: center;
   color: #888;
 }
+.content-and-notes{
+  display: flex;
+  flex-direction: column;
+  height:100%;
+}
 
 .detail-content {
   display: flex;
@@ -217,7 +229,7 @@ export default {
   flex: 1;
   display: flex;
   justify-content: center;
-  align-items:start;
+  align-items: start;
 }
 
 .plant-detail-image {
@@ -239,10 +251,25 @@ export default {
 .detail-info p {
   margin: 5px 0;
 }
+
 .plant-details-link {
-  text-decoration:underline;
-  color:#679436;
+  text-decoration: underline;
+  color: #679436;
   cursor: pointer;
+}
+
+.notes-container {
+  margin-top:20px;
+  gap:5px;
+  width: 50%;
+  height:100%;
+  display:flex;
+  flex-direction: column;
+  
+}
+.notes {
+  width:100%;
+  height: 100%;
 }
 
 .right-container {
@@ -267,7 +294,7 @@ export default {
   text-align: center;
 }
 
-.search-plants{
+.search-plants {
   border-radius: 5px;
   color: #EDEEC9;
   background-color: #679436;
@@ -275,7 +302,7 @@ export default {
   height: 80px;
 }
 
-.search-plants:hover{
+.search-plants:hover {
   background-color: #54792c;
 }
 
@@ -324,22 +351,25 @@ export default {
   text-align: left;
   width: 100%;
 }
+
 .dropdown-option:hover {
   text-decoration: underline;
 }
+
 .back-button-container {
-    position:static;
-    display: flex;
-    
-    justify-content:end;
-    align-items: flex-start;
-    line-height: 0;
+  position: static;
+  display: flex;
+
+  justify-content: end;
+  align-items: flex-start;
+  line-height: 0;
 }
+
 .back-button {
-    vertical-align: middle;
-    display: inline-block;
-    cursor:pointer;
-    margin-top: 3px;
-    margin-right: 3px;
+  vertical-align: middle;
+  display: inline-block;
+  cursor: pointer;
+  margin-top: 3px;
+  margin-right: 3px;
 }
 </style>
