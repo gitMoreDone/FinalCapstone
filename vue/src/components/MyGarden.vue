@@ -109,11 +109,6 @@ export default {
       this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plant.plantId } })
     },
     toggleDropdown() {
-      const closeListener = (e) => {
-        if (this.catchOutsideClick(e, this.$refs.menu))
-          window.removeEventListener('click', closeListener), this.isOpen = false
-      }
-      window.addEventListener('click', closeListener)
       this.dropdownVisible = !this.dropdownVisible;
     },
     openNotes(){
