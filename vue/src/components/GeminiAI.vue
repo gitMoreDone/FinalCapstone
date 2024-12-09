@@ -1,5 +1,7 @@
 <template>
-  <h1 class="mb-4">Garden Helper</h1>
+  <h1 class="mb-4">
+    <span>G</span><span style="color: #679436">AI</span><span>A</span>
+  </h1>
 
   <form class="mb-5 question-form" @submit.prevent="fetchAnswer">
     <div class="question-box">

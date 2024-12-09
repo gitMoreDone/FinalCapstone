@@ -12,14 +12,14 @@ public class Plant {
     private String plantCareSteps;
     private int difficultyLevel;
     private String sowType;
-    private String pantMaturity;
+    private String plantMaturity;
     private String plantImage1;
     private String plantImage2;
     private String plantImage3;
 
     public Plant(int plantId, String plantName, String scientificName, String plantType, String plantZone,
                  String plantDescription, String waterLevel, String lightLevel, String plantCareSteps,
-                 int difficultyLevel, String sowType, String pantMaturity, String plantImage1,
+                 int difficultyLevel, String sowType, String plantMaturity, String plantImage1,
                  String plantImage2, String plantImage3) {
         this.plantId = plantId;
         this.plantName = plantName;
@@ -32,7 +32,7 @@ public class Plant {
         this.plantCareSteps = plantCareSteps;
         this.difficultyLevel = difficultyLevel;
         this.sowType = sowType;
-        this.pantMaturity = pantMaturity;
+        this.plantMaturity = plantMaturity;
         this.plantImage1 = plantImage1;
         this.plantImage2 = plantImage2;
         this.plantImage3 = plantImage3;
@@ -130,12 +130,12 @@ public class Plant {
         this.sowType = sowType;
     }
 
-    public String getPantMaturity() {
-        return pantMaturity;
+    public String getPlantMaturity() {
+        return plantMaturity;
     }
 
-    public void setPantMaturity(String pantMaturity) {
-        this.pantMaturity = pantMaturity;
+    public void setPlantMaturity(String plantMaturity) {
+        this.plantMaturity = plantMaturity;
     }
 
     public String getPlantImage1() {

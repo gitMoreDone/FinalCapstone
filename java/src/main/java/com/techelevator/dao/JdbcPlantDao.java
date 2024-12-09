@@ -67,7 +67,7 @@ public class JdbcPlantDao implements PlantDao {
         plant.setWaterLevel(results.getString("water_level"));
         plant.setLightLevel(results.getString("light_level"));
         plant.setPlantCareSteps(results.getString("plant_care"));
-        plant.setPantMaturity(results.getString("plant_maturity"));
+        plant.setPlantMaturity(results.getString("plant_maturity"));
         plant.setSowType(results.getString("sow_type"));
         plant.setDifficultyLevel(results.getInt("difficulty_level"));
         plant.setPlantImage1(results.getString("plant_image_1"));

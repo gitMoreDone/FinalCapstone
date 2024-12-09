@@ -24,17 +24,14 @@
         <img class="top-image"
           src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733431907/mustache-guy-holding-basket_1_vc7mno.jpg" />
         <div class="description1">
-          <h2 class="part1">Find Your Favorite Garden Plant To Grow On Our Search Page</h2>
-          <p class="text-description">Explore our vast selection of veggies, fruits, and hardy herbs - find the perfect
-            addition to your green space, tailored to your local climate and gardening style</p>
+          <h2 class="part1">Cultivate Confidence</h2>
+          <p class="text-description">Sprout tills the complex world of gardening into simple, manageable steps.</p>
         </div>
       </div>
       <div class="middle-description">
         <div class="description2">
-          <h2 class="part2">Designed for Every Screen, Big or Small</h2>
-          <p class="text-description">Our website adapts seamlessly to any device you use. Whether you're browsing on a
-            phone, tablet, or desktop, you'll enjoy a sleek and intuitive experience tailored just for you. Stay
-            connected wherever life takes you!</p>
+          <h2 class="part2">Find the right plants for your garden</h2>
+          <p class="text-description">Take our two minute quiz to get recommendations curated for you!</p>
         </div>
         <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733519031/c3b0bb74527e25a23d5007dd19e1b46de9ef22581c2a6d3a68a5666135ff7e4f_fjklln.png" />
     </div>
@@ -42,10 +39,8 @@
         
         <img class="bottom-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
         <div class="description3">
-          <h2 class="part3">Our AI Assistant Will Help You Care For Your Plants</h2>
-          <p class="text-description">Gone are the days of sifting through pages of internet searches to find answers to
-            your questions like: “Why did my strawberry plants not produce fruit?” With SPROUTAI, you can ask the chat
-            your question, and it will provide you with an answer in a matter of seconds</p>
+          <h2 class="part3">Track Your Progress</h2>
+          <p class="text-description">See days since you've last watered, save notes, and ask our virtual Assistant GAIA when you need help!</p>
         </div>
       </div>
 
@@ -138,100 +133,98 @@ export default {
 
 }
 
-    .top-image {
-        border-radius: 30px;
-        margin-left: 50px;
-        margin-top: 40px;
-        margin-right: 50px;
-        width: 500px;
-        height: 500px;
+.top-image {
+  border-radius: 30px;
+  margin-left: 50px;
+  margin-top: 40px;
+  margin-right: 50px;
+  width: 500px;
+  height: 500px;
         
-    }
-    .middle-image {
+}
+.middle-image {
         
-        border-radius: 30px;
-        margin-left: 50px;
-        margin-top: 40px;
-        margin-right: 50px;
-        width: 500px;
-        height: 500px;
+  border-radius: 30px;
+  margin-left: 50px;
+  margin-top: 40px;
+  margin-right: 50px;
+  width: 500px;
+  height: 500px;
     
-    }
-    a {
-        font-weight: bold;
-        color: rgb(0, 83, 0);
-        /* color: #679436 */
-    }
+}
+a {
+  font-weight: bold;
+  color: rgb(0, 83, 0);
+}
 
 a:hover {
-
   color: green;
 }
 
-    .text-description {
-      text-align: center;
-      font-size: 25px;
-      
-    }
-    .top-description {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        
-    }
-
-    .description1 {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 60px;
-      /* border: 2px solid #333;   */
-      border-radius: 15px;      
-      align-items: center;     
-      gap: 10px;               
-      background-color: rgba(138, 138, 138, 0.26);
-      margin-right: 25px;
-      backdrop-filter: blur(5px);
-        box-shadow: inset 0px 0px 10px #000;
-    }
-    .middle-description {
-        display: flex;
-        justify-content: right;
-        flex-direction: row;
-        align-items: center;
-    }
-    .description2 {
-      display: flex;
-      flex-direction: column;
-      padding: 40px 60px;
-      /* border: 2px solid #333;   */
-      border-radius: 15px;      
-      align-items: center;     
-      gap: 10px;               
-      background-color: rgba(138, 138, 138, 0.26);
-      margin-left: 25px;
-      backdrop-filter: blur(5px);
-        box-shadow: inset 0px 0px 10px #000;
-    }
-
-    .bottom-description {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
+.text-description {
+  text-align: left;
+  font-size: 20px;
+  font-weight: 300;
+  
+}
+.top-description {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
     
-    }
-    .description3 {
-      display: flex;
-      flex-direction: column;
-      padding: 40px 60px;
-      /* border: 2px solid #333;   */
-      border-radius: 15px;      
-      align-items: center;     
-      gap: 10px;               
-      background-color: rgba(138, 138, 138, 0.26);
-      margin-right: 25px;
-      backdrop-filter: blur(5px);
-        box-shadow: inset 0px 0px 10px #000;
-    }
-    
-  </style>
+}
+.description1 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 60px;
+  /* border: 2px solid #333;   */
+  border-radius: 15px;      
+  align-items: center;     
+  gap: 10px;               
+  background-color: rgba(138, 138, 138, 0.26);
+  margin-right: 25px;
+  backdrop-filter: blur(5px);
+    box-shadow: inset 0px 0px 10px #000;
+}
+.middle-description {
+    display: flex;
+    justify-content: right;
+    flex-direction: row;
+    align-items: center;
+}
+.description2 {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  /* border: 2px solid #333;   */
+  border-radius: 15px;      
+  align-items: center;     
+  gap: 10px;               
+  background-color: rgba(138, 138, 138, 0.26);
+  margin-left: 25px;
+  backdrop-filter: blur(5px);
+    box-shadow: inset 0px 0px 10px #000;
+}
+
+.bottom-description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.description3 {
+  display: flex;
+  flex-direction: column;
+  padding: 40px 60px;
+  /* border: 2px solid #333;   */
+  border-radius: 15px;      
+  align-items: center;     
+  gap: 10px;               
+  background-color: rgba(138, 138, 138, 0.26);
+  margin-right: 25px;
+  backdrop-filter: blur(5px);
+    box-shadow: inset 0px 0px 10px #000;
+}
+
+</style>
