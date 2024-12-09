@@ -36,7 +36,7 @@
             phone, tablet, or desktop, you'll enjoy a sleek and intuitive experience tailored just for you. Stay
             connected wherever life takes you!</p>
         </div>
-        <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733519031/c3b0bb74527e25a23d5007dd19e1b46de9ef22581c2a6d3a68a5666135ff7e4f_fjklln.png" />
+        <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733615783/fa27404f7e8297718b55b5251845ee97e0c9940bea57fc4829ba1d1755942a5d_fspgvp.png" />
     </div>
     <div class="bottom-description">
         
