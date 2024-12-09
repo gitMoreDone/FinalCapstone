@@ -50,17 +50,17 @@ export default {
                         {
                             choice: 'I can\'t keep a cactus alive',
                             id: 1,
-                            plants: []
+                            plants: [1, 3, 5, 6, 9, 12, 14, 16, 18, 21, 22, 24, 25]
                         },
                         {
                             choice: 'I\'m getting the hang of this gardening thing.',
                             id: 2,
-                            plants: []
+                            plants: [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 16, 18, 21, 22, 23, 24, 25, 26]
                         },
                         {
                             choice: 'Call me the plant whisperer. I can grow anything!',
                             id: 3,
-                            plants: []
+                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
                         }
                     ],
                     selected: null
@@ -71,17 +71,17 @@ export default {
                         {
                             choice: 'Vegetable',
                             id: 1,
-                            plants: []
+                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
                         },
                         {
                             choice: 'Fruit',
                             id: 2,
-                            plants: []
+                            plants: [21, 22, 23, 24, 25, 26, 27]
                         },
                         {
                             choice: 'Herbs',
                             id: 3,
-                            plants: []
+                            plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
                         }
                     ],
                     selected: null
@@ -92,17 +92,17 @@ export default {
                         {
                             choice: 'Mostly Shaded.',
                             id: 1,
-                            plants: []
+                            plants: [4, 8, 9, 14, 15, 18, 19, 20]
                         },
                         {
                             choice: 'Some sunlight.',
                             id: 2,
-                            plants: []
+                            plants: [5, 6, 12, 13, 16, 17, 26]
                         },
                         {
                             choice: 'Sunny all day.',
                             id: 3,
-                            plants: []
+                            plants: [1, 2, 3, 7, 10, 11, 21, 22, 23, 24, 25, 27]
                         }
                     ],
                     selected: null
@@ -113,17 +113,17 @@ export default {
                         {
                             choice: 'Cold',
                             id: 1,
-                            plants: []
+                            plants: [5, 9, 15, 16, 17, 18, 19]
                         },
                         {
                             choice: 'Warm',
                             id: 2,
-                            plants: []
+                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
                         },
                         {
                             choice: 'Hot',
                             id: 3,
-                            plants: []
+                            plants: [7, 10, 12, 21, 26]
                         }
                     ],
                     selected: null
