@@ -31,9 +31,9 @@
                         </div>
                     </transition>
         <div class="row" id="search-row">
-            <div class="col-12 col-md-2 card shadow p-3 mb-5 bg-white rounded" 
-                v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
+            <div class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded" 
                 v-for="(plant,index) in filteredTypes" v-bind:key="index"
+                v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
             >
                 <div class="button-container">
                     <transition name="fade">
@@ -46,9 +46,11 @@
                 </div>
 
                 <div id="plant-image-container">
-                    <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName>
+                    <img class="plant-image" v-bind:src=plant.plantImage1 v-bind:alt=plant.plantName
+                    v-on:click="navToDetails(plant.plantId)">
+                    
                 </div>
-                <div class="card-text">
+                <div class="card-text" v-on:click="navToDetails(plant.plantId)">
                     <router-link class="plant-name lexend-header-font"
                         v-bind:to="{ name: 'plantDetails', params: { id: plant.plantId } }">{{ plant.plantName
                         }}</router-link>
@@ -125,12 +127,15 @@ export default {
             this.iconAltTimer = setTimeout(() => {
                 this.iconAlt = index;
                 this.showIconAlt = true;
-            },1000);
+            },600);
         },
         hideIconAlt(){
             clearTimeout(this.iconAltTimer);
             this.showIconAlt=false;
             this.iconAlt = null;
+        },
+        navToDetails(plantId){
+            this.$router.push({name:'plantDetails', params: {id:plantId}})
         }
     },
     computed: {
@@ -239,9 +244,11 @@ export default {
     flex-direction: row;
     justify-content:space-between;
     align-items: center;
+    cursor: pointer;
+    height: 50px;
 }
 .plant-name {
-    padding: 5px;
+    padding: 15px;
     font-size: large;
     text-decoration: none;
     color: #0D1C0F;
@@ -257,6 +264,7 @@ export default {
     padding-top: 0px;
     width: 100%;
     height:auto;
+    cursor: pointer;
     
 }
 .card:hover {
@@ -321,16 +329,45 @@ fade-enter-active, .fade-leave-active {
   font-weight: 300;
   font-style: normal;
 }
+@media (max-width: 992px) {
+    .card {
+        flex: 0 0 30%;
+    }
+    .row {
+        justify-content: space-evenly; 
+    }  
+    
+}
 @media (max-width: 768px) {
     .custom-divs>.p-2 {
-        width: 48%;
-        /* Two per row on smaller screens */
+        width: 48%;  
     }
+    .card {
+        flex: 0 0 45%; 
+    }
+    
+}
+@media (max-width: 576px) {
+    .card {
+        flex: 0 0 70%;
+    }
+    
 }
 @media (max-width: 480px) {
     .custom-divs>.p-2 {
         width: 100%;
-        /* One per row on very small screens */
+    }
+    .card {
+        flex: 0 0 70%;
+    }
+    .row {
+        justify-content: center; 
+    }
+    .card-text {
+        height: 80px;
+    }
+    .plant-name{
+        font-size: x-large;
     }
 }
 </style>

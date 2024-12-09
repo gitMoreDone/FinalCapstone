@@ -56,4 +56,16 @@
   font-weight: 500;
   font-style: normal;
 }
+@media (max-width:992px) {
+  .navbar {
+    justify-content: center;
+  }
+  #navbar-nav {
+    margin: 0 auto; 
+    display: flex; 
+    justify-content: center; 
+    gap: 20px; 
+  }
+  
+}
 </style>

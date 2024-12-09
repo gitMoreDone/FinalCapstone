@@ -95,7 +95,7 @@ const router = createRouter({
   routes: routes
 });
 
-router.beforeEach((to) => {
+router.beforeEach((to,from,next) => {
 
   // Get the Vuex store
   const store = useStore();
@@ -107,7 +107,11 @@ router.beforeEach((to) => {
   if (requiresAuth && store.state.token === '') {
     return {name: "login"};
   }
-  // Otherwise, do nothing and they'll go to their next destination
+  if (store.state.token !== '' && to.name === 'login') {
+    next({name:'plantSearch'});
+  }else {
+    next();
+  } 
 });
 
 export default router;
