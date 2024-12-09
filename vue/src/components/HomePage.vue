@@ -33,7 +33,7 @@
           <h2 class="part2">Find the right plants for your garden</h2>
           <p class="text-description">Take our two minute quiz to get recommendations curated for you!</p>
         </div>
-        <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733519031/c3b0bb74527e25a23d5007dd19e1b46de9ef22581c2a6d3a68a5666135ff7e4f_fjklln.png" />
+        <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733615783/fa27404f7e8297718b55b5251845ee97e0c9940bea57fc4829ba1d1755942a5d_fspgvp.png" />
     </div>
     <div class="bottom-description">
         
@@ -142,7 +142,7 @@ export default {
   height: 500px;
         
 }
-.middle-image {
+.bottom-image {
         
   border-radius: 30px;
   margin-left: 50px;
@@ -150,6 +150,7 @@ export default {
   margin-right: 50px;
   width: 500px;
   height: 500px;
+  margin-bottom: 40px;
     
 }
 a {
