@@ -34,6 +34,7 @@ CREATE TABLE garden (
     plant_id int NOT NULL,
     user_id int NOT NULL,
     plant_qty int DEFAULT 1 NOT NULL,
+    notes text NULL,
     CONSTRAINT FK_plant_id FOREIGN KEY (plant_id) REFERENCES plants(plant_id),
     CONSTRAINT FK_user_id FOREIGN KEY (user_id) REFERENCES users(user_id)
 );

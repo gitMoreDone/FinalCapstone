@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.GardenPlant;
 import com.techelevator.model.Plant;
 import com.techelevator.model.User;
 import jakarta.validation.Valid;
@@ -20,14 +21,10 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.ArrayList;
 import java.util.List;
 @Component
-
 public class JdbcGardenDao implements GardenDao {
 
     @Autowired
     private JdbcPlantDao plantDao;
-
-
-
     private JdbcTemplate jdbcTemplate;
 
     public JdbcGardenDao(JdbcTemplate jdbcTemplate) {
@@ -53,7 +50,6 @@ public class JdbcGardenDao implements GardenDao {
         }
         return plantList;
     }
-
     @Override
     public int addPlantToGarden(Plant updatePlant, int userId) {
         String sql = "INSERT INTO garden (plant_id, user_id) " +
@@ -67,8 +63,6 @@ public class JdbcGardenDao implements GardenDao {
             throw new DaoException("Data integrity violation", e);
         }
     }
-
-
     @Override
     public void deletePlant(int plantId, int userId) {
         String sql = "DELETE FROM garden WHERE plant_id = ? and user_id = ?;";
@@ -81,5 +75,70 @@ public class JdbcGardenDao implements GardenDao {
         }
 
     }
+    @Override
+    public List<GardenPlant> getGardenPlants(int userId) {
+        List<GardenPlant> gardenPlants= new ArrayList<>();
+        String sql="SELECT garden_id,user_id,plant_id,plant_qty,notes "+
+                    "FROM garden "+
+                    "WHERE user_id = ?";
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            while (results.next()){
+                GardenPlant gardenPlant = mapRowToGardenPlant(results);
+                gardenPlants.add(gardenPlant);
+            }
+        } catch (CannotGetJdbcConnectionException e){
+            throw new DataAccessResourceFailureException("Unable to connect to server or database", e);
+        }
+        return gardenPlants;
+    }
+
+    @Override
+    public GardenPlant getGardenPlantById(int id) {
+        GardenPlant gardenPlant=null;
+        String sql= "SELECT garden_id, user_id,plant_id,plant_qty,notes " +
+                "FROM garden " +
+                "WHERE garden_id=? ";
+        try{
+            SqlRowSet result = jdbcTemplate.queryForRowSet(sql,id);
+            if (result.next()){
+                gardenPlant = mapRowToGardenPlant(result);
+            }
+        } catch (CannotGetJdbcConnectionException e){
+            throw new DataAccessResourceFailureException("Unable to connect to server or database", e);
+        }
+
+        return gardenPlant;
+    }
+
+    @Override
+    public GardenPlant updateGardenPlant(GardenPlant gardenPlant) {
+        String sql = "UPDATE garden " +
+                "SET notes = ?, " +
+                "plant_qty = ? " +
+                "WHERE garden_id = ? ";
+        try{
+            System.out.println(gardenPlant.getNotes()+" "+gardenPlant.getQuantity()
+                    +" "+gardenPlant.getGardenId());
+            jdbcTemplate.update(sql,gardenPlant.getNotes(),gardenPlant.getQuantity(),gardenPlant.getGardenId());
+            return getGardenPlantById(gardenPlant.getGardenId());
+        } catch (CannotGetJdbcConnectionException e){
+            throw new DataAccessResourceFailureException("Unable to connect to server or database", e);
+        }
+    }
+    private GardenPlant mapRowToGardenPlant(SqlRowSet rowSet){
+        GardenPlant gardenPlant=new GardenPlant();
+        gardenPlant.setGardenId(rowSet.getInt("garden_id"));
+        gardenPlant.setUserId(rowSet.getInt("user_id"));
+        gardenPlant.setPlant(plantDao.getPlantDetails(rowSet.getInt("plant_id")));
+        gardenPlant.setQuantity(rowSet.getInt("plant_qty"));
+        gardenPlant.setNotes(rowSet.getString("notes"));
+        return gardenPlant;
+    }
 
 }
+//garden_id SERIAL,
+//plant_id int NOT NULL,
+//user_id int NOT NULL,
+//plant_qty int DEFAULT 1 NOT NULL,
+//notes text NULL,
