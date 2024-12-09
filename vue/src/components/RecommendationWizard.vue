@@ -1,24 +1,33 @@
 <template>
     <div class="container">
         <div class="wizard-box">
-            <div class="question current">
-                <h2>{{ questionsArray[currentQuestion].question }}</h2>
+            <div v-show="showQuiz" class="quiz">
+                <div class="question current">
+                    <h2>{{ questionsArray[currentQuestion].question }}</h2>
+                </div>
+                <div class="answers">
+                    <span v-for="(answer, index) in questionsArray[currentQuestion].answers" :key="index"
+                        :class="['answer-block', { selected: questionsArray[currentQuestion].selected === index }]"
+                        v-on:click="selectAnswer(index)">
+                        {{ answer.choice }}
+                    </span>
+                </div>
+                <div class="buttons">
+                    <button class="next-btn" :disabled="questionsArray[currentQuestion].selected === null"
+                        v-on:click="goToNextQuestion">
+                        Next
+                    </button>
+                    <button class="reset-btn" v-on:click="resetQuiz">
+                        Reset
+                    </button>
+                </div>
             </div>
-            <div class="answers">
-                <span v-for="(answer, index) in questionsArray[currentQuestion].answers" :key="index"
-                    :class="['answer-block', { selected: questionsArray[currentQuestion].selected === index }]"
-                    v-on:click="selectAnswer(index)">
-                    {{ answer }}
-                </span>
-            </div>
-            <div class="buttons">
-                <button class="next-btn" :disabled="questionsArray[currentQuestion].selected === null"
-                    v-on:click="goToNextQuestion">
-                    Next
-                </button>
-                <button class="reset-btn" v-on:click="resetQuiz">
-                    Reset
-                </button>
+            <div v-show="showRecommendations" class="recommendations">
+                <h1>Here are your recommendations: </h1>
+                <div class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded" 
+                v-for="(plant,index) in filterByAnswers" v-bind:key="index"
+                v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
+            ></div>
             </div>
         </div>
     </div>
@@ -30,54 +39,113 @@ import PlantService from '../services/PlantService';
 export default {
     data() {
         return {
+            showRecommendations: false,
+            showQuiz: true,
             savedPlants: [],
             currentQuestion: 0,
             questionsArray: [
                 {
                     question: 'What best describes your gardening ability right now?',
                     answers: [
-                        'I can\'t even keep a cactus alive.',
-                        'I think I can handle something easy!',
-                        'I\'m getting the hang of this gardening thing.',
-                        'My green thumb is ready for something challenging!',
-                        'Call me the plant whisperer. I can grow anything.'
+                        {
+                            choice: 'I can\'t keep a cactus alive',
+                            id: 1,
+                            plants: []
+                        },
+                        {
+                            choice: 'I\'m getting the hang of this gardening thing.',
+                            id: 2,
+                            plants: []
+                        },
+                        {
+                            choice: 'Call me the plant whisperer. I can grow anything!',
+                            id: 3,
+                            plants: []
+                        }
                     ],
                     selected: null
                 },
                 {
                     question: 'What are you interested in planting? (Select all that apply)',
                     answers: [
-                        'Vegetable',
-                        'Fruit',
-                        'Herb'
+                        {
+                            choice: 'Vegetable',
+                            id: 1,
+                            plants: []
+                        },
+                        {
+                            choice: 'Fruit',
+                            id: 2,
+                            plants: []
+                        },
+                        {
+                            choice: 'Herbs',
+                            id: 3,
+                            plants: []
+                        }
                     ],
                     selected: null
                 },
                 {
                     question: 'How much sunlight will the planted area get?',
                     answers: [
-                        'Little',
-                        'Some',
-                        'Plenty'
+                        {
+                            choice: 'Mostly Shaded.',
+                            id: 1,
+                            plants: []
+                        },
+                        {
+                            choice: 'Some sunlight.',
+                            id: 2,
+                            plants: []
+                        },
+                        {
+                            choice: 'Sunny all day.',
+                            id: 3,
+                            plants: []
+                        }
                     ],
                     selected: null
                 },
                 {
-                    question: 'Take a look at this Hardiness map. What zone will you plant be in?',
+                    question: 'What climate will it be planted in?',
                     answers: [
-                        'Super Cold',
-                        'Cold',
-                        'Warm',
-                        'Hot'
+                        {
+                            choice: 'Cold',
+                            id: 1,
+                            plants: []
+                        },
+                        {
+                            choice: 'Warm',
+                            id: 2,
+                            plants: []
+                        },
+                        {
+                            choice: 'Hot',
+                            id: 3,
+                            plants: []
+                        }
                     ],
                     selected: null
                 },
                 {
                     question: 'How frequently can you care for your plant?',
                     answers: [
-                        'Once or twice a week',
-                        'Every other day',
-                        'Daily'
+                        {
+                            choice: '1-2 Days a week',
+                            id: 1,
+                            plants: []
+                        },
+                        {
+                            choice: 'Every other day',
+                            id: 2,
+                            plants: []
+                        },
+                        {
+                            choice: 'Daily',
+                            id: 3,
+                            plants: []
+                        }
                     ],
                     selected: null
                 }
@@ -93,8 +161,9 @@ export default {
                 this.$router.push({ name: 'notFound' });
             });
         },
-        filterByQuiz() {
-
+        filterByAnswers() {
+            const selectPlants = this.plants;
+            return selectPlants
         },
         selectAnswer(index) {
             this.questionsArray[this.currentQuestion].selected = index;
@@ -102,6 +171,10 @@ export default {
         goToNextQuestion() {
             if (this.currentQuestion < this.questionsArray.length - 1) {
                 this.currentQuestion++;
+            }
+            else{
+                this.showQuiz = false;
+                this.showRecommendations = true;
             }
         },
         resetQuiz() {
