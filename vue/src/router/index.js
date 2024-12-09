@@ -11,6 +11,7 @@ import PlantSearchView from '../views/PlantSearchView.vue';
 import MyGardenView from '../views/MyGardenView.vue';
 import HomePageView from '../views/HomePageView.vue';
 import NotFoundView from '../views/NotFoundView.vue';
+import RecommendationWizard from '../components/RecommendationWizard.vue';
 
 
 /**
@@ -79,6 +80,13 @@ const routes = [
       requiresAuth: false
     }
   },
+
+  {
+    path: '/wizard',
+    name: 'wizard',
+    component: RecommendationWizard
+  },
+
   {
     path: "/notfound",
     name: "notFound",
