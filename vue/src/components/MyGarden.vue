@@ -42,9 +42,9 @@
             
               <button class="btn btn-light" v-if="isEditingNotes" v-on:click="saveNote">Save Notes</button>
               <button class="btn btn-light" v-if="!isEditingNotes" v-on:click="openNotes">Edit Notes</button>
-              <textarea v-if="isEditingNotes" class= "notes" name="notes" id="notes"  cols="30" 
+              <textarea v-if="isEditingNotes"  name="notes" id="notes"  cols="30" 
               rows="10" v-model="selectedPlant.notes"></textarea>
-              <p v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
+              <p class="notes" v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
             
           </div>
         </div>
@@ -269,7 +269,8 @@ export default {
 }
 .notes {
   width:100%;
-  height: 100%;
+  height: 240px;
+  overflow-y: auto;
 }
 
 .right-container {
