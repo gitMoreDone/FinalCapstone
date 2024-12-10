@@ -12,15 +12,6 @@
                         {{ answer.choice }}
                     </span>
                 </div>
-                <div class="buttons">
-                    <button class="next-btn" :disabled="questionsArray[currentQuestion].selected === null"
-                        v-on:click="goToNextQuestion">
-                        Next
-                    </button>
-                    <button class="reset-btn" v-on:click="resetQuiz">
-                        Reset
-                    </button>
-                </div>
             </div>
             <div v-if="showRecommendations" class="recommendations">
                 <div class="card-container">
@@ -60,11 +51,12 @@ export default {
                     selected: null
                 },
                 {
-                    question: 'What are you interested in planting? (Select all that apply)',
+                    question: 'What are you interested in planting?',
                     answers: [
                         { choice: 'Vegetable', id: 1, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
                         { choice: 'Fruit', id: 2, plants: [21, 22, 23, 24, 25, 26, 27] },
-                        { choice: 'Herbs', id: 3, plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20] }
+                        { choice: 'Herbs', id: 3, plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
+                        { choice: 'No preference', id: 4, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]}
                     ],
                     selected: null
                 },
@@ -90,7 +82,7 @@ export default {
                     question: 'How much space do you have to garden?',
                     answers: [
                         { choice: 'Little: 100 - 200 square feet', id: 1, plants: [1, 2, 9, 11] },
-                        { choice: 'Enough: 200 - 400 square feet', id: 2, plants: [15, 23] },
+                        { choice: 'Enough: 200 - 400 square feet', id: 2, plants: [1, 2, 9, 11, 15, 23] },
                         { choice: 'Large: 400 - 800 square feet', id: 3, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] }
                     ],
                     selected: null
@@ -104,7 +96,6 @@ export default {
 
             if (this.currentQuestion === 1) {
                 this.selectedPlantType = this.questionsArray[1].answers[index].choice;
-                console.log(this.selectedPlantType);
             }
 
             this.questionsArray[this.currentQuestion].answers[index].plants.forEach((p => {
@@ -113,7 +104,9 @@ export default {
                     return e.plantId === matchId;
                 });
                 currentPlant.count++;
-            }));        
+            })); 
+            console.log(this.plantCounts);
+            this.goToNextQuestion();       
         },
         goToNextQuestion() {
             if (this.currentQuestion < this.questionsArray.length - 1) {
@@ -130,6 +123,7 @@ export default {
             this.currentQuestion = 0;
             this.showQuiz = true;
             this.showRecommendations = false;
+            window.location.reload();
         },
         getPlantList() {
             PlantService.getPlants().then((response) => {
@@ -157,10 +151,18 @@ export default {
         },
         filteredPlants() {
             const topPlantIds = this.plantCounts;
-            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).map(plant => plant.plantId);
+            console.log(topPlantIds);
+
+            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).splice(0,3).map(plant => plant.plantId);
+            console.log(sortedPlants);
 
             console.log(sortedPlants.plants);
-            return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+            if(this.selectedPlantType === 'No preference'){
+                return this.plants.filter(plant => sortedPlants.includes(plant.plantId));
+            }
+            else{
+                return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+            }
         }
     },
     created() {
@@ -239,33 +241,6 @@ export default {
     display: flex;
     gap: 10px;
     justify-content: center;
-}
-
-.next-btn,
-.reset-btn {
-    background-color: #bfd0b4;
-    border: solid;
-    padding: 5px 20px;
-    margin-top: 5px;
-    border-radius: 3px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.next-btn:hover,
-.reset-btn:hover {
-    background-color: #9ead94;
-}
-
-.next-btn:focus,
-.reset-btn:focus {
-    outline: none;
-}
-
-.next-btn[disabled] {
-    opacity: 0.6;
-    cursor: not-allowed;
 }
 
 .recommendations {
