@@ -24,6 +24,7 @@
           <div v-if="dropdownVisible" class="dropdown-menu" @mouseleave.prevent="toggleDropdown">
             <button class="dropdown-option" v-on:click="removePlant(selectedPlant.plant.plantId)">Delete</button>
             <button class="dropdown-option" v-on:click="addNote">Add Note</button>
+            <button class="dropdown-option" v-on:click="increaseQuantity">Add Quantity</button>
           </div>
         </div>
         <div class="content-and-notes">
@@ -114,6 +115,11 @@ export default {
       }
       this.dropdownVisible = false;
     },
+    increaseQuantity() {
+      // PlantService.updatePlant(this.selectedPlant)
+      console.log(this.selectedPlant)
+    },
+
     pushToSearch() {
       this.$router.push({ name: 'plantSearch' })
     },
@@ -135,7 +141,8 @@ export default {
     },
     goBack() {
       this.$router.go(-1);
-    }
+    },
+
   },
 
   mounted() {

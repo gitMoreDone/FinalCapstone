@@ -94,6 +94,15 @@ const routes = [
     meta: {
       requiresAuth: false
     }
+  },
+
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: NotFoundView,
+    meta: {
+      requiresAuth: false
+    }
   }
 ];
 
