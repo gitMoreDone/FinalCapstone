@@ -1,7 +1,5 @@
 <template>
-    <div>
-        <recommendation-wizard />
-    </div>
+        <recommendation-wizard v-bind:plants="plants"/>
 </template>
 
 
@@ -11,9 +9,11 @@ import RecommendationWizard from '../components/RecommendationWizard.vue'
 export default {
     components: {
         RecommendationWizard
-    }
+    },
 }
 </script>
 
 
-<style scoped></style>
+<style scoped>
+
+</style>

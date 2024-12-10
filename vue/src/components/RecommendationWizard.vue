@@ -22,12 +22,17 @@
                     </button>
                 </div>
             </div>
-            <div v-show="showRecommendations" class="recommendations">
-                <h1>Here are your recommendations: </h1>
-                <div class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded" 
-                v-for="(plant,index) in recommendedPlants" v-bind:key="index"
-                v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
-            ></div>
+            <div v-if="showRecommendations" class="recommendations">
+                <div class="card-container">
+                    <div 
+                        class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded"
+                        v-for="(plant, index) in filteredPlants" 
+                        :key="index" v-on:click="sendToDetails(plant)">
+                        <h3>{{ plant.plantName }}</h3>
+                        <img :src="plant.plantImage1" alt="Plant image" class="plant-image" />
+                    </div>
+                </div>
+                <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
             </div>
         </div>
     </div>
@@ -41,144 +46,81 @@ export default {
         return {
             showRecommendations: false,
             showQuiz: true,
-            savedPlants: [],
-            //savedAnswers: [],
-            //recommendedPlants: [],
+            plants: [],
             currentQuestion: 0,
+            selectedPlantType: null,
             questionsArray: [
                 {
                     question: 'What best describes your gardening ability right now?',
                     answers: [
-                        {
-                            choice: 'I can\'t keep a cactus alive',
-                            id: 1,
-                            plants: [1, 3, 5, 6, 9, 12, 14, 16, 18, 21, 22, 24, 25]
-                        },
-                        {
-                            choice: 'I\'m getting the hang of this gardening thing.',
-                            id: 2,
-                            plants: [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 16, 18, 21, 22, 23, 24, 25, 26]
-                        },
-                        {
-                            choice: 'Call me the plant whisperer. I can grow anything!',
-                            id: 3,
-                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
-                        }
+                        { choice: 'I can\'t keep a cactus alive', id: 1, plants: [1, 3, 5, 6, 9, 12, 14, 16, 18, 21, 22, 24, 25] },
+                        { choice: 'I\'m getting the hang of this gardening thing.', id: 2, plants: [1, 2, 3, 4, 5, 6, 9, 11, 12, 13, 14, 16, 18, 21, 22, 23, 24, 25, 26] },
+                        { choice: 'Call me the plant whisperer. I can grow anything!', id: 3, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] }
                     ],
                     selected: null
                 },
                 {
                     question: 'What are you interested in planting? (Select all that apply)',
                     answers: [
-                        {
-                            choice: 'Vegetable',
-                            id: 1,
-                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-                        },
-                        {
-                            choice: 'Fruit',
-                            id: 2,
-                            plants: [21, 22, 23, 24, 25, 26, 27]
-                        },
-                        {
-                            choice: 'Herbs',
-                            id: 3,
-                            plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20]
-                        }
+                        { choice: 'Vegetable', id: 1, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
+                        { choice: 'Fruit', id: 2, plants: [21, 22, 23, 24, 25, 26, 27] },
+                        { choice: 'Herbs', id: 3, plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20] }
                     ],
                     selected: null
                 },
                 {
                     question: 'How much sunlight will the planted area get?',
                     answers: [
-                        {
-                            choice: 'Mostly Shaded.',
-                            id: 1,
-                            plants: [4, 8, 9, 14, 15, 18, 19, 20]
-                        },
-                        {
-                            choice: 'Some sunlight.',
-                            id: 2,
-                            plants: [5, 6, 12, 13, 16, 17, 26]
-                        },
-                        {
-                            choice: 'Sunny all day.',
-                            id: 3,
-                            plants: [1, 2, 3, 7, 10, 11, 21, 22, 23, 24, 25, 27]
-                        }
+                        { choice: 'Mostly Shaded.', id: 1, plants: [4, 8, 9, 14, 15, 18, 19, 20] },
+                        { choice: 'Some sunlight.', id: 2, plants: [5, 6, 12, 13, 16, 17, 26] },
+                        { choice: 'Sunny all day.', id: 3, plants: [1, 2, 3, 7, 10, 11, 21, 22, 23, 24, 25, 27] }
                     ],
                     selected: null
                 },
                 {
                     question: 'What climate will it be planted in?',
                     answers: [
-                        {
-                            choice: 'Cold',
-                            id: 1,
-                            plants: [5, 9, 15, 16, 17, 18, 19]
-                        },
-                        {
-                            choice: 'Warm',
-                            id: 2,
-                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
-                        },
-                        {
-                            choice: 'Hot',
-                            id: 3,
-                            plants: [7, 10, 12, 21, 26]
-                        }
+                        { choice: 'Cold', id: 1, plants: [5, 9, 15, 16, 17, 18, 19] },
+                        { choice: 'Warm', id: 2, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] },
+                        { choice: 'Hot', id: 3, plants: [7, 10, 12, 21, 26] }
                     ],
                     selected: null
                 },
                 {
                     question: 'How much space do you have to garden?',
                     answers: [
-                        {
-                            choice: 'Little: 100 - 200 square feet',
-                            id: 1,
-                            plants: [1, 2, 9, 11]
-                        },
-                        {
-                            choice: 'Enough: 200 - 400 square feet',
-                            id: 2,
-                            plants: [15, 23]
-                        },
-                        {
-                            choice: 'Large: 400 - 800 square feet',
-                            id: 3,
-                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
-                        }
+                        { choice: 'Little: 100 - 200 square feet', id: 1, plants: [1, 2, 9, 11] },
+                        { choice: 'Enough: 200 - 400 square feet', id: 2, plants: [15, 23] },
+                        { choice: 'Large: 400 - 800 square feet', id: 3, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] }
                     ],
                     selected: null
                 }
-            ],
+            ]
         };
     },
     methods: {
-        getSavedPlants() {
-            PlantService.getSavedPlants(this.$store.state.user.id).then((response) => {
-                this.savedPlants = response.data;
-            }).catch((error) => {
-                console.error("Error Fetching Saved Plants", error);
-                this.$router.push({ name: 'notFound' });
-            });
-        },
-        filterByAnswers() {
-            const selectPlants = this.plants;
-            return selectPlants
-        },
         selectAnswer(index) {
             this.questionsArray[this.currentQuestion].selected = index;
-        
+
+            if (this.currentQuestion === 1) {
+                this.selectedPlantType = this.questionsArray[1].answers[index].choice;
+                console.log(this.selectedPlantType);
+            }
+
+            this.questionsArray[this.currentQuestion].answers[index].plants.forEach((p => {
+                let matchId = p
+                let currentPlant = this.plantCounts.find((e) => {
+                    return e.plantId === matchId;
+                });
+                currentPlant.count++;
+            }));        
         },
         goToNextQuestion() {
             if (this.currentQuestion < this.questionsArray.length - 1) {
                 this.currentQuestion++;
-            }
-            else{
+            } else {
                 this.showQuiz = false;
                 this.showRecommendations = true;
-                //this.savedAnswers=this.filterByAnswers();
             }
         },
         resetQuiz() {
@@ -186,7 +128,43 @@ export default {
                 question.selected = null;
             });
             this.currentQuestion = 0;
+            this.showQuiz = true;
+            this.showRecommendations = false;
+        },
+        getPlantList() {
+            PlantService.getPlants().then((response) => {
+                this.plants = response.data;
+            }).catch((error) => {
+                console.error("Error Fetching Saved Plants", error);
+            });
+        },
+        sendToDetails(plant){
+            this.$router.push({ name: 'plantDetails', params: { id: plant.plantId } })
         }
+    },
+    computed: {
+        plantCounts(){
+            const plantCounts = [];
+
+            this.plants.forEach(plant => {
+                plantCounts.push({
+                    plantId: plant.plantId,
+                    count: 0
+                });
+            });
+
+            return plantCounts;
+        },
+        filteredPlants() {
+            const topPlantIds = this.plantCounts;
+            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).map(plant => plant.plantId);
+
+            console.log(sortedPlants.plants);
+            return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+        }
+    },
+    created() {
+        this.getPlantList();
     }
 };
 </script>
@@ -288,5 +266,63 @@ export default {
 .next-btn[disabled] {
     opacity: 0.6;
     cursor: not-allowed;
+}
+
+.recommendations {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* Creates 3 columns */
+    gap: 20px;  /* Adds space between cards */
+    justify-items: center;
+}
+
+.card {
+    width: 100%;
+    max-width: 250px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.plant-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.retake {
+    margin-top: 20px;
+    background-color: #bfd0b4;
+    border: solid;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    display: block;
+    width: 100%;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.retake:hover {
+    background-color: #9ead94;
+}
+
+.retake:focus {
+    outline: none;
 }
 </style>

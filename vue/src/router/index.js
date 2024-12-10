@@ -84,7 +84,10 @@ const routes = [
   {
     path: '/wizard',
     name: 'wizard',
-    component: RecommendationWizard
+    component: RecommendationWizard,
+    meta: {
+      requiresAuth: false
+    }
   },
 
   {
