@@ -9,11 +9,17 @@
     <div class="headings">
       <div class="box-container">
         <h3 id="welcome">Welcome To Your Own Virtual Garden </h3>
-        <router-link class="button button1" v-bind:to="{ name: 'login' }"
-          v-if="$store.state.token == ''">Login</router-link>
+        <p id="need-recommendations">Need some recommendations?</p>
+        <h2 id="wizard-link">
+          <router-link class="button button1" v-bind:to="{ name: 'wizard' }">Take Our Quiz</router-link>
+        </h2>
+        <span v-if="$store.state.token !== ''">or</span>
         <router-link class="button button1" v-bind:to="{ name: 'garden' }" v-if="$store.state.token != ''">Take Me To My
           Garden</router-link>
-        <div class="fake-link"> <a href="" v-if="$store.state.token == ''">Register to create your garden </a></div>
+        <div class="login-fake-link" v-if="$store.state.token == ''"> 
+          <router-link  v-bind:to="{ name: 'login' }">Login</router-link>
+          <span> or</span>
+          <a href="" v-if="$store.state.token == ''">Create Account</a></div>
       </div>
 
     </div>
@@ -91,13 +97,25 @@ export default {
   background-color: rgba(244, 244, 244, 0.5);
 }
 
+#need-recommendations {
+  font-size: 20px;
+}
+
 #welcome {
   font-family: "Lexend", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
+  font-size: 35px;
   font-style: normal;
   /* color: rgb(102, 75, 1); */
   color: #0D1C0F
+}
+
+.login-fake-link {
+  display: flex;
+  flex-direction: row;
+  width:50%;
+  justify-content: space-evenly;
 }
 
 .button1 {
