@@ -13,6 +13,9 @@
           <img class="plant-tab-image" :src="gardenPlant.plant.plantImage1" :alt="gardenPlant.plant.plantName" />
           <div class="plant-tab-name">{{ gardenPlant.plant.plantName }}</div>
         </div>
+        <div class="plant-tab" v-on:click="goToSearch()">
+          <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span class="plant-tab-name" style="color:gray">Add a Plant</span>
+        </div>
       </div>
 
       <div v-if="selectedPlant" class="details-container">
@@ -33,7 +36,18 @@
               <h3 class="lexend">{{ selectedPlant.plant.plantName }}</h3>
               <p><strong>Scientific Name:</strong> {{ selectedPlant.plant.scientificName }}</p>
               <p><strong>Plant Type:</strong> {{ selectedPlant.plant.plantType }}</p>
-              <p>{{ selectedPlant.plant.plantDescription }}</p>
+              <div class="plant-properties-container">
+                <div class=plant-property>
+                <img src="/public/Water_Level.png" alt="water level" />
+                  <div class="plant-property-description">
+                    <span> Water Needed</span>
+                    <span>{{ selectedPlant.plant.waterLevel }}/week</span>
+                  </div>
+                </div>
+                <img src="/public/Light_Level.png" alt="Light Level" />
+                <img src="/public/Difficulty_Level.png" alt="difficulty level"/>
+              </div>
+              <!-- <p>{{ selectedPlant.plant.plantDescription }}</p> -->
               <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
             </div>
 
@@ -44,8 +58,7 @@
               <button class="btn btn-light" v-if="!isEditingNotes" v-on:click="openNotes">Edit Notes</button>
               <textarea v-if="isEditingNotes"  name="notes" id="notes"  cols="30" 
               rows="10" v-model="selectedPlant.notes"></textarea>
-              <p class="notes" v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
-            
+
           </div>
         </div>
       </div>
@@ -117,6 +130,9 @@ export default {
     saveNote() {
       PlantService.updatePlant(this.selectedPlant);
       this.isEditingNotes=false;
+    },
+    goToSearch(){
+      this.$router.push({name:"plantSearch"});  
     },
     goBack() {
       this.$router.go(-1);
@@ -208,7 +224,13 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
+.plant-properties-container{
+  display:flex;
+}
+.plant-properties-container img{
+  width:40px;
+  height:40px;
+}
 .details-container.empty-details {
   justify-content: center;
   align-items: center;
