@@ -13,6 +13,9 @@
           <img class="plant-tab-image" :src="gardenPlant.plant.plantImage1" :alt="gardenPlant.plant.plantName" />
           <div class="plant-tab-name">{{ gardenPlant.plant.plantName }}</div>
         </div>
+        <div class="plant-tab" v-on:click="goToSearch()">
+          <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span class="plant-tab-name" style="color:gray">Add a Plant</span>
+        </div>
       </div>
 
       <div v-if="selectedPlant" class="details-container">
@@ -21,6 +24,7 @@
           <div v-if="dropdownVisible" class="dropdown-menu" @mouseleave.prevent="toggleDropdown">
             <button class="dropdown-option" v-on:click="removePlant(selectedPlant.plant.plantId)">Delete</button>
             <button class="dropdown-option" v-on:click="addNote">Add Note</button>
+            <button class="dropdown-option" v-on:click="increaseQuantity">Add Quantity</button>
           </div>
         </div>
         <div class="content-and-notes">
@@ -33,19 +37,45 @@
               <h3 class="lexend">{{ selectedPlant.plant.plantName }}</h3>
               <p><strong>Scientific Name:</strong> {{ selectedPlant.plant.scientificName }}</p>
               <p><strong>Plant Type:</strong> {{ selectedPlant.plant.plantType }}</p>
-              <p>{{ selectedPlant.plant.plantDescription }}</p>
               <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
             </div>
 
           </div>
-          <div class="notes-container">
-            
-              <button class="btn btn-light" v-if="isEditingNotes" v-on:click="saveNote">Save Notes</button>
-              <button class="btn btn-light" v-if="!isEditingNotes" v-on:click="openNotes">Edit Notes</button>
-              <textarea v-if="isEditingNotes"  name="notes" id="notes"  cols="30" 
-              rows="10" v-model="selectedPlant.notes"></textarea>
-              <p class="notes" v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
-            
+          <div class="plant-properties-container">
+            <div class=plant-property>
+              <img src="/public/Water_Level.png" alt="water level" />
+              <div class="plant-property-description">
+                <span> Water Needed</span>
+                <span>{{ selectedPlant.plant.waterLevel }}/week</span>
+              </div>
+            </div>
+            <div class=plant-property>
+              <img src="/public/Light_Level.png" alt="Light Level" />
+              <div class="plant-property-description">
+                <span> Light Level</span>
+                <span>{{ lightLevel }}</span>
+              </div>
+            </div>
+            <div class=plant-property>
+              <img src="/public/Difficulty_Level.png" alt="difficulty level"/>
+              <div class="plant-property-description">
+                <span> Difficulty</span>
+                <span>{{ difficultyLevel }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="notes-and-description">
+            <div class="notes-container">
+              
+                <button class="btn btn-light" v-if="isEditingNotes" v-on:click="saveNote">Save Notes</button>
+                <button class="btn btn-light" v-if="!isEditingNotes" v-on:click="openNotes">Edit Notes</button>
+                <textarea v-if="isEditingNotes"  name="notes" id="notes"  cols="30" 
+                rows="10" v-model="selectedPlant.notes"></textarea>
+                <p class="notes" v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
+            </div>
+            <div class="plant-description">
+              <p>{{ selectedPlant.plant.plantDescription }}</p>
+            </div>
           </div>
         </div>
       </div>
@@ -74,7 +104,28 @@ export default {
       propPlant: { 'plantName': 'plants' },
       dropdownVisible: false,
       isEditingNotes:false
+      
     };
+  },
+  computed: {
+    lightLevel(){
+      if(this.selectedPlant.plant.lightLevel==1){
+        return "Low";
+      }else if (this.selectedPlant.plant.lightLevel==2){
+        return "Moderate";
+      }else if (this.selectedPlant.plant.lightLevel==3){
+        return "High";
+      } else return "Error";
+    },
+    difficultyLevel(){
+      if(this.selectedPlant.plant.difficultyLevel<=1){
+        return "Low";
+      }else if (this.selectedPlant.plant.difficultyLevel==2){
+        return "Moderate";
+      }else if (this.selectedPlant.plant.difficultyLevel==3){
+        return "High";
+      } else return "Error";
+    }
   },
   methods: {
     getPlantsInGarden() {
@@ -102,6 +153,10 @@ export default {
       }
       this.dropdownVisible = false;
     },
+    increaseQuantity() {
+      // PlantService.updatePlant(this.selectedPlant)
+      console.log(this.selectedPlant)
+    },
     pushToSearch() {
       this.$router.push({ name: 'plantSearch' })
     },
@@ -118,11 +173,13 @@ export default {
       PlantService.updatePlant(this.selectedPlant);
       this.isEditingNotes=false;
     },
+    goToSearch(){
+      this.$router.push({name:"plantSearch"});  
+    },
     goBack() {
       this.$router.go(-1);
-    }
+    },
   },
-
   mounted() {
     this.getPlantsInGarden();
   },
@@ -208,7 +265,25 @@ export default {
   display: flex;
   flex-direction: column;
 }
-
+.plant-properties-container{
+  margin-top: 10px;
+  display:flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+}
+.plant-properties-container img{
+  width:45px;
+  height:45px;
+}
+.plant-property {
+  margin:5px;
+  display:flex;
+}
+.plant-property-description {
+  margin-left:5px;
+  display:flex;
+  flex-direction: column;
+}
 .details-container.empty-details {
   justify-content: center;
   align-items: center;
@@ -219,7 +294,6 @@ export default {
   flex-direction: column;
   height:100%;
 }
-
 .detail-content {
   display: flex;
   gap: 20px;
@@ -257,7 +331,10 @@ export default {
   color: #679436;
   cursor: pointer;
 }
+.notes-and-description{
+  display: flex;
 
+}
 .notes-container {
   margin-top:20px;
   gap:5px;
@@ -266,11 +343,19 @@ export default {
   display:flex;
   flex-direction: column;
   
+  
 }
 .notes {
   width:100%;
-  height: 240px;
+  height: 70%;
   overflow-y: auto;
+}
+.plant-description {
+  margin-top:56px;
+  padding:6px;
+  gap:5px;
+  width: 50%;
+  height:100%;
 }
 
 .right-container {
