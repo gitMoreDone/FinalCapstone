@@ -25,7 +25,7 @@
             <div v-show="showRecommendations" class="recommendations">
                 <h1>Here are your recommendations: </h1>
                 <div class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded" 
-                v-for="(plant,index) in filterByAnswers" v-bind:key="index"
+                v-for="(plant,index) in recommendedPlants" v-bind:key="index"
                 v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" 
             ></div>
             </div>
@@ -42,6 +42,8 @@ export default {
             showRecommendations: false,
             showQuiz: true,
             savedPlants: [],
+            //savedAnswers: [],
+            //recommendedPlants: [],
             currentQuestion: 0,
             questionsArray: [
                 {
@@ -129,22 +131,22 @@ export default {
                     selected: null
                 },
                 {
-                    question: 'How frequently can you care for your plant?',
+                    question: 'How much space do you have to garden?',
                     answers: [
                         {
-                            choice: '1-2 Days a week',
+                            choice: 'Little: 100 - 200 square feet',
                             id: 1,
-                            plants: []
+                            plants: [1, 2, 9, 11]
                         },
                         {
-                            choice: 'Every other day',
+                            choice: 'Enough: 200 - 400 square feet',
                             id: 2,
-                            plants: []
+                            plants: [15, 23]
                         },
                         {
-                            choice: 'Daily',
+                            choice: 'Large: 400 - 800 square feet',
                             id: 3,
-                            plants: []
+                            plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]
                         }
                     ],
                     selected: null
@@ -167,6 +169,7 @@ export default {
         },
         selectAnswer(index) {
             this.questionsArray[this.currentQuestion].selected = index;
+        
         },
         goToNextQuestion() {
             if (this.currentQuestion < this.questionsArray.length - 1) {
@@ -175,6 +178,7 @@ export default {
             else{
                 this.showQuiz = false;
                 this.showRecommendations = true;
+                //this.savedAnswers=this.filterByAnswers();
             }
         },
         resetQuiz() {
