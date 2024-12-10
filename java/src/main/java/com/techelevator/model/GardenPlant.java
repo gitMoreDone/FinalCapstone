@@ -10,10 +10,10 @@ public class GardenPlant {
 
     ///////Constructor////
 
-    public GardenPlant() {
+   public GardenPlant() {
     }
 
-    /////Getters and Setters///
+/////Getters and Setters///
 
 
     public int getGardenId() {

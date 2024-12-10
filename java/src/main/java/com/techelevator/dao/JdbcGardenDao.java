@@ -28,6 +28,9 @@ public class JdbcGardenDao implements GardenDao {
     private JdbcTemplate jdbcTemplate;
 
     public JdbcGardenDao(JdbcTemplate jdbcTemplate) {
+        if(plantDao==null){
+            plantDao=new JdbcPlantDao(jdbcTemplate);
+        }
         this.jdbcTemplate = jdbcTemplate;
     }
     @Override
