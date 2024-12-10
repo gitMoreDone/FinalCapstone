@@ -58,7 +58,6 @@
               <button class="btn btn-light" v-if="!isEditingNotes" v-on:click="openNotes">Edit Notes</button>
               <textarea v-if="isEditingNotes"  name="notes" id="notes"  cols="30" 
               rows="10" v-model="selectedPlant.notes"></textarea>
-
           </div>
         </div>
       </div>
