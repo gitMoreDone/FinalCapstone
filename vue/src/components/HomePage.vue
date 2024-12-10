@@ -7,21 +7,22 @@
 
   <div class="home ">
     <div class="headings">
+      <div id="box-content">
       <div class="box-container">
         <h3 id="welcome">Welcome To Your Own Virtual Garden </h3>
-        <p id="need-recommendations">Need some recommendations?</p>
+        <p id="need-recommendations" v-if="$store.state.token == ''">Need some recommendations?</p>
         <h2 id="wizard-link">
-          <router-link class="button button1" v-bind:to="{ name: 'wizard' }">Take Our Quiz</router-link>
+          <router-link class="button button1" v-bind:to="{ name: 'wizard' }" v-if="$store.state.token == ''"> Take Our Quiz </router-link>
         </h2>
-        <span v-if="$store.state.token !== ''">or</span>
-        <router-link class="button button1" v-bind:to="{ name: 'garden' }" v-if="$store.state.token != ''">Take Me To My
+        <!-- <span v-if="$store.state.token == ''">or</span> -->
+        <router-link class="button button1" v-bind:to="{ name: 'garden' }" v-if="$store.state.token != ''">Visit My
           Garden</router-link>
         <div class="login-fake-link" v-if="$store.state.token == ''"> 
           <router-link  v-bind:to="{ name: 'login' }">Login</router-link>
-          <span> or</span>
+          <!-- <span> or</span> -->
           <a href="" v-if="$store.state.token == ''">Create Account</a></div>
       </div>
-
+    </div>
     </div>
 
     <div class="under-heading">
@@ -74,8 +75,18 @@ export default {
   font-style: normal;
 }
 
+#box-content {
+  display: flex;
+  width: 100%;
+  justify-content: left;
+  margin-left: 70px;
+  margin-bottom: 60px;
+}
+
 .headings {
-  background-image: url('https://res.cloudinary.com/dbryvvjtl/image/upload/v1733429936/person-holding-basket_kluodn.jpg');
+  background-image: url('https://res.cloudinary.com/dbryvvjtl/image/upload/v1733865903/homepage_main_image_1_usy7lj.png');
+  /* filter:brightness(80%); */
+  /* background-image: url('https://res.cloudinary.com/dbryvvjtl/image/upload/v1733429936/person-holding-basket_kluodn.jpg'); */
   background-size: cover;
   background-position: center;
   height: 100vh;
@@ -90,37 +101,69 @@ export default {
   display: inline-flex;
   flex-direction: column;
   padding: 40px 60px;
-  border: 2px solid #333;
+  /* border: 2px solid #333; */
   border-radius: 15px;
   align-items: center;
   gap: 10px;
-  background-color: rgba(244, 244, 244, 0.5);
+  /* background-color: rgba(244, 244, 244, 0.877); */
+   /* background-color: #e7d6b9e1; */
 }
 
 #need-recommendations {
-  font-size: 20px;
+  font-family: "Archivo", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 200;
+  font-size: 25px;
+  margin-bottom: 30px;
+  /* color: #e7d6b9e1; */
+  color: white;
 }
 
 #welcome {
-  font-family: "Lexend", sans-serif;
+  font-family: "Archivo", sans-serif;
+  /* font-optical-sizing: auto; */
+  font-weight: 900;
+  font-size: 55px;
+  
+
+  /* font-variation-settings:
+    "wdth" 100; */
+  /* font-family: "Lexend", sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
-  font-size: 35px;
-  font-style: normal;
+  font-size: 55px;
+  font-style: normal; */
   /* color: rgb(102, 75, 1); */
-  color: #0D1C0F
+  /* color: #e7d6b9e1 */
+  color: white
+  
 }
 
 .login-fake-link {
   display: flex;
   flex-direction: row;
-  width:50%;
-  justify-content: space-evenly;
+  width:30%;
+  justify-content: space-around;
+  margin-top: 30px;
+  border: 2px solid #333;
+  padding: 12px;
+  border-radius: 10px;
+  /* background-color: #e7d6b9e1; */
+  background-color: white;
 }
 
 .button1 {
   font-size: 35px;
-  margin: 10px;
+  /* margin: 10px; */
+  text-decoration: none;
+  border: 2px solid #333;
+  padding: 22px;
+  border-radius: 10px;
+  /* background-color: #e7d6b9e1; */
+  background-color: white;
+  
+  /* margin-top: 70px;
+  margin-bottom: 60px; */
 }
 
 .under-heading {
@@ -173,7 +216,8 @@ export default {
 }
 a {
   font-weight: bold;
-  color: rgb(0, 83, 0);
+  /* color: rgb(0, 83, 0); */
+  color: #679436;
 }
 
 a:hover {
