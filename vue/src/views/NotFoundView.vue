@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h1>CONTENT NOT FOUND</h1>
+        <img src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733789391/c72cfe456e639daa5f0beb93e5d207977718db9d55314f62b5102fac15d12f21_ro4duq.png" />
     </div>
     <router-view></router-view>
 </template>
@@ -18,9 +18,9 @@ export default{
 .container {
     display: flex;
     justify-content: center;
-    margin-top: 200px;
-    width: 400px;
-    height: 300px;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 
 }
 
