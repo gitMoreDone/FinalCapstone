@@ -40,6 +40,7 @@
               <h3 class="lexend">{{ selectedPlant.plant.plantName }}</h3>
               <p><strong>Scientific Name:</strong> {{ selectedPlant.plant.scientificName }}</p>
               <p><strong>Plant Type:</strong> {{ selectedPlant.plant.plantType }}</p>
+              
 
               <div id="quantity-form-button">
                 <p id="quantity-text"><strong>In Garden: </strong></p>
@@ -50,6 +51,9 @@
                 <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p>
 
               </div>
+            <div class="plant-description">
+              <p>{{ selectedPlant.plant.plantDescription }}</p>
+            </div>
               <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
             </div>
 
@@ -88,11 +92,34 @@
                 v-model="selectedPlant.notes"></textarea>
               <p class="notes" v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
             </div>
-
-            <div class="plant-description">
-              <p>{{ selectedPlant.plant.plantDescription }}</p>
+            <div class="description-icons">
+            
+            <div class="plant-properties-container">
+            <div class=plant-property>
+              <img class="property-image" src="/public/Water_Level.png" alt="water level" />
+              <div class="plant-property-description">
+                <span class="waterneeded"> Water Needed</span>
+                <span>{{ selectedPlant.plant.waterLevel }}inches/week</span>
+              </div>
+            </div>
+            <div class=plant-property>
+              <img class="property-image" src="/public/Light_Level.png" alt="Light Level" />
+              <div class="plant-property-description">
+                <span class="lightlevel"> Light Level</span>
+                <span>{{ lightLevel }}</span>
+              </div>
+            </div>
+            <div class=plant-property>
+              <img class="property-image" src="/public/Difficulty_Level.png" alt="difficulty level"/>
+              <div class="plant-property-description">
+                <span class="difficulty"> Difficulty</span>
+                <span>{{ difficultyLevel }}</span>
+              </div>
+            </div>
             </div>
           </div>
+          </div>
+          
         </div>
       </div>
 
@@ -137,7 +164,7 @@ export default {
         return "Low";
       } else if (this.selectedPlant.plant.difficultyLevel === 3) {
         return "Moderate";
-      } else if (this.selectedPlant.plant.difficultyLevel < 3) {
+      }else if (this.selectedPlant.plant.difficultyLevel>3){
         return "High";
       } else return "Error";
     }
@@ -224,7 +251,7 @@ export default {
   display: flex;
   flex: 3;
   max-width: 80%;
-  height: 80vh;
+  height: 67.5vh;
   background-color: #CADABF;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -278,20 +305,37 @@ export default {
   display: flex;
   flex-direction: column;
 }
+.plant-properties-container{
+  /* margin-top: 10px; */
+  display:flex;
+  flex-direction:column;
+}
 
 .plant-properties-container {
   margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
-}
+  height: 300px;
+  
 
-.plant-properties-container img {
-  width: 45px;
-  height: 45px;
+  /* align-items: center; */
+}
+.plant-properties-container img{
+  width:70px;
+  height:70px;
+}
+.property-image {
+  margin-right: 7px;
+  
 }
 
 .plant-property {
+  margin:5px;
+  display:flex;
+  flex-direction: row;
+  
+  
   margin: 5px;
   display: flex;
 }
@@ -300,6 +344,7 @@ export default {
   margin-left: 5px;
   display: flex;
   flex-direction: column;
+  font-size: 20px;
 }
 
 .details-container.empty-details {
@@ -317,6 +362,12 @@ export default {
 .detail-content {
   display: flex;
   gap: 20px;
+}
+.lightlevel{
+  font-weight: 700;
+}
+.difficulty{
+  font-weight: 700;
 }
 
 .detail-image {
@@ -382,8 +433,9 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-
-
+  white-space: pre-wrap;
+  
+  
 }
 
 .notes {
@@ -396,12 +448,14 @@ export default {
   height: 55px;
 }
 
-.plant-description {
-  margin-top: 56px;
-  padding: 6px;
-  gap: 5px;
-  width: 50%;
+.description-icons {
+  display: flex;
+  flex-direction: column;
+  /* margin-top: 20px; */
+  margin-left: 100px;
   height: 100%;
+  justify-content: space-around;
+
 }
 
 .right-container {
@@ -424,6 +478,9 @@ export default {
   width: 100%;
   height: 100%;
   text-align: center;
+}
+.waterneeded{
+  font-weight: 700;
 }
 
 .search-plants {
@@ -504,4 +561,5 @@ export default {
   margin-top: 3px;
   margin-right: 3px;
 }
+
 </style>

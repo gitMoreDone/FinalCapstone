@@ -44,7 +44,7 @@
     </div>
     <div class="bottom-description">
         
-        <img class="bottom-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/c_crop,w_500,h_500,x_186,y_62/v1733938659/Screenshot_2024-12-11_123713_h3wmgu.png" />
+        <img class="bottom-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/c_crop,w_500,h_500,x_60,y_81/v1733950785/Screenshot_2024-12-11_155831_zoxufo.png" />
         <div class="description3">
           <h2 class="part3">Track Your Progress</h2>
           <p class="text-description">Keep garden notes where you record important details about your plants, including planting dates, watering schedules, observations on growth, pest issues, harvest dates, and any adjustments you make to your gardening practices.</p>
