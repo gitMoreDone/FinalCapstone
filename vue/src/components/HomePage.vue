@@ -29,7 +29,7 @@
       <div class="top-description">
 
         <img class="top-image"
-          src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733431907/mustache-guy-holding-basket_1_vc7mno.jpg" />
+          src="https://res.cloudinary.com/dpm5evsuo/image/upload/c_crop,w_500,h_500,x_0,y_0/v1733935679/AI_screenshot_nnmcoc.png" />
         <div class="description1">
           <h2 class="part1">Cultivate Confidence</h2>
           <p class="text-description">Sprout tills the complex world of gardening into simple, manageable steps.</p>
@@ -181,6 +181,8 @@ export default {
   margin-right: 50px;
   width: 500px;
   height: 500px;
+  border: 1px gray solid;
+  
 }
 
 .middle-image {
