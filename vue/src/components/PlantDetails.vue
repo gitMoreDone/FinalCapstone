@@ -118,6 +118,10 @@ export default {
 
 <style scoped>
 
+* {
+   
+}
+
 .hardiness-zone{
     display: flex;
     justify-content: center;
@@ -139,22 +143,22 @@ export default {
 .plant-care {
     display: flex;
     justify-content: center;
-    text-align: center;
+    text-align: start;
     margin-top: 20px;
 }
+
 .plant-details {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
 }
 .fact-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin-top: 5px;
-    text-align: center;
-    align-items: center;
+    text-align: start;
+    align-items: start;
 }
 .container {
     display: flex;
@@ -249,12 +253,12 @@ export default {
 }
 .details-content h2,
 .care-content h2 {
-    font-size: 20px;
+    font-size: large;
     margin-bottom: 10px;
 }
 .details-content p,
 .care-content p {
-    font-size: 16px;
+    font-size: large;
     line-height: 1.5;
 }
 .back-button-container {
@@ -286,5 +290,8 @@ export default {
 .detail-list{
     display: flex;
     text-align: start;
+    width: 100%;
+    font-size: larger;
+
 }
 </style>

@@ -26,20 +26,22 @@
                         <img :src="plant.plantImage1" alt="Plant image" class="plant-image" />
                     </div>
                 </div>
-                <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
-                <button class="email-results" v-on:click="emailResults = true">Email Results</button>
-            </div>
-            <div class="email-template" v-show="emailResults">
-                <form ref="form" @submit.prevent="sendEmail">
-                    <label>Name</label>
-                    <input type="text" name="user_name">
-                    <label>Email</label>
-                    <input type="email" name="user_email">
-                    <input class="email-plants" type="text" name="recommendedPlants1" v-model="recommendedPlants[0].plantName">
-                    <input class="email-plants" type="text" name="recommendedPlants2" v-model="recommendedPlants[1].plantName">
-                    <input class="email-plants" type="text" name="recommendedPlants3" v-model="recommendedPlants[2].plantName">
-                    <input type="submit" value="Send">
-                </form>
+                <div class="buttons">
+                    <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
+                    <button class="email-results" v-on:click="emailResults = true">Email Results</button>
+                </div>
+                <div v-if="emailResults" class="email-form">
+                    <form class="input-form" ref="form" @submit.prevent="sendEmail">
+                        <label>Name</label>
+                        <input type="text" name="user_name">
+                        <label>Email</label>
+                        <input type="email" name="user_email">
+                        <input v-show="showPlants" type="text" name="recommendedPlants1" v-model="recommendedPlants[0].plantName">
+                        <input v-show="showPlants" type="text" name="recommendedPlants2" v-model="recommendedPlants[1].plantName">
+                        <input v-show="showPlants" type="text" name="recommendedPlants3" v-model="recommendedPlants[2].plantName">
+                        <input class="send-email" type="submit" value="Send">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -55,6 +57,7 @@ export default {
             emailResults: false,
             showRecommendations: false,
             showQuiz: true,
+            showPlants: false,
             plants: [],
             recommendedPlants: [
                 {
@@ -294,7 +297,7 @@ export default {
 }
 
 .buttons {
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -333,7 +336,7 @@ export default {
     margin-top: 10px;
 }
 
-.retake {
+.retake, .email-results {
     margin-top: 20px;
     background-color: #bfd0b4;
     border: solid;
@@ -343,23 +346,54 @@ export default {
     cursor: pointer;
     transition: all 0.3s ease;
     text-align: center;
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    margin-left: auto;
-    margin-right: auto;
+    display: inline-block;
 }
 
-.retake:hover {
+.retake:hover, .email-results:hover {
     background-color: #9ead94;
 }
 
-.retake:focus {
+.retake:focus, .email-results:focus {
     outline: none;
 }
 
-.email-plants{
-    visibility: hidden;
+.email-form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+    width: 80%;
+}
+.email-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+}
+
+.email-form input[type="text"], 
+.email-form input[type="email"] {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.send-email{
+    margin-top: 20px;
 }
 
 .popup-message {
@@ -385,4 +419,5 @@ export default {
 .fade-enter, .fade-leave-to {
     opacity: 0;
 }
+
 </style>
