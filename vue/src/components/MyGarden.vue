@@ -13,7 +13,7 @@
           <img class="plant-tab-image" :src="gardenPlant.plant.plantImage1" :alt="gardenPlant.plant.plantName" />
           <div class="plant-tab-name">{{ gardenPlant.plant.plantName }}</div>
         </div>
-        <div class="plant-tab" v-on:click="goToSearch()">
+        <div class="plant-tab" v-on:click="pushToSearch()">
           <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span class="plant-tab-name" style="color:gray">Add a Plant</span>
         </div>
       </div>
@@ -44,9 +44,7 @@
                 <p id="quantity-text"><strong>In Garden: </strong></p>
               <form v-if="isEditingQuantity">
                 <input type="text" id="quantity" name="quantity" size="3" v-model="selectedPlant.quantity" v-if="isEditingQuantity" v-on:keydown.enter.prevent="saveQuantity">
-              <!-- <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p> -->
               </form>
-              <!-- <button v-if="isEditingQuantity" id="quantity-button" style="color: green" v-on:click="saveQuantity">&#10003;</button> -->
               <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p>
               
             </div>
@@ -57,7 +55,29 @@
             </div>
 
           </div>
-
+          <div class="plant-properties-container">
+            <div class=plant-property>
+              <img src="/public/Water_Level.png" alt="water level" />
+              <div class="plant-property-description">
+                <span> Water Needed</span>
+                <span>{{ selectedPlant.plant.waterLevel }} inches/week</span>
+              </div>
+            </div>
+            <div class=plant-property>
+              <img src="/public/Light_Level.png" alt="Light Level" />
+              <div class="plant-property-description">
+                <span> Light Level</span>
+                <span>{{ lightLevel }}</span>
+              </div>
+            </div>
+            <div class=plant-property>
+              <img src="/public/Difficulty_Level.png" alt="difficulty level"/>
+              <div class="plant-property-description">
+                <span> Difficulty</span>
+                <span>{{ difficultyLevel }}</span>
+              </div>
+            </div>
+          </div>
           <div class="notes-and-description">
             
 
@@ -107,7 +127,7 @@
     </div>
 
     <div class="right-container">
-      <GeminiAI class="chat-bot" v-bind:plant="selectedPlant" />
+      <GeminiAI class="chat-bot"/>
     </div>
   </div>
 </template>
@@ -115,14 +135,12 @@
 <script>
 import PlantService from "../services/PlantService";
 import GeminiAI from "../components/GeminiAI.vue";
-import { loadRouteLocation } from "vue-router";
 
 export default {
   data() {
     return {
       gardenPlants: [],
       selectedPlant: null,
-      propPlant: { 'plantName': 'plants' },
       dropdownVisible: false,
       isEditingNotes:false,
       isEditingQuantity: false
@@ -155,7 +173,6 @@ export default {
         this.gardenPlants = gardenPlantArray;
         if (this.gardenPlants.length > 0) {
           this.selectedPlant = this.gardenPlants[0];
-          this.propPlant = this.selectedPlant.plant;
         }
       }).catch((error) => {
         console.error("Error Fetching Saved Plants", error);
@@ -164,14 +181,11 @@ export default {
     },
     selectPlant(gardenPlant) {
       this.selectedPlant = gardenPlant;
-      this.propPlant = this.selectedPlant.plant;
     },
     removePlant(id) {
       PlantService.removePlant(id);
       this.gardenPlants = this.gardenPlants.filter((gardenPlant) => gardenPlant.plant.plantId !== id);
-      if (this.selectedPlant && this.selectedPlant.plantId === id) {
-        this.selectedPlant = null;
-      }
+      this.selectedPlant = '';
       this.dropdownVisible = false;
     },
     startEditingQuantity() {
@@ -197,9 +211,6 @@ export default {
     saveNote() {
       PlantService.updatePlant(this.selectedPlant);
       this.isEditingNotes=false;
-    },
-    goToSearch(){
-      this.$router.push({name:"plantSearch"});  
     },
     goBack() {
       this.$router.go(-1);
@@ -251,6 +262,7 @@ export default {
   background-color: #bfd0b4;
   border-right: 1px solid #ccc;
   padding: 10px;
+  overflow: auto;
 }
 
 .plant-tab {
