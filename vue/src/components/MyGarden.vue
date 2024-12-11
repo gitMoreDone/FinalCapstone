@@ -24,7 +24,8 @@
           <div v-if="dropdownVisible" class="dropdown-menu" @mouseleave.prevent="toggleDropdown">
             <button class="dropdown-option" v-on:click="removePlant(selectedPlant.plant.plantId)">Delete</button>
             <button class="dropdown-option" v-on:click="addNote">Add Note</button>
-            <button class="dropdown-option" v-on:click="increaseQuantity">Add Quantity</button>
+            <button class="dropdown-option" v-if="!isEditingQuantity" v-on:click="startEditingQuantity">Edit Quantity</button>
+            
           </div>
         </div>
         <div class="content-and-notes">
@@ -37,6 +38,17 @@
               <h3 class="lexend">{{ selectedPlant.plant.plantName }}</h3>
               <p><strong>Scientific Name:</strong> {{ selectedPlant.plant.scientificName }}</p>
               <p><strong>Plant Type:</strong> {{ selectedPlant.plant.plantType }}</p>
+              
+              <div id="quantity-form-button">
+                <p id="quantity-text"><strong>In Garden: </strong></p>
+              <form v-if="isEditingQuantity">
+                <input type="text" id="quantity" name="quantity" size="3" v-model="selectedPlant.quantity" v-if="isEditingQuantity" v-on:keydown.enter.prevent="saveQuantity">
+              <!-- <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p> -->
+              </form>
+              <!-- <button v-if="isEditingQuantity" id="quantity-button" style="color: green" v-on:click="saveQuantity">&#10003;</button> -->
+              <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p>
+              
+            </div>
               <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
             </div>
 
@@ -46,7 +58,7 @@
               <img src="/public/Water_Level.png" alt="water level" />
               <div class="plant-property-description">
                 <span> Water Needed</span>
-                <span>{{ selectedPlant.plant.waterLevel }}/week</span>
+                <span>{{ selectedPlant.plant.waterLevel }}inches/week</span>
               </div>
             </div>
             <div class=plant-property>
@@ -65,6 +77,8 @@
             </div>
           </div>
           <div class="notes-and-description">
+            
+
             <div class="notes-container">
               
                 <button class="btn btn-light" v-if="isEditingNotes" v-on:click="saveNote">Save Notes</button>
@@ -73,6 +87,7 @@
                 rows="10" v-model="selectedPlant.notes"></textarea>
                 <p class="notes" v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
             </div>
+
             <div class="plant-description">
               <p>{{ selectedPlant.plant.plantDescription }}</p>
             </div>
@@ -95,6 +110,7 @@
 <script>
 import PlantService from "../services/PlantService";
 import GeminiAI from "../components/GeminiAI.vue";
+import { loadRouteLocation } from "vue-router";
 
 export default {
   data() {
@@ -103,8 +119,8 @@ export default {
       selectedPlant: null,
       propPlant: { 'plantName': 'plants' },
       dropdownVisible: false,
-      isEditingNotes:false
-      
+      isEditingNotes:false,
+      isEditingQuantity: false
     };
   },
   computed: {
@@ -153,10 +169,14 @@ export default {
       }
       this.dropdownVisible = false;
     },
-    increaseQuantity() {
-      // PlantService.updatePlant(this.selectedPlant)
-      console.log(this.selectedPlant)
+    startEditingQuantity() {
+      this.isEditingQuantity = true;
     },
+    saveQuantity() {
+      PlantService.updatePlant(this.selectedPlant);
+      this.isEditingQuantity=false;
+    },
+    
     pushToSearch() {
       this.$router.push({ name: 'plantSearch' })
     },
@@ -326,6 +346,24 @@ export default {
   margin: 5px 0;
 }
 
+#quantity-text {
+  margin-right: 7px;
+}
+
+#quantity-form-button {
+  display: flex;
+  flex-direction: row;
+  
+}
+
+#quantity-button {
+  border-radius: 7px;
+}
+
+#quantity {
+  margin-right: 10px;
+}
+
 .plant-details-link {
   text-decoration: underline;
   color: #679436;
@@ -349,6 +387,10 @@ export default {
   width:100%;
   height: 70%;
   overflow-y: auto;
+}
+
+#quantity-field {
+height: 55px;
 }
 .plant-description {
   margin-top:56px;
