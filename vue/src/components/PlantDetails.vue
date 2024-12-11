@@ -40,7 +40,7 @@
                             <li>Sunlight: {{ currentPlant.lightLevel }} / daily</li>
                         </ul>
                     </div>
-                    <i class="bi bi-printer-fill" style="font-size: 3rem; color: #679436;" @click="printPage"></i>
+                    
                 </div>
             </div>
             <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
@@ -62,10 +62,13 @@
         </div>
         <div class="add-button-container">
             <i class="add-button bi bi-plus-square-fill" 
+                v-if="$store.state.token != ''" 
                 style="font-size: 3rem; color: #679436;" 
                 v-on:click="savePlant(currentPlant)"
                 ></i>
+                <i class="bi bi-printer-fill" style="font-size: 3rem; color: #679436;" @click="printPage"></i>
         </div>
+        
     </div>
 </template>
 
@@ -292,6 +295,9 @@ export default {
     justify-content:left;
     align-items: flex-start;
     line-height: 0;
+    flex-direction: column;
+    margin-left: 10px;
+
 }
 .back-button {
     vertical-align: middle;
@@ -314,10 +320,12 @@ export default {
 }
 
 .bi-printer-fill {
-    position: absolute;
+    /* position: absolute; */
     bottom: 10px;
     right: 10px;
     cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5px;
 }
 
 @media print {
