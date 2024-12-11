@@ -84,12 +84,19 @@ export default {
                 ],
             iconAlt: null,
             showIconAlt: false,
-            iconAltTimer:null
+            iconAltTimer:null,
+            gardenPlants: []
         }
     },
     methods: {
         savePlant(plant) {
-            PlantService.addPlant(plant);
+            const existingPlant = this.gardenPlants.find((gardenPlant) => gardenPlant.plant.plantId === plant.plantId);
+            if (existingPlant) {
+                existingPlant.quantity += 1;
+                PlantService.updatePlant(existingPlant);
+            } else {
+                PlantService.addPlant(plant);
+            }
             this.showPopupMessage();
         },
         showPopupMessage() {
@@ -136,7 +143,16 @@ export default {
         },
         navToDetails(plantId){
             this.$router.push({name:'plantDetails', params: {id:plantId}})
-        }
+        },
+        getPlantsInGarden() {
+            PlantService.getGardenPlants().then((response) => {
+                const gardenPlantArray = response.data;
+                this.gardenPlants = gardenPlantArray;
+                }).catch((error) => {
+                    console.error("Error Fetching Saved Plants", error);
+                    this.$router.push({ name: 'notFound' });
+                    })
+            },
     },
     computed: {
         filteredPlants() {
@@ -154,6 +170,9 @@ export default {
         }
         
 
+    },
+    created() {
+        this.getPlantsInGarden();
     }
 }
 </script>

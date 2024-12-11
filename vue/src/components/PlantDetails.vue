@@ -40,7 +40,7 @@
                             <li>Sunlight: {{ currentPlant.lightLevel }} / daily</li>
                         </ul>
                     </div>
-                    <i class="bi bi-printer-fill" style="font-size: 3rem; color: #679436;" @click="printPage"></i>
+                    
                 </div>
             </div>
             <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
@@ -62,10 +62,13 @@
         </div>
         <div class="add-button-container">
             <i class="add-button bi bi-plus-square-fill" 
+                v-if="$store.state.token != ''" 
                 style="font-size: 3rem; color: #679436;" 
-                v-on:click="savePlant()"
+                v-on:click="savePlant(currentPlant)"
                 ></i>
+                <i class="bi bi-printer-fill" style="font-size: 3rem; color: #679436;" @click="printPage"></i>
         </div>
+        
     </div>
 </template>
 
@@ -80,7 +83,8 @@ export default {
             mainImage: '',
             zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733505704/zone_map_lswoek_c_pad_ar_1_1_b7mu4a.webp',
             thumbnails: [],
-            activeTab: 'details'
+            activeTab: 'details',
+            gardenPlants: []
         };
     },
     methods: {
@@ -105,15 +109,32 @@ export default {
                 this.$router.push({ name: 'notFound' });
             } )
         },
-        savePlant() {
-            PlantService.addPlant(this.currentPlant);
+        savePlant(plant) {
+            const existingPlant = this.gardenPlants.find((gardenPlant) => gardenPlant.plant.plantId === plant.plantId);
+            if (existingPlant) {
+                existingPlant.quantity += 1;
+                PlantService.updatePlant(existingPlant);
+            } else {
+                PlantService.addPlant(plant);
+            }
         },
         goBack(){
         this.$router.go(-1);
-        } 
+        },
+        getPlantsInGarden() {
+            PlantService.getGardenPlants().then((response) => {
+                const gardenPlantArray = response.data;
+                this.gardenPlants = gardenPlantArray;
+                }).catch((error) => {
+                    console.error("Error Fetching Saved Plants", error);
+                    this.$router.push({ name: 'notFound' });
+                    })
+            },
+    
     },
     created(){
-        this.getPlant(this.$route.params.id);  
+        this.getPlant(this.$route.params.id); 
+        this.getPlantsInGarden();
     },
     
 };
@@ -274,6 +295,9 @@ export default {
     justify-content:left;
     align-items: flex-start;
     line-height: 0;
+    flex-direction: column;
+    margin-left: 10px;
+
 }
 .back-button {
     vertical-align: middle;
@@ -296,10 +320,12 @@ export default {
 }
 
 .bi-printer-fill {
-    position: absolute;
+    /* position: absolute; */
     bottom: 10px;
     right: 10px;
     cursor: pointer;
+    margin-top: 20px;
+    margin-left: 5px;
 }
 
 @media print {
