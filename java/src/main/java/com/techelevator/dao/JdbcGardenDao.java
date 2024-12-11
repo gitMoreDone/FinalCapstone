@@ -83,7 +83,8 @@ public class JdbcGardenDao implements GardenDao {
         List<GardenPlant> gardenPlants= new ArrayList<>();
         String sql="SELECT garden_id,user_id,plant_id,plant_qty,notes "+
                     "FROM garden "+
-                    "WHERE user_id = ?";
+                    "WHERE user_id = ? "+
+                    "ORDER BY garden_id DESC ";
         try{
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
             while (results.next()){

@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container lexend-header-font">
         <div class="wizard-box">
             <div v-show="showQuiz" class="quiz">
                 <div class="question current">
@@ -25,6 +25,11 @@
                         <h3>{{ plant.plantName }}</h3>
                         <img :src="plant.plantImage1" alt="Plant image" class="plant-image" />
                     </div>
+                    <transition name="fade">
+                        <div v-if="showAddedPopup" class="popup-message lexend-header-font">
+                            Garden Updated
+                        </div>
+                    </transition>
                 </div>
                 <div class="buttons">
                     <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
