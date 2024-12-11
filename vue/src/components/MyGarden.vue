@@ -43,9 +43,7 @@
                 <p id="quantity-text"><strong>In Garden: </strong></p>
               <form v-if="isEditingQuantity">
                 <input type="text" id="quantity" name="quantity" size="3" v-model="selectedPlant.quantity" v-if="isEditingQuantity" v-on:keydown.enter.prevent="saveQuantity">
-              <!-- <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p> -->
               </form>
-              <!-- <button v-if="isEditingQuantity" id="quantity-button" style="color: green" v-on:click="saveQuantity">&#10003;</button> -->
               <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p>
               
             </div>
@@ -58,7 +56,7 @@
               <img src="/public/Water_Level.png" alt="water level" />
               <div class="plant-property-description">
                 <span> Water Needed</span>
-                <span>{{ selectedPlant.plant.waterLevel }}inches/week</span>
+                <span>{{ selectedPlant.plant.waterLevel }} inches/week</span>
               </div>
             </div>
             <div class=plant-property>
