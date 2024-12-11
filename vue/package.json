@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore src"
   },
   "dependencies": {
+    "@emailjs/browser": "^4.4.1",
     "@google/generative-ai": "^0.21.0",
     "@popperjs/core": "^2.11.8",
     "axios": "^1.6",

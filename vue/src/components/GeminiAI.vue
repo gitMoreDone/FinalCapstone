@@ -3,7 +3,7 @@
     <span>G</span><span style="color: #679436">AI</span><span>A</span>
   </h1>
 
-  <form class="mb-5 question-form" @submit.prevent="fetchAnswer">
+  <form class="mb-5 question-form" @submit.prevent="fetchAnswer" @keydown.enter.prevent="fetchAnswer">
     <div class="question-box">
       <textarea 
          v-bind:placeholder="plantNamePlaceholder"
@@ -26,23 +26,17 @@
 
 
 <script setup>
-import { ref, defineProps,computed} from 'vue'
+import { ref } from 'vue'
 import { useGetGenerativeModelGP } from '../composables/userGetGenerativeModelGP'
 
-const props = defineProps({
-  plant: {
-    type: Object,
-    required: true,
-  }
-});
-const plantName = computed(()=>props.plant.planName);
+
 const plantNamePlaceholder = "Ask me about your plant!" ;
 const question = ref("");
 const fullAnswer = ref(''); 
 const displayAnswer = ref(''); 
 const isLoading = ref(false);
 const questionPreface = 
-`You will be asked a question. Answer it only if it pertains to plants. If it doesn't please respond appropriately to their question.
+`You will be asked a question. Answer it only if it is related to plants. No other subject matter. If it doesn't please respond appropriately to their question.
    Return the response to the question in HTML format using the following template, using none or any amount of list items:
   <h4>Example Title</h4>
   <span>Example Introduction</span>

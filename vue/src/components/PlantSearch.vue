@@ -320,7 +320,6 @@ fade-enter-active, .fade-leave-active {
 }
 .custom-divs>.p-2 {
     width: 30%;
-    /* Adjust to set the number of divs per row */
 }
 
 .lexend-header-font {

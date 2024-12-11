@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse lexend-header-font" id="navbarNavAltMarkup">
                 <div id="navbar-nav">
                 <router-link class="routelink" v-bind:to="{ name: 'home' }">Home</router-link> 
-                <router-link class="routelink" v-bind:to="{ name: 'wizard'}">Get Recommendations</router-link>
+                <router-link class="routelink" v-bind:to="{ name: 'wizard'}">Garden Guru</router-link>
                 <router-link class="routelink" v-bind:to="{ name: 'plantSearch' }">Search</router-link> 
                 <router-link class="routelink" v-bind:to="{ name: 'garden'}" v-if="$store.state.token != ''">Garden</router-link><span v-if="$store.state.token != ''"></span>
                 <router-link class="routelink" v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link> 

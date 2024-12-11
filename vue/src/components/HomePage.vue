@@ -18,9 +18,9 @@
         <router-link class="button button1" v-bind:to="{ name: 'garden' }" v-if="$store.state.token != ''">Visit My
           Garden</router-link>
         <div class="login-fake-link" v-if="$store.state.token == ''"> 
-          <router-link  v-bind:to="{ name: 'login' }">Login</router-link>
+          <router-link class="login-create-account-text"  v-bind:to="{ name: 'login' }">Login</router-link>
           <!-- <span> or</span> -->
-          <a href="" v-if="$store.state.token == ''">Create Account</a></div>
+          <a class="login-create-account-text" href="" v-if="$store.state.token == ''">Create Account</a></div>
       </div>
     </div>
     </div>
@@ -29,25 +29,25 @@
       <div class="top-description">
 
         <img class="top-image"
-          src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733431907/mustache-guy-holding-basket_1_vc7mno.jpg" />
+          src="https://res.cloudinary.com/dpm5evsuo/image/upload/c_crop,w_500,h_500,x_0,y_0/v1733935679/AI_screenshot_nnmcoc.png" />
         <div class="description1">
-          <h2 class="part1">Cultivate Confidence</h2>
-          <p class="text-description">Sprout tills the complex world of gardening into simple, manageable steps.</p>
+          <h2 class="part1">Gardening Artificial Intelligence Assistant</h2>
+          <p class="text-description">With GAIA, you will spend more time digging in your garden and less time at the computer digging for answers.</p>
         </div>
       </div>
       <div class="middle-description">
         <div class="description2">
           <h2 class="part2">Find the right plants for your garden</h2>
-          <p class="text-description">Take our two minute quiz to get recommendations curated for you!</p>
+          <p class="text-description">We want to simplify your time and give you the best recommendations based off your plant preferences. Take our two minute quiz to get recommendations!</p>
         </div>
-        <img class="middle-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733615783/fa27404f7e8297718b55b5251845ee97e0c9940bea57fc4829ba1d1755942a5d_fspgvp.png" />
+        <img class="middle-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/c_crop,w_500,h_500,x_57,y_21/v1733938026/Screenshot_2024-12-11_122630_ddor0s.png" />
     </div>
     <div class="bottom-description">
         
-        <img class="bottom-image" src="https://res.cloudinary.com/dbryvvjtl/image/upload/v1733432328/Screenshot_2024-12-05_155647_scidvc.png" />
+        <img class="bottom-image" src="https://res.cloudinary.com/dpm5evsuo/image/upload/c_crop,w_500,h_500,x_186,y_62/v1733938659/Screenshot_2024-12-11_123713_h3wmgu.png" />
         <div class="description3">
           <h2 class="part3">Track Your Progress</h2>
-          <p class="text-description">See days since you've last watered, save notes, and ask our virtual Assistant GAIA when you need help!</p>
+          <p class="text-description">Keep garden notes where you record important details about your plants, including planting dates, watering schedules, observations on growth, pest issues, harvest dates, and any adjustments you make to your gardening practices.</p>
         </div>
       </div>
 
@@ -77,7 +77,7 @@ export default {
 
 #box-content {
   display: flex;
-  width: 100%;
+  width: 96%;
   justify-content: left;
   margin-left: 70px;
   margin-bottom: 60px;
@@ -144,12 +144,12 @@ export default {
   flex-direction: row;
   width:30%;
   justify-content: space-around;
-  margin-top: 30px;
-  border: 2px solid #333;
+  margin-top: 10px;
+  /* border: 2px solid #333; */
   padding: 12px;
   border-radius: 10px;
   /* background-color: #e7d6b9e1; */
-  background-color: white;
+  /* background-color: white; */
 }
 
 .button1 {
@@ -181,6 +181,8 @@ export default {
   margin-right: 50px;
   width: 500px;
   height: 500px;
+  border: 1px gray solid;
+  
 }
 
 .middle-image {
@@ -191,6 +193,7 @@ export default {
   margin-right: 50px;
   width: 500px;
   height: 500px;
+  border: 1px gray solid;
 
 }
 
@@ -212,6 +215,7 @@ export default {
   width: 500px;
   height: 500px;
   margin-bottom: 40px;
+  border: 1px gray solid;
     
 }
 a {
@@ -222,6 +226,10 @@ a {
 
 a:hover {
   color: green;
+}
+
+.login-create-account-text {
+  color: white;
 }
 
 .text-description {

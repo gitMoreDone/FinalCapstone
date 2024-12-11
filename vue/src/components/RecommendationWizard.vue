@@ -13,24 +13,17 @@
                     </span>
                 </div>
             </div>
+            <transition name="fade">
+                <div v-if="showAddedPopup" class="popup-message lexend-header-font">
+                    Email Sent
+                </div>
+            </transition>
             <div v-if="showRecommendations" class="recommendations">
-                <div class="card-container ">
-                    <div 
-                        class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded "
-                        v-for="(plant, index) in filteredPlants" 
-                        :key="index"
-                        v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" >
-                        <h4 v-on:click="sendToDetails(plant)">{{ plant.plantName }}</h4>
-                        <img v-on:click="sendToDetails(plant)" :src="plant.plantImage1" alt="Plant image" class="plant-image" />
-                        <div class="button-container">
-                            <transition name="fade">
-                                <button class="add-plant-button lexend-header-font" 
-                                    v-if="hoveredCard === index" 
-                                    v-show="$store.state.token != ''"
-                                    v-on:click.prevent="savePlant(plant)">Add to Garden
-                                </button>
-                            </transition>
-                        </div>
+                <div class="card-container">
+                    <div class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded"
+                        v-for="(plant, index) in filteredPlants" :key="index" v-on:click="sendToDetails(plant)">
+                        <h3>{{ plant.plantName }}</h3>
+                        <img :src="plant.plantImage1" alt="Plant image" class="plant-image" />
                     </div>
                     <transition name="fade">
                         <div v-if="showAddedPopup" class="popup-message lexend-header-font">
@@ -38,7 +31,22 @@
                         </div>
                     </transition>
                 </div>
-                <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
+                <div class="buttons">
+                    <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
+                    <button class="email-results" v-on:click="emailResults = true">Email Results</button>
+                </div>
+                <div v-if="emailResults" class="email-form">
+                    <form class="input-form" ref="form" @submit.prevent="sendEmail">
+                        <label>Name</label>
+                        <input type="text" name="user_name">
+                        <label>Email</label>
+                        <input type="email" name="user_email">
+                        <input v-show="showPlants" type="text" name="recommendedPlants1" v-model="recommendedPlants[0].plantName">
+                        <input v-show="showPlants" type="text" name="recommendedPlants2" v-model="recommendedPlants[1].plantName">
+                        <input v-show="showPlants" type="text" name="recommendedPlants3" v-model="recommendedPlants[2].plantName">
+                        <input class="send-email" type="submit" value="Send">
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -46,15 +54,28 @@
 
 <script>
 import PlantService from '../services/PlantService';
+import emailjs from '@emailjs/browser';
 
 export default {
     data() {
         return {
+            emailResults: false,
             showRecommendations: false,
             showQuiz: true,
-            hoveredCard: null,
-            showAddedPopup: false,
+            showPlants: false,
             plants: [],
+            recommendedPlants: [
+                {
+                    plantName: ''
+                },
+                {
+                    plantName: ''
+                },
+                {
+                    plantName: ''
+                }
+            ],
+            showAddedPopup: false,
             currentQuestion: 0,
             selectedPlantType: null,
             questionsArray: [
@@ -73,7 +94,7 @@ export default {
                         { choice: 'Vegetable', id: 1, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
                         { choice: 'Fruit', id: 2, plants: [21, 22, 23, 24, 25, 26, 27] },
                         { choice: 'Herbs', id: 3, plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
-                        { choice: 'No preference', id: 4, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]}
+                        { choice: 'No preference', id: 4, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] }
                     ],
                     selected: null
                 },
@@ -108,6 +129,9 @@ export default {
         };
     },
     methods: {
+        setFilteredPlants(){
+            this.recommendedPlants = this.filteredPlants;
+        },
         selectAnswer(index) {
             this.questionsArray[this.currentQuestion].selected = index;
 
@@ -121,14 +145,14 @@ export default {
                     return e.plantId === matchId;
                 });
                 currentPlant.count++;
-            })); 
-            console.log(this.plantCounts);
-            this.goToNextQuestion();       
+            }));
+            this.goToNextQuestion();
         },
         goToNextQuestion() {
             if (this.currentQuestion < this.questionsArray.length - 1) {
                 this.currentQuestion++;
             } else {
+                this.setFilteredPlants();
                 this.showQuiz = false;
                 this.showRecommendations = true;
             }
@@ -140,6 +164,8 @@ export default {
             this.currentQuestion = 0;
             this.showQuiz = true;
             this.showRecommendations = false;
+            this.emailResults = false;
+            this.recommendedPlants = [];
             window.location.reload();
         },
         getPlantList() {
@@ -149,28 +175,34 @@ export default {
                 console.error("Error Fetching Saved Plants", error);
             });
         },
-        sendToDetails(plant){
+        sendToDetails(plant) {
             this.$router.push({ name: 'plantDetails', params: { id: plant.plantId } })
         },
-        showButton(index) {
-            this.hoveredCard = index;
-        },
-        hideButton() {
-            this.hoveredCard = null;
-        },
-        savePlant(plant) {
-            PlantService.addPlant(plant);
-            this.showPopupMessage();
+        sendEmail() {
+            emailjs
+                .sendForm('service_96g4s5a', 'recommendation_results', this.$refs.form, {
+                    publicKey: 'SUCs9_DOCH0fnAQrK',
+                })
+                .then(
+                    () => {
+                        console.log('SUCCESS!');
+                        this.showPopupMessage();
+                    },
+                    (error) => {
+                        console.log('FAILED...', error.text);
+                    },
+                );
+                this.emailResults = false;
         },
         showPopupMessage() {
             this.showAddedPopup = true;
             setTimeout(() => {
             this.showAddedPopup = false;
             }, 1500);
-        },
+        }
     },
     computed: {
-        plantCounts(){
+        plantCounts() {
             const plantCounts = [];
 
             this.plants.forEach(plant => {
@@ -184,17 +216,17 @@ export default {
         },
         filteredPlants() {
             const topPlantIds = this.plantCounts;
-            console.log(topPlantIds);
-
-            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).splice(0,3).map(plant => plant.plantId);
-            console.log(sortedPlants);
-
-            console.log(sortedPlants.plants);
-            if(this.selectedPlantType === 'No preference'){
+            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).splice(0, 3).map(plant => plant.plantId);
+            if (this.selectedPlantType === 'No preference') {
                 return this.plants.filter(plant => sortedPlants.includes(plant.plantId));
             }
-            else{
-                return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+            else {
+                if (this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType).length === 0) {
+                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId));
+                }
+                else {
+                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+                }
             }
         }
     },
@@ -270,7 +302,7 @@ export default {
 }
 
 .buttons {
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     gap: 10px;
     justify-content: center;
@@ -283,8 +315,8 @@ export default {
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* Creates 3 columns */
-    gap: 20px;  /* Adds space between cards */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
     justify-items: center;
 }
 
@@ -308,28 +340,67 @@ export default {
     border-radius: 10px;
     margin-top: 10px;
 }
-.button-container {
-    display:flex;
-    justify-content: center;  
-}
-.add-plant-button {
-    position: absolute;
-    top: 50%;
-    background-color: white;
-    color: #0D1C0F;
-    border-radius: 5px 5px 5px 5px;
-    border-width: 0 !important;
-    width: 150px;
-    height: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+
+.retake, .email-results {
+    margin-top: 20px;
+    background-color: #bfd0b4;
+    border: solid;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1.2em;
     cursor: pointer;
-    font-size: 1rem;
-    z-index: 10;
-    
-    transition: opacity 0.3s ease, transform 0.3s ease; 
+    transition: all 0.3s ease;
+    text-align: center;
+    display: inline-block;
 }
+
+.retake:hover, .email-results:hover {
+    background-color: #9ead94;
+}
+
+.retake:focus, .email-results:focus {
+    outline: none;
+}
+
+.email-form {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #f9f9f9;
+    width: 80%;
+}
+.email-form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 1em;
+    text-align: center;
+}
+
+.email-form input[type="text"], 
+.email-form input[type="email"] {
+    display: block;
+    width: 100%;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.send-email{
+    margin-top: 20px;
+}
+
 .popup-message {
     position: fixed;
     top: 10%;
@@ -345,40 +416,13 @@ export default {
     text-align: center;
     opacity: 0.9;
 }
-fade-enter-active, .fade-leave-active {
+
+.fade-enter-active, .fade-leave-active {
     transition: opacity 0.5s;
 }
+
 .fade-enter, .fade-leave-to {
     opacity: 0;
 }
-.retake {
-    margin-top: 20px;
-    background-color: #bfd0b4;
-    border: solid;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-size: 1.2em;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-    display: block;
-    width: 100%;
-    max-width: 200px;
-    margin-left: auto;
-    margin-right: auto;
-}
 
-.retake:hover {
-    background-color: #9ead94;
-}
-
-.retake:focus {
-    outline: none;
-}
-.lexend-header-font {
-  font-family: "Lexend", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 300;
-  font-style: normal;
-}
 </style>

@@ -40,6 +40,7 @@
                             <li>Sunlight: {{ currentPlant.lightLevel }} / daily</li>
                         </ul>
                     </div>
+                    <i class="bi bi-printer-fill" style="font-size: 3rem; color: #679436;" @click="printPage"></i>
                 </div>
             </div>
             <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
@@ -83,6 +84,9 @@ export default {
         };
     },
     methods: {
+        printPage() {
+            window.print();
+        },
         changeImage(image, index) {
             this.thumbnails[index] = this.mainImage;
             this.mainImage = image;
@@ -91,7 +95,6 @@ export default {
             this.activeTab = tabName;
         },
         getPlant(id) {
-            // console.log(id + "here")
             PlantService.getPlantById(id).then(response => {
                 this.currentPlant = response.data;
                 this.mainImage=this.currentPlant.plantImage1;
@@ -139,22 +142,22 @@ export default {
 .plant-care {
     display: flex;
     justify-content: center;
-    text-align: center;
+    text-align: start;
     margin-top: 20px;
 }
+
 .plant-details {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    align-items: start;
+    justify-content: start;
 }
 .fact-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     margin-top: 5px;
-    text-align: center;
-    align-items: center;
+    text-align: start;
+    align-items: start;
 }
 .container {
     display: flex;
@@ -237,6 +240,7 @@ export default {
     flex-direction: column;
     flex-grow: 1;
     padding: 10px;
+    position: relative;
 }
 .tab-content.active {
     display: block;
@@ -249,12 +253,12 @@ export default {
 }
 .details-content h2,
 .care-content h2 {
-    font-size: 20px;
+    font-size: large;
     margin-bottom: 10px;
 }
 .details-content p,
 .care-content p {
-    font-size: 16px;
+    font-size: large;
     line-height: 1.5;
 }
 .back-button-container {
@@ -286,5 +290,105 @@ export default {
 .detail-list{
     display: flex;
     text-align: start;
+    width: 100%;
+    font-size: larger;
+
+}
+
+.bi-printer-fill {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+@media print {
+    body {
+        margin: 0; 
+        padding: 0; 
+    }
+
+    .bi-printer-fill{
+        visibility: hidden;
+    }
+
+    .back-button{
+        visibility: hidden;
+    }
+
+    .add-button{
+        visibility: hidden;
+    }
+
+    .tabs{
+        visibility: hidden
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        padding: 10px;
+    }
+
+    .left-container,
+    .right-container {
+        width: 100%;
+        margin: 0;
+    }
+
+    .main-image img {
+        max-height: 200px;
+    }
+
+    .thumbnails {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .thumbnail {
+        width: 30%;
+        height: auto;
+    }
+
+    .tabs {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .tab-button {
+        font-size: 0.9rem;
+    }
+
+    .tab-content {
+        padding: 5px;
+    }
+
+    .back-button-container,
+    .add-button-container {
+        justify-content: center;
+        width: 100%;
+    }
+
+    .back-button,
+    .add-button {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tab-button {
+        padding: 5px;
+        font-size: 0.8rem;
+    }
+
+    .fact-container {
+        font-size: 0.9rem;
+    }
+
+    .details-content p,
+    .care-content p {
+        font-size: 0.85rem;
+    }
 }
 </style>

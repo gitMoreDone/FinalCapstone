@@ -89,7 +89,6 @@ const routes = [
       requiresAuth: false
     }
   },
-
   {
     path: "/notfound",
     name: "notFound",
