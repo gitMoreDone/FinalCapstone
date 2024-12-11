@@ -14,7 +14,8 @@
           <div class="plant-tab-name">{{ gardenPlant.plant.plantName }}</div>
         </div>
         <div class="plant-tab" v-on:click="goToSearch()">
-          <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span class="plant-tab-name" style="color:gray">Add a Plant</span>
+          <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span
+            class="plant-tab-name" style="color:gray">Add a Plant</span>
         </div>
       </div>
 
@@ -39,25 +40,25 @@
               <h3 class="lexend">{{ selectedPlant.plant.plantName }}</h3>
               <p><strong>Scientific Name:</strong> {{ selectedPlant.plant.scientificName }}</p>
               <p><strong>Plant Type:</strong> {{ selectedPlant.plant.plantType }}</p>
-              
+
 
               <div id="quantity-form-button">
                 <p id="quantity-text"><strong>In Garden: </strong></p>
-              <form v-if="isEditingQuantity">
-                <input type="text" id="quantity" name="quantity" size="3" v-model="selectedPlant.quantity" v-if="isEditingQuantity" v-on:keydown.enter.prevent="saveQuantity">
-              <!-- <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p> -->
-              </form>
-              <!-- <button v-if="isEditingQuantity" id="quantity-button" style="color: green" v-on:click="saveQuantity">&#10003;</button> -->
-              <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p>
-              
-            </div>
-            <div class="plant-description">
-              <p>{{ selectedPlant.plant.plantDescription }}</p>
-            </div>
+                <form v-if="isEditingQuantity">
+                  <input type="text" id="quantity" name="quantity" size="3" v-model="selectedPlant.quantity"
+                    v-if="isEditingQuantity" v-on:keydown.enter.prevent="saveQuantity">
+                </form>
+                <p class="quantity" v-if="!isEditingQuantity">{{ selectedPlant.quantity }}</p>
+              </div>
+
+              <div class="plant-description">
+                <p>{{ selectedPlant.plant.plantDescription }}</p>
+              </div>
               <a v-on:click="pushToDetailPage" class="plant-details-link">Plant Details</a>
             </div>
 
           </div>
+
           <div class="notes-and-description">
 
 
@@ -70,33 +71,33 @@
               <p class="notes" v-if="!isEditingNotes">{{ selectedPlant.notes }}</p>
             </div>
             <div class="description-icons">
-            
-            <div class="plant-properties-container">
-            <div class=plant-property>
-              <img class="property-image" src="/public/Water_Level.png" alt="water level" />
-              <div class="plant-property-description">
-                <span class="waterneeded"> Water Needed</span>
-                <span>{{ selectedPlant.plant.waterLevel }}inches/week</span>
+
+              <div class="plant-properties-container">
+                <div class=plant-property>
+                  <img class="property-image" src="/public/Water_Level.png" alt="water level" />
+                  <div class="plant-property-description">
+                    <span class="waterneeded"> Water Needed</span>
+                    <span>{{ selectedPlant.plant.waterLevel }} inches/week</span>
+                  </div>
+                </div>
+                <div class=plant-property>
+                  <img class="property-image" src="/public/Light_Level.png" alt="Light Level" />
+                  <div class="plant-property-description">
+                    <span class="lightlevel"> Light Level</span>
+                    <span>{{ lightLevel }}</span>
+                  </div>
+                </div>
+                <div class=plant-property>
+                  <img class="property-image" src="/public/Difficulty_Level.png" alt="difficulty level" />
+                  <div class="plant-property-description">
+                    <span class="difficulty"> Difficulty</span>
+                    <span>{{ difficultyLevel }}</span>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class=plant-property>
-              <img class="property-image" src="/public/Light_Level.png" alt="Light Level" />
-              <div class="plant-property-description">
-                <span class="lightlevel"> Light Level</span>
-                <span>{{ lightLevel }}</span>
-              </div>
-            </div>
-            <div class=plant-property>
-              <img class="property-image" src="/public/Difficulty_Level.png" alt="difficulty level"/>
-              <div class="plant-property-description">
-                <span class="difficulty"> Difficulty</span>
-                <span>{{ difficultyLevel }}</span>
-              </div>
-            </div>
             </div>
           </div>
-          </div>
-          
+
         </div>
       </div>
 
@@ -107,7 +108,7 @@
     </div>
 
     <div class="right-container">
-      <GeminiAI class="chat-bot" v-bind:plant="selectedPlant" />
+      <GeminiAI class="chat-bot" />
     </div>
   </div>
 </template>
@@ -115,14 +116,12 @@
 <script>
 import PlantService from "../services/PlantService";
 import GeminiAI from "../components/GeminiAI.vue";
-import { loadRouteLocation } from "vue-router";
 
 export default {
   data() {
     return {
       gardenPlants: [],
       selectedPlant: null,
-      propPlant: { 'plantName': 'plants' },
       dropdownVisible: false,
       isEditingNotes: false,
       isEditingQuantity: false
@@ -143,7 +142,7 @@ export default {
         return "Low";
       } else if (this.selectedPlant.plant.difficultyLevel === 3) {
         return "Moderate";
-      }else if (this.selectedPlant.plant.difficultyLevel>3){
+      } else if (this.selectedPlant.plant.difficultyLevel > 3) {
         return "High";
       } else return "Error";
     }
@@ -155,7 +154,6 @@ export default {
         this.gardenPlants = gardenPlantArray;
         if (this.gardenPlants.length > 0) {
           this.selectedPlant = this.gardenPlants[0];
-          this.propPlant = this.selectedPlant.plant;
         }
       }).catch((error) => {
         console.error("Error Fetching Saved Plants", error);
@@ -164,7 +162,6 @@ export default {
     },
     selectPlant(gardenPlant) {
       this.selectedPlant = gardenPlant;
-      this.propPlant = this.selectedPlant.plant;
     },
     removePlant(id) {
       PlantService.removePlant(id);
@@ -198,8 +195,8 @@ export default {
       PlantService.updatePlant(this.selectedPlant);
       this.isEditingNotes = false;
     },
-    goToSearch(){
-      this.$router.push({name:"plantSearch"});  
+    goToSearch() {
+      this.$router.push({ name: "plantSearch" });
     },
     goBack() {
       this.$router.go(-1);
@@ -235,9 +232,8 @@ export default {
 
 .main-container {
   display: flex;
-  flex: 3;
-  max-width: 80%;
-  height: 67.5vh;
+  max-width: 60%;
+  min-height: 70vh;
   background-color: #CADABF;
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -284,52 +280,41 @@ export default {
 }
 
 .details-container {
-  flex: 1;
+  flex-grow: 1;
   position: relative;
   padding: 20px;
   display: flex;
   flex-direction: column;
 }
-.plant-properties-container{
-  /* margin-top: 10px; */
-  display:flex;
-  flex-direction:column;
-}
 
 .plant-properties-container {
-  margin-top: 10px;
+  position: sticky;
+  top: 10px;
+  width: 250px;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: space-evenly;
-  height: 300px;
-  
+  height: auto;
+  margin-right: 25px;
+  margin-top: 25px;
+}
 
-  /* align-items: center; */
-}
-.plant-properties-container img{
-  width:70px;
-  height:70px;
-}
-.property-image {
-  margin-right: 7px;
-  
+.plant-properties-container img {
+  width: 50px;
+  height: 50px;
 }
 
 .plant-property {
-  margin:5px;
-  display:flex;
-  flex-direction: row;
-  
-  
-  margin: 5px;
   display: flex;
+  align-items: center;
+  margin: 5px 0;
 }
 
 .plant-property-description {
-  margin-left: 5px;
+  margin-left: 10px;
   display: flex;
   flex-direction: column;
-  font-size: 20px;
+  font-size: 16px;
 }
 
 .details-container.empty-details {
@@ -348,10 +333,10 @@ export default {
   display: flex;
   gap: 20px;
 }
-.lightlevel{
-  font-weight: 700;
-}
-.difficulty{
+
+.waterneeded,
+.lightlevel,
+.difficulty {
   font-weight: 700;
 }
 
@@ -419,8 +404,7 @@ export default {
   display: flex;
   flex-direction: column;
   white-space: pre-wrap;
-  
-  
+  flex-grow: 1;
 }
 
 .notes {
@@ -429,18 +413,15 @@ export default {
   overflow-y: auto;
 }
 
-#quantity-field {
-  height: 55px;
-}
-
 .description-icons {
   display: flex;
   flex-direction: column;
-  /* margin-top: 20px; */
   margin-left: 100px;
   height: 100%;
-  justify-content: space-around;
-
+  justify-content: flex-start;
+  gap: 20px;
+  position: relative;
+  flex-grow: 0;
 }
 
 .right-container {
@@ -456,6 +437,11 @@ export default {
   height: 100%;
 }
 
+.plant-description {
+  max-height: 100px;
+  overflow: auto;
+}
+
 .empty-garden {
   display: flex;
   justify-content: center;
@@ -463,9 +449,6 @@ export default {
   width: 100%;
   height: 100%;
   text-align: center;
-}
-.waterneeded{
-  font-weight: 700;
 }
 
 .search-plants {
@@ -533,7 +516,6 @@ export default {
 .back-button-container {
   position: static;
   display: flex;
-
   justify-content: end;
   align-items: flex-start;
   line-height: 0;
@@ -546,5 +528,6 @@ export default {
   margin-top: 3px;
   margin-right: 3px;
 }
+
 
 </style>
