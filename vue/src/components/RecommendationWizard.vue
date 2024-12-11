@@ -13,17 +13,33 @@
                     </span>
                 </div>
             </div>
+            <transition name="fade">
+                <div v-if="showAddedPopup" class="popup-message lexend-header-font">
+                    Email Sent
+                </div>
+            </transition>
             <div v-if="showRecommendations" class="recommendations">
                 <div class="card-container">
-                    <div 
-                        class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded"
-                        v-for="(plant, index) in filteredPlants" 
-                        :key="index" v-on:click="sendToDetails(plant)">
+                    <div class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded"
+                        v-for="(plant, index) in filteredPlants" :key="index" v-on:click="sendToDetails(plant)">
                         <h3>{{ plant.plantName }}</h3>
                         <img :src="plant.plantImage1" alt="Plant image" class="plant-image" />
                     </div>
                 </div>
                 <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
+                <button class="email-results" v-on:click="emailResults = true">Email Results</button>
+            </div>
+            <div class="email-template" v-show="emailResults">
+                <form ref="form" @submit.prevent="sendEmail">
+                    <label>Name</label>
+                    <input type="text" name="user_name">
+                    <label>Email</label>
+                    <input type="email" name="user_email">
+                    <input class="email-plants" type="text" name="recommendedPlants1" v-model="recommendedPlants[0].plantName">
+                    <input class="email-plants" type="text" name="recommendedPlants2" v-model="recommendedPlants[1].plantName">
+                    <input class="email-plants" type="text" name="recommendedPlants3" v-model="recommendedPlants[2].plantName">
+                    <input type="submit" value="Send">
+                </form>
             </div>
         </div>
     </div>
@@ -31,13 +47,27 @@
 
 <script>
 import PlantService from '../services/PlantService';
+import emailjs from '@emailjs/browser';
 
 export default {
     data() {
         return {
+            emailResults: false,
             showRecommendations: false,
             showQuiz: true,
             plants: [],
+            recommendedPlants: [
+                {
+                    plantName: ''
+                },
+                {
+                    plantName: ''
+                },
+                {
+                    plantName: ''
+                }
+            ],
+            showAddedPopup: false,
             currentQuestion: 0,
             selectedPlantType: null,
             questionsArray: [
@@ -56,7 +86,7 @@ export default {
                         { choice: 'Vegetable', id: 1, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10] },
                         { choice: 'Fruit', id: 2, plants: [21, 22, 23, 24, 25, 26, 27] },
                         { choice: 'Herbs', id: 3, plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20] },
-                        { choice: 'No preference', id: 4, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27]}
+                        { choice: 'No preference', id: 4, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] }
                     ],
                     selected: null
                 },
@@ -91,6 +121,9 @@ export default {
         };
     },
     methods: {
+        setFilteredPlants(){
+            this.recommendedPlants = this.filteredPlants;
+        },
         selectAnswer(index) {
             this.questionsArray[this.currentQuestion].selected = index;
 
@@ -104,14 +137,14 @@ export default {
                     return e.plantId === matchId;
                 });
                 currentPlant.count++;
-            })); 
-            console.log(this.plantCounts);
-            this.goToNextQuestion();       
+            }));
+            this.goToNextQuestion();
         },
         goToNextQuestion() {
             if (this.currentQuestion < this.questionsArray.length - 1) {
                 this.currentQuestion++;
             } else {
+                this.setFilteredPlants();
                 this.showQuiz = false;
                 this.showRecommendations = true;
             }
@@ -123,6 +156,8 @@ export default {
             this.currentQuestion = 0;
             this.showQuiz = true;
             this.showRecommendations = false;
+            this.emailResults = false;
+            this.recommendedPlants = [];
             window.location.reload();
         },
         getPlantList() {
@@ -132,12 +167,34 @@ export default {
                 console.error("Error Fetching Saved Plants", error);
             });
         },
-        sendToDetails(plant){
+        sendToDetails(plant) {
             this.$router.push({ name: 'plantDetails', params: { id: plant.plantId } })
+        },
+        sendEmail() {
+            emailjs
+                .sendForm('service_96g4s5a', 'recommendation_results', this.$refs.form, {
+                    publicKey: 'SUCs9_DOCH0fnAQrK',
+                })
+                .then(
+                    () => {
+                        console.log('SUCCESS!');
+                        this.showPopupMessage();
+                    },
+                    (error) => {
+                        console.log('FAILED...', error.text);
+                    },
+                );
+                this.emailResults = false;
+        },
+        showPopupMessage() {
+            this.showAddedPopup = true;
+            setTimeout(() => {
+            this.showAddedPopup = false;
+            }, 1500);
         }
     },
     computed: {
-        plantCounts(){
+        plantCounts() {
             const plantCounts = [];
 
             this.plants.forEach(plant => {
@@ -151,17 +208,17 @@ export default {
         },
         filteredPlants() {
             const topPlantIds = this.plantCounts;
-            console.log(topPlantIds);
-
-            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).splice(0,3).map(plant => plant.plantId);
-            console.log(sortedPlants);
-
-            console.log(sortedPlants.plants);
-            if(this.selectedPlantType === 'No preference'){
+            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).splice(0, 3).map(plant => plant.plantId);
+            if (this.selectedPlantType === 'No preference') {
                 return this.plants.filter(plant => sortedPlants.includes(plant.plantId));
             }
-            else{
-                return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+            else {
+                if (this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType).length === 0) {
+                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId));
+                }
+                else {
+                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+                }
             }
         }
     },
@@ -250,8 +307,8 @@ export default {
 
 .card-container {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);  /* Creates 3 columns */
-    gap: 20px;  /* Adds space between cards */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
     justify-items: center;
 }
 
@@ -299,5 +356,33 @@ export default {
 
 .retake:focus {
     outline: none;
+}
+
+.email-plants{
+    visibility: hidden;
+}
+
+.popup-message {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f08A4B;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 300;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter, .fade-leave-to {
+    opacity: 0;
 }
 </style>
