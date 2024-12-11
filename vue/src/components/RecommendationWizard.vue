@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container lexend-header-font">
         <div class="wizard-box">
             <div v-show="showQuiz" class="quiz">
                 <div class="question current">
@@ -14,14 +14,29 @@
                 </div>
             </div>
             <div v-if="showRecommendations" class="recommendations">
-                <div class="card-container">
+                <div class="card-container ">
                     <div 
-                        class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded"
+                        class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded "
                         v-for="(plant, index) in filteredPlants" 
-                        :key="index" v-on:click="sendToDetails(plant)">
-                        <h3>{{ plant.plantName }}</h3>
-                        <img :src="plant.plantImage1" alt="Plant image" class="plant-image" />
+                        :key="index"
+                        v-on:mouseover="showButton(index)" v-on:mouseleave="hideButton(index)" >
+                        <h4 v-on:click="sendToDetails(plant)">{{ plant.plantName }}</h4>
+                        <img v-on:click="sendToDetails(plant)" :src="plant.plantImage1" alt="Plant image" class="plant-image" />
+                        <div class="button-container">
+                            <transition name="fade">
+                                <button class="add-plant-button lexend-header-font" 
+                                    v-if="hoveredCard === index" 
+                                    v-show="$store.state.token != ''"
+                                    v-on:click.prevent="savePlant(plant)">Add to Garden
+                                </button>
+                            </transition>
+                        </div>
                     </div>
+                    <transition name="fade">
+                        <div v-if="showAddedPopup" class="popup-message lexend-header-font">
+                            Garden Updated
+                        </div>
+                    </transition>
                 </div>
                 <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
             </div>
@@ -37,6 +52,8 @@ export default {
         return {
             showRecommendations: false,
             showQuiz: true,
+            hoveredCard: null,
+            showAddedPopup: false,
             plants: [],
             currentQuestion: 0,
             selectedPlantType: null,
@@ -134,7 +151,23 @@ export default {
         },
         sendToDetails(plant){
             this.$router.push({ name: 'plantDetails', params: { id: plant.plantId } })
-        }
+        },
+        showButton(index) {
+            this.hoveredCard = index;
+        },
+        hideButton() {
+            this.hoveredCard = null;
+        },
+        savePlant(plant) {
+            PlantService.addPlant(plant);
+            this.showPopupMessage();
+        },
+        showPopupMessage() {
+            this.showAddedPopup = true;
+            setTimeout(() => {
+            this.showAddedPopup = false;
+            }, 1500);
+        },
     },
     computed: {
         plantCounts(){
@@ -275,7 +308,49 @@ export default {
     border-radius: 10px;
     margin-top: 10px;
 }
-
+.button-container {
+    display:flex;
+    justify-content: center;  
+}
+.add-plant-button {
+    position: absolute;
+    top: 50%;
+    background-color: white;
+    color: #0D1C0F;
+    border-radius: 5px 5px 5px 5px;
+    border-width: 0 !important;
+    width: 150px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 1rem;
+    z-index: 10;
+    
+    transition: opacity 0.3s ease, transform 0.3s ease; 
+}
+.popup-message {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f08A4B;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 300;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0.9;
+}
+fade-enter-active, .fade-leave-active {
+    transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+    opacity: 0;
+}
 .retake {
     margin-top: 20px;
     background-color: #bfd0b4;
@@ -299,5 +374,11 @@ export default {
 
 .retake:focus {
     outline: none;
+}
+.lexend-header-font {
+  font-family: "Lexend", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 300;
+  font-style: normal;
 }
 </style>

@@ -118,11 +118,11 @@ export default {
       } else return "Error";
     },
     difficultyLevel(){
-      if(this.selectedPlant.plant.difficultyLevel<=1){
+      if(this.selectedPlant.plant.difficultyLevel<=2){
         return "Low";
-      }else if (this.selectedPlant.plant.difficultyLevel==2){
+      }else if (this.selectedPlant.plant.difficultyLevel===3){
         return "Moderate";
-      }else if (this.selectedPlant.plant.difficultyLevel==3){
+      }else if (this.selectedPlant.plant.difficultyLevel<3){
         return "High";
       } else return "Error";
     }

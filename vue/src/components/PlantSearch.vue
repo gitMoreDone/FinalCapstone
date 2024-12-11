@@ -26,10 +26,10 @@
             </div>
         </div>
         <transition name="fade">
-                        <div v-if="showAddedPopup" class="popup-message lexend-header-font">
-                            Garden Updated
-                        </div>
-                    </transition>
+            <div v-if="showAddedPopup" class="popup-message lexend-header-font">
+                Garden Updated
+            </div>
+        </transition>
         <div class="row" id="search-row">
             <div class="card col-12 col-md-2 shadow p-3 mb-5 bg-white rounded" 
                 v-for="(plant,index) in filteredTypes" v-bind:key="index"
