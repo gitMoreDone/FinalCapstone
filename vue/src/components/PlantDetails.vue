@@ -18,6 +18,11 @@
             </div>
         </div>
         <div class="right-container">
+            <transition name="fade">
+                <div v-if="showAddedPopup" class="popup-message lexend-header-font">
+                    Garden Updated
+                </div>
+            </transition>
             <div class="tabs">
                 <button class="tab-button" :class="{ active: activeTab === 'details' }"
                     v-on:click="changeTab('details')">Details</button>
@@ -31,16 +36,28 @@
                     <h3>{{ currentPlant.plantName }}</h3>
                     <p>{{ currentPlant.plantDescription }}</p>
                 </div>
-                <div class="fact-container">
-                    <h2>Care Facts</h2>
-                    <div class="detail-list">
-                        <ul>
-                            <li>Hardiness Zone: {{ currentPlant.plantZone }}</li>
-                            <li>Watering: {{ currentPlant.waterLevel }} / weekly</li>
-                            <li>Sunlight: {{ currentPlant.lightLevel }} / daily</li>
-                        </ul>
+                <div class="plant-properties-container">
+                    <div class="plant-property">
+                        <img src="/public/Water_Level.png" alt="water level" />
+                        <div class="plant-property-description">
+                            <strong>Water Needed </strong>
+                            <span>{{ currentPlant.waterLevel }} inches/week</span>
+                        </div>
                     </div>
-                    
+                    <div class="plant-property">
+                        <img src="/public/Light_Level.png" alt="Light Level" />
+                        <div class="plant-property-description">
+                            <strong>Light Level </strong>
+                            <span>{{ lightLevel }}</span>
+                        </div>
+                    </div>
+                    <div class="plant-property">
+                        <img src="/public/Difficulty_Level.png" alt="difficulty level" />
+                        <div class="plant-property-description">
+                            <strong>Difficulty </strong>
+                            <span>{{ difficultyLevel }}</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div v-show="activeTab === 'care'" class="tab-content care-content active" id="care">
@@ -66,15 +83,13 @@
                 style="font-size: 3rem; color: #679436;" 
                 v-on:click="savePlant(currentPlant)"
                 ></i>
-                <i class="bi bi-printer-fill" style="font-size: 3rem; color: #679436;" @click="printPage"></i>
+            <i class="bi bi-printer-fill" style="font-size: 3rem; color: #679436;" @click="printPage"></i>
         </div>
-        
     </div>
 </template>
 
 <script>
 import PlantService from '../services/PlantService';
-
 
 export default {
     data() {
@@ -84,7 +99,8 @@ export default {
             zoneMap: 'https://res.cloudinary.com/dwdijh29x/image/upload/v1733505704/zone_map_lswoek_c_pad_ar_1_1_b7mu4a.webp',
             thumbnails: [],
             activeTab: 'details',
-            gardenPlants: []
+            gardenPlants: [],
+            showAddedPopup: false
         };
     },
     methods: {
@@ -101,13 +117,12 @@ export default {
         getPlant(id) {
             PlantService.getPlantById(id).then(response => {
                 this.currentPlant = response.data;
-                this.mainImage=this.currentPlant.plantImage1;
-                this.thumbnails[0]=this.currentPlant.plantImage2;
-                this.thumbnails[1]=this.currentPlant.plantImage3;
-            })
-            .catch (() => {
+                this.mainImage = this.currentPlant.plantImage1;
+                this.thumbnails[0] = this.currentPlant.plantImage2;
+                this.thumbnails[1] = this.currentPlant.plantImage3;
+            }).catch(() => {
                 this.$router.push({ name: 'notFound' });
-            } )
+            });
         },
         savePlant(plant) {
             const existingPlant = this.gardenPlants.find((gardenPlant) => gardenPlant.plant.plantId === plant.plantId);
@@ -117,30 +132,136 @@ export default {
             } else {
                 PlantService.addPlant(plant);
             }
+            this.showPopupMessage();
         },
-        goBack(){
-        this.$router.go(-1);
+        goBack() {
+            this.$router.go(-1);
         },
         getPlantsInGarden() {
             PlantService.getGardenPlants().then((response) => {
                 const gardenPlantArray = response.data;
                 this.gardenPlants = gardenPlantArray;
-                }).catch((error) => {
-                    console.error("Error Fetching Saved Plants", error);
-                    this.$router.push({ name: 'notFound' });
-                    })
-            },
-    
+            }).catch((error) => {
+                console.error("Error Fetching Saved Plants", error);
+                this.$router.push({ name: 'notFound' });
+            });
+        },
+        showPopupMessage() {
+            this.showAddedPopup = true;
+            setTimeout(() => {
+                this.showAddedPopup = false;
+            }, 1500);
+        }
     },
-    created(){
-        this.getPlant(this.$route.params.id); 
+    computed: {
+        lightLevel() {
+            if (this.currentPlant.lightLevel == 1) {
+                return "Low";
+            } else if (this.currentPlant.lightLevel == 2) {
+                return "Moderate";
+            } else if (this.currentPlant.lightLevel == 3) {
+                return "High";
+            } else return "N/A";
+        },
+        difficultyLevel() {
+            if (this.currentPlant.difficultyLevel <= 2) {
+                return "Low";
+            } else if (this.currentPlant.difficultyLevel === 3) {
+                return "Moderate";
+            } else if (this.currentPlant.difficultyLevel < 3) {
+                return "High";
+            } else return "N/A";
+        }
+    },
+    created() {
+        this.getPlant(this.$route.params.id);
         this.getPlantsInGarden();
     },
-    
 };
 </script>
 
 <style scoped>
+.plant-properties-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.plant-property {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.plant-property img {
+    width: 30px;
+    height: 30px;
+}
+
+.plant-property-description {
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: stretch;
+    min-height: 84.8vh;
+    max-width: 100vw;
+}
+
+.left-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-bottom: auto;
+    width: 33%;
+    min-height: 65vh;
+}
+
+.main-image img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.thumbnails {
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+    gap: 25px;
+    margin-bottom: auto;
+}
+
+.thumbnail {
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.thumbnail:hover {
+    opacity: 0.7;
+}
+
+.right-container {
+    flex-direction: column;
+    width: 66%;
+    height: auto;
+    min-height: 65vh;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    background-color: white;
+    margin-bottom: auto;
+    margin-left: 25px;
+    overflow: hidden;
+}
 
 .hardiness-zone{
     display: flex;
@@ -160,84 +281,13 @@ export default {
     height: auto;
     object-fit: contain;
 }
-.plant-care {
-    display: flex;
-    justify-content: center;
-    text-align: start;
-    margin-top: 20px;
-}
 
-.plant-details {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    justify-content: start;
-}
-.fact-container {
-    display: flex;
-    flex-direction: column;
-    margin-top: 5px;
-    text-align: start;
-    align-items: start;
-}
-.container {
-    display: flex;
-    justify-content: space-between;
-    padding: 20px;
-    align-items: stretch;
-    min-height: 84.8vh;
-    max-width: 100vw;
-
-}
-.left-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    margin-bottom: auto;
-    width: 33%;
-    min-height: 65vh;
-}
-.main-image img {
-    width: 100%;
-    max-height: 300px;
-    object-fit: cover;
-    flex-shrink: 0;
-}
-.thumbnails {
-    display: flex;
-    justify-content: center;
-    padding: 20px;
-    gap: 25px;
-    margin-bottom: auto;
-}
-.thumbnail {
-    width: 50%;
-    height: 50%;
-    object-fit: cover;
-    cursor: pointer;
-    transition: opacity 0.3s;
-}
-.thumbnail:hover {
-    opacity: 0.7;
-}
-.right-container {
-    flex-direction: column;
-    width: 66%;
-    height: auto;
-    min-height: 65vh;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    background-color: white;
-    margin-bottom: auto;
-    margin-left: 25px;
-    overflow: hidden;
-}
 .tabs {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 }
+
 .tab-button {
     background-color: #f0f0f0;
     padding: 10px;
@@ -248,14 +298,17 @@ export default {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .tab-button:hover {
     background-color: #e2e2e2;
 }
+
 .tab-button.active {
     background-color: #fff;
     font-weight: bold;
     border-bottom: 2px solid rgb(27, 109, 27);
 }
+
 .tab-content {
     display: flex;
     flex-direction: column;
@@ -263,64 +316,63 @@ export default {
     padding: 10px;
     position: relative;
 }
+
 .tab-content.active {
     display: block;
 }
+
 .details-content,
 .care-content {
     flex-direction: column;
     display: flex;
     flex-grow: 1;
 }
+
 .details-content h2,
 .care-content h2 {
     font-size: large;
     margin-bottom: 10px;
 }
+
 .details-content p,
 .care-content p {
     font-size: large;
     line-height: 1.5;
 }
+
 .back-button-container {
     display: flex;
     width: 10vw;
-    justify-content:end;
+    justify-content: end;
     align-items: flex-start;
     line-height: 0;
 }
+
 .add-button-container {
     display: flex;
     width: 10vw;
-    justify-content:left;
+    justify-content: left;
     align-items: flex-start;
     line-height: 0;
     flex-direction: column;
     margin-left: 10px;
-
 }
+
 .back-button {
     vertical-align: middle;
     display: inline-block;
-    cursor:pointer;
+    cursor: pointer;
     margin-right: 5px;
 }
+
 .add-button {
     vertical-align: middle;
     display: inline-block;
     margin-left: 5px;
-    cursor:pointer;
-}
-.detail-list{
-    display: flex;
-    text-align: start;
-    width: 100%;
-    font-size: larger;
-
+    cursor: pointer;
 }
 
 .bi-printer-fill {
-    /* position: absolute; */
     bottom: 10px;
     right: 10px;
     cursor: pointer;
@@ -328,26 +380,52 @@ export default {
     margin-left: 5px;
 }
 
+.popup-message {
+    position: fixed;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #f08A4B;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 300;
+    font-size: 16px;
+    text-align: center;
+    opacity: 0.9;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.5s;
+}
+
+.fade-enter,
+.fade-leave-to {
+    opacity: 0;
+}
+
 @media print {
-    body {
-        margin: 0; 
-        padding: 0; 
+    * {
+        margin: 0;
+        padding: 0;
     }
 
-    .bi-printer-fill{
+    .bi-printer-fill {
         visibility: hidden;
     }
 
-    .back-button{
+    .back-button {
         visibility: hidden;
     }
 
-    .add-button{
+    .add-button {
         visibility: hidden;
     }
 
-    .tabs{
-        visibility: hidden
+    .tabs {
+        visibility: hidden;
     }
 }
 
@@ -406,10 +484,6 @@ export default {
     .tab-button {
         padding: 5px;
         font-size: 0.8rem;
-    }
-
-    .fact-container {
-        font-size: 0.9rem;
     }
 
     .details-content p,
