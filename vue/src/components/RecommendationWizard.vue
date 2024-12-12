@@ -346,9 +346,10 @@ export default {
 .retake, .email-results {
     margin-top: 20px;
     background-color: #bfd0b4;
-    border: solid;
+    
     padding: 10px 20px;
     border-radius: 5px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     font-size: 1.2em;
     cursor: pointer;
     transition: all 0.3s ease;
