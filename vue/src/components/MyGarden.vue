@@ -239,10 +239,12 @@ export default {
 .plant-tabs {
   display: flex;
   flex-direction: column;
-  width: 30%;
+  min-width: 30%;
+  max-height: 70vh;
   background-color: #bfd0b4;
   border-right: 1px solid #ccc;
   padding: 10px;
+  overflow-y: scroll;
 }
 
 .plant-tab {
@@ -252,7 +254,6 @@ export default {
   cursor: pointer;
   border-bottom: 1px solid #ddd;
   transition: background-color 0.3s;
-  overflow: auto;
 }
 
 .plant-tab:hover {
