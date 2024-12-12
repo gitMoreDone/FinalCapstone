@@ -216,16 +216,17 @@ export default {
         },
         filteredPlants() {
             const topPlantIds = this.plantCounts;
-            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).splice(0, 3).map(plant => plant.plantId);
+            const sortedPlants = topPlantIds.sort((a, b) => b.count - a.count).map(plant => plant.plantId);
+            console.log(sortedPlants);
             if (this.selectedPlantType === 'No preference') {
-                return this.plants.filter(plant => sortedPlants.includes(plant.plantId));
+                return this.plants.filter(plant => sortedPlants.includes(plant.plantId)).splice(0, 6);
             }
             else {
                 if (this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType).length === 0) {
-                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId));
+                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId)).splice(0, 6);
                 }
                 else {
-                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType);
+                    return this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType).splice(0, 6);
                 }
             }
         }

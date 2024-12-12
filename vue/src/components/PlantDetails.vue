@@ -175,7 +175,9 @@ export default {
     },
     created() {
         this.getPlant(this.$route.params.id);
+        if(this.$store.state.token != ''){
         this.getPlantsInGarden();
+        }
     },
 };
 </script>
