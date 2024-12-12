@@ -110,18 +110,18 @@ export default {
                 {
                     question: 'What climate will it be planted in?',
                     answers: [
-                        { choice: 'Cold', id: 1, plants: [5, 9, 15, 16, 17, 18, 19] },
+                        { choice: 'Cold', id: 1, plants: [1, 5, 9, 12, 13, 15, 16, 17, 18, 19, 28] },
                         { choice: 'Warm', id: 2, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] },
-                        { choice: 'Hot', id: 3, plants: [7, 10, 12, 21, 26] }
+                        { choice: 'Hot', id: 3, plants: [7, 10, 18, 21, 25, 26, 27, 35, 37] }
                     ],
                     selected: null
                 },
                 {
                     question: 'How much space do you have to garden?',
                     answers: [
-                        { choice: 'Little: 100 - 200 square feet', id: 1, plants: [1, 2, 9, 11] },
-                        { choice: 'Enough: 200 - 400 square feet', id: 2, plants: [1, 2, 9, 11, 15, 23] },
-                        { choice: 'Large: 400 - 800 square feet', id: 3, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27] }
+                        { choice: 'Little: 100 - 200 square feet', id: 1, plants: [1, 2, 9, 11, 28, 29, 30, 31, 32, 35] },
+                        { choice: 'Enough: 200 - 400 square feet', id: 2, plants: [1, 2, 9, 11, 15, 23, 33, 34] },
+                        { choice: 'Large: 400 - 800 square feet', id: 3, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 36, 37] }
                     ],
                     selected: null
                 }
