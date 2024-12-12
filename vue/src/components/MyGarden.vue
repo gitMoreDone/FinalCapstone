@@ -17,7 +17,10 @@
           <img class="plant-tab-image" :src="gardenPlant.plant.plantImage1" :alt="gardenPlant.plant.plantName" />
           <div class="plant-tab-name">{{ gardenPlant.plant.plantName }}</div>
         </div>
-        
+        <div class="plant-tab" v-on:click="pushToSearch()">
+          <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span
+            class="plant-tab-name" style="color:gray">Add a Plant</span>
+        </div>
       </div>
 
       <div v-if="selectedPlant" class="details-container">
@@ -167,9 +170,7 @@ export default {
     removePlant(id) {
       PlantService.removePlant(id);
       this.gardenPlants = this.gardenPlants.filter((gardenPlant) => gardenPlant.plant.plantId !== id);
-      if (this.selectedPlant && this.selectedPlant.plantId === id) {
-        this.selectedPlant = null;
-      }
+      this.selectedPlant = '';
       this.dropdownVisible = false;
     },
     startEditingQuantity() {
@@ -196,9 +197,7 @@ export default {
       PlantService.updatePlant(this.selectedPlant);
       this.isEditingNotes = false;
     },
-    goToSearch() {
-      this.$router.push({ name: "plantSearch" });
-    },
+
     goBack() {
       this.$router.go(-1);
     },
