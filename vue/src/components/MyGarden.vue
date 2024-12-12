@@ -252,6 +252,7 @@ export default {
   cursor: pointer;
   border-bottom: 1px solid #ddd;
   transition: background-color 0.3s;
+  overflow: auto;
 }
 
 .plant-tab:hover {
