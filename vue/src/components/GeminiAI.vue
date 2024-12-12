@@ -36,7 +36,7 @@ const fullAnswer = ref('');
 const displayAnswer = ref(''); 
 const isLoading = ref(false);
 const questionPreface = 
-`You will be asked a question. Answer it only if it is related to plants. No other subject matter. If it doesn't please respond appropriately to their question.
+`Please respond to the name GAIA. You will be asked a question. Answer it only if it is related to plants. No other subject matter. If it doesn't please respond appropriately to their question.
    Return the response to the question in HTML format using the following template, using none or any amount of list items:
   <h4>Example Title</h4>
   <span>Example Introduction</span>
