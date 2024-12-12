@@ -104,6 +104,7 @@
       <div v-else class="details-container empty-garden">
         <p>Select a plant to view its details.</p>
         <button class="search-plants" v-if="gardenPlants.length === 0" v-on:click="pushToSearch">Find a Plant</button>
+        <button class="search-plants" v-if="gardenPlants.length === 0" v-on:click="pushToWizard">Get Recommendations</button>
       </div>
     </div>
 
@@ -183,6 +184,9 @@ export default {
     pushToDetailPage() {
       this.$router.push({ name: 'plantDetails', params: { id: this.selectedPlant.plant.plantId } })
     },
+    pushToWizard(){
+      this.$router.push({ name: 'wizard' })
+    },
     toggleDropdown() {
       this.dropdownVisible = !this.dropdownVisible;
     },
@@ -229,6 +233,7 @@ export default {
 .main-container {
   display: flex;
   max-width: 60%;
+  min-width: 40%;
   min-height: 70vh;
   background-color: #CADABF;
   border: 1px solid #ccc;
@@ -450,6 +455,13 @@ export default {
 }
 
 .search-plants {
+  margin-top: 25px;
+  display: flex;
+  min-width: 40%;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
   border-radius: 5px;
   color: #EDEEC9;
   background-color: #679436;

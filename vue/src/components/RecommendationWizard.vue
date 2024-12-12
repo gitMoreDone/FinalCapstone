@@ -93,7 +93,7 @@ export default {
                     answers: [
                         { choice: 'Vegetable', id: 1, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 28, 29, 30, 31, 32, 33, 34] },
                         { choice: 'Fruit', id: 2, plants: [21, 22, 23, 24, 25, 26, 27, 36, 37] },
-                        { choice: 'Herbs', id: 3, plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 35] },
+                        { choice: 'Herb', id: 3, plants: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 35] },
                         { choice: 'No preference', id: 4, plants: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37] }
                     ],
                     selected: null
@@ -223,6 +223,7 @@ export default {
             }
             else {
                 if (this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType).length === 0) {
+                    console.log(this.plants.filter(plant => sortedPlants.includes(plant.plantId) && plant.plantType === this.selectedPlantType));
                     return this.plants.filter(plant => sortedPlants.includes(plant.plantId)).splice(0, 6);
                 }
                 else {
