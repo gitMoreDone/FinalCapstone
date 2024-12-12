@@ -7,7 +7,7 @@
     <div class="main-container">
 
       <div v-show="gardenPlants != 0" class="plant-tabs">
-        <div class="plant-tab" v-on:click="goToSearch()">
+        <div class="plant-tab" v-on:click="pushToSearch()">
           <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span
             class="plant-tab-name" style="color:gray">Add a Plant</span>
         </div>
