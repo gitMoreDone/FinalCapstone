@@ -7,16 +7,17 @@
     <div class="main-container">
 
       <div v-show="gardenPlants != 0" class="plant-tabs">
+        <div class="plant-tab" v-on:click="goToSearch()">
+          <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span
+            class="plant-tab-name" style="color:gray">Add a Plant</span>
+        </div>
         <div class="plant-tab" v-for="gardenPlant in gardenPlants" :key="gardenPlant.id"
           v-on:click="selectPlant(gardenPlant)"
           :class="{ selected: selectedPlant.plant && selectedPlant.plant.plantId === gardenPlant.plant.plantId }">
           <img class="plant-tab-image" :src="gardenPlant.plant.plantImage1" :alt="gardenPlant.plant.plantName" />
           <div class="plant-tab-name">{{ gardenPlant.plant.plantName }}</div>
         </div>
-        <div class="plant-tab" v-on:click="goToSearch()">
-          <i class="plant-tab-image bi bi-plus-square" style="color:gray; display:flex; font-size: 2.5rem "></i> <span
-            class="plant-tab-name" style="color:gray">Add a Plant</span>
-        </div>
+        
       </div>
 
       <div v-if="selectedPlant" class="details-container">

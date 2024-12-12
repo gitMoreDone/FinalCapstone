@@ -9,10 +9,10 @@
     <div class="headings">
       <div id="box-content">
       <div class="box-container">
-        <h3 id="welcome">Welcome To Your Own Virtual Garden </h3>
-        <p id="need-recommendations" v-if="$store.state.token == ''">Need some recommendations?</p>
+        <h3 id="welcome">Grow smarter, <br/>not harder.</h3>
+        <br/>
         <h2 id="wizard-link">
-          <router-link class="button button1" v-bind:to="{ name: 'wizard' }" v-if="$store.state.token == ''"> Take Our Quiz </router-link>
+          <router-link class="button button1" v-bind:to="{ name: 'wizard' }" v-if="$store.state.token == ''"> Discover your next plant </router-link>
         </h2>
         <!-- <span v-if="$store.state.token == ''">or</span> -->
         <router-link class="button button1" v-bind:to="{ name: 'garden' }" v-if="$store.state.token != ''">Visit My
@@ -20,7 +20,7 @@
         <div class="login-fake-link" v-if="$store.state.token == ''"> 
           <router-link class="login-create-account-text"  v-bind:to="{ name: 'login' }">Login</router-link>
           <!-- <span> or</span> -->
-          <a class="login-create-account-text" href="" v-if="$store.state.token == ''">Create Account</a></div>
+          <a class="login-create-account-text" href="" v-if="$store.state.token == ''">Sign Up</a></div>
       </div>
     </div>
     </div>
@@ -103,7 +103,7 @@ export default {
   padding: 40px 60px;
   /* border: 2px solid #333; */
   border-radius: 15px;
-  align-items: center;
+  align-items: start;
   gap: 10px;
   /* background-color: rgba(244, 244, 244, 0.877); */
    /* background-color: #e7d6b9e1; */
@@ -123,7 +123,7 @@ export default {
   font-family: "Archivo", sans-serif;
   /* font-optical-sizing: auto; */
   font-weight: 900;
-  font-size: 55px;
+  font-size: 80px;
   
 
   /* font-variation-settings:
@@ -153,7 +153,7 @@ export default {
 }
 
 .button1 {
-  font-size: 35px;
+  font-size: 30px;
   /* margin: 10px; */
   text-decoration: none;
   border: 2px solid #333;
