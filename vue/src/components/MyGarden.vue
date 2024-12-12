@@ -24,7 +24,6 @@
           <button class="dropdown-button" v-on:click="toggleDropdown">...</button>
           <div v-if="dropdownVisible" class="dropdown-menu" @mouseleave.prevent="toggleDropdown">
             <button class="dropdown-option" v-on:click="removePlant(selectedPlant.plant.plantId)">Delete</button>
-            <button class="dropdown-option" v-on:click="addNote">Add Note</button>
             <button class="dropdown-option" v-if="!isEditingQuantity" v-on:click="startEditingQuantity">Edit
               Quantity</button>
 

@@ -25,11 +25,6 @@
                         <h3>{{ plant.plantName }}</h3>
                         <img :src="plant.plantImage1" alt="Plant image" class="plant-image" />
                     </div>
-                    <transition name="fade">
-                        <div v-if="showAddedPopup" class="popup-message lexend-header-font">
-                            Garden Updated
-                        </div>
-                    </transition>
                 </div>
                 <div class="buttons">
                     <button class="retake" v-on:click="resetQuiz">Retake Quiz</button>
@@ -44,6 +39,9 @@
                         <input v-show="showPlants" type="text" name="recommendedPlants1" v-model="recommendedPlants[0].plantName">
                         <input v-show="showPlants" type="text" name="recommendedPlants2" v-model="recommendedPlants[1].plantName">
                         <input v-show="showPlants" type="text" name="recommendedPlants3" v-model="recommendedPlants[2].plantName">
+                        <input v-show="showPlants" type="text" name="recommendedPlants4" v-model="recommendedPlants[3].plantName">
+                        <input v-show="showPlants" type="text" name="recommendedPlants5" v-model="recommendedPlants[4].plantName">
+                        <input v-show="showPlants" type="text" name="recommendedPlants6" v-model="recommendedPlants[5].plantName">
                         <input class="send-email" type="submit" value="Send">
                     </form>
                 </div>

@@ -22,20 +22,7 @@ public class GardenController {
     @Autowired GardenDao gardenDao;
     @Autowired UserDao userDao;
 
-//    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(path = "/garden", method = RequestMethod.GET)
-//    public List<Plant> retrieveFromGardenPlants(Principal principal) {
-//        List<Plant> plantList;
-//        String userName= principal.getName();
-//        User accountUser=userDao.getUserByUsername(userName);
-//        int userId=accountUser.getId();
-//        try {
-//            plantList = gardenDao.getGarden(userId);
-//        } catch (DaoException e) {
-//            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//        }
-//        return plantList;
-//    }
+
     @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(path = "/garden", method = RequestMethod.POST)
     public int addPlantToGarden(@Valid @RequestBody Plant plant, Principal principal) {

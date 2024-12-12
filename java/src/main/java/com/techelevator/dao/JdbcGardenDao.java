@@ -141,8 +141,3 @@ public class JdbcGardenDao implements GardenDao {
     }
 
 }
-//garden_id SERIAL,
-//plant_id int NOT NULL,
-//user_id int NOT NULL,
-//plant_qty int DEFAULT 1 NOT NULL,
-//notes text NULL,
